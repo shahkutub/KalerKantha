@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Khaler_Kontho.iml" filepath="$PROJECT_DIR$/Khaler_Kontho.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aAPBDLib/aAPBDLib.iml" filepath="$PROJECT_DIR$/aAPBDLib/aAPBDLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/horizontalListView/horizontalListView.iml" filepath="$PROJECT_DIR$/horizontalListView/horizontalListView.iml" />
+    </modules>
+  </component>
+</project>
