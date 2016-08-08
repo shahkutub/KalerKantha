@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shohel.khaler_kontho.Model.AllselectedNewsInfo;
-import com.example.shohel.khaler_kontho.Model.BasaiNewsInfo;
+
 import com.example.shohel.khaler_kontho.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,15 +23,15 @@ import java.util.List;
  */
 
 
-public class HorizontalAdapter extends ArrayAdapter<BasaiNewsInfo> {
+public class HorizontalOtherNewsAdapter extends ArrayAdapter<AllselectedNewsInfo> {
 
     Context context;
     int layoutResourceId;
-    ArrayList<BasaiNewsInfo> newslist;
-    BasaiNewsInfo newsitem;
+    ArrayList<AllselectedNewsInfo> newslist;
+    AllselectedNewsInfo newsitem;
 
 
-    public HorizontalAdapter(Context context, ArrayList<BasaiNewsInfo> newslist) {
+    public HorizontalOtherNewsAdapter(Context context, ArrayList<AllselectedNewsInfo> newslist) {
         super(context, R.layout.row_others_news, newslist);
         this.context = context;
         this.newslist = newslist;

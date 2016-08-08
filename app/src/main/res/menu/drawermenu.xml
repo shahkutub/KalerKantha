@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item android:title="@string/home"
+          android:id="@+id/nav_item_inbox"
+         />
+
+    <item android:title="@string/latest_news"
+          android:id="@+id/nav_item_sent"
+         />
+
+    <item android:title="@string/top_news"
+          android:id="@+id/nav_item_draft"
+          />
+
+
+
+    <item android:title="@string/most_views_news">
+
+    </item>
+
+    <item android:title="@string/first_page"
+        />
+    <item android:title="@string/last_page"
+        />
+
+
+</menu>

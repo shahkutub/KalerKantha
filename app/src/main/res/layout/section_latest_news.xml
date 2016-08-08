@@ -13,8 +13,8 @@
         android:textColor="#000"
         android:textStyle="bold"
         android:layout_margin="10dp"
-        android:text=" সর্বশেষ সংবাদ "
-        android:id="@+id/textView2" />
+        android:text="@string/latest_news"
+        android:id="@+id/idSectionTitle" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,10 +26,10 @@
         android:textStyle="bold"
         android:layout_margin="10dp"
         android:id="@+id/textView"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_alignBaseline="@+id/idSectionTitle"
+        android:layout_alignBottom="@+id/idSectionTitle"
+        android:layout_alignRight="@+id/idSectionTitle"
+        android:layout_alignEnd="@+id/idSectionTitle" />
 
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 
 import com.example.shohel.khaler_kontho.Model.AllNewsInfo;
+import com.example.shohel.khaler_kontho.Model.AllselectedNewsInfo;
 import com.example.shohel.khaler_kontho.Model.BasaiNewsInfo;
 import com.example.shohel.khaler_kontho.Model.LatestNewsInfo;
 import com.example.shohel.khaler_kontho.Model.NewsItem;
@@ -31,6 +32,8 @@ public class AppConstant {
     public static ArrayList<NewsItem> topnewslist;
     public static ArrayList<NewsItem> allnewsinfo;
     public static ArrayList<BasaiNewsInfo> basainewslist;
+    public static ArrayList<AllselectedNewsInfo> selectednews;
+
 
 
 

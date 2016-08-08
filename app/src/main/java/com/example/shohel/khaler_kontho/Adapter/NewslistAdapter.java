@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.shohel.khaler_kontho.Model.LatestNewsInfo;
 import com.example.shohel.khaler_kontho.Model.NewsItem;
 import com.example.shohel.khaler_kontho.R;
@@ -17,7 +16,7 @@ import com.example.shohel.khaler_kontho.Utils.AppConstant;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
+import it.sephiroth.android.library.widget.HListView;
 public class NewslistAdapter extends ArrayAdapter<NewsItem> {
 
     Context context;
@@ -25,6 +24,8 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
     ArrayList<NewsItem> newslist;
     NewsItem newsitem;
     LatestNewsInfo latestnews;
+    HorizontalAdapter horizontaladaapter;
+    HorizontalOtherNewsAdapter othernewsadapter;
 
     public NewslistAdapter(Context context, ArrayList<NewsItem> newslist) {
         super(context, R.layout.row_common_news_item, newslist);
@@ -71,7 +72,42 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
                 inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(R.layout.section_latest_news, parent, false);
 
-            } else {
+                holder = new ViewHolder();
+                holder.section_header=(TextView) row.findViewById(R.id.idSectionTitle);
+                holder.section_header.setText(context.getString(R.string.latest_news));
+
+            }else if (position == 56) {
+                inflater = ((Activity) context).getLayoutInflater();
+                row = inflater.inflate(R.layout.footer_horizontallist_item, parent, false);
+
+                holder = new ViewHolder();
+                holder.dayHListView = (HListView)row.findViewById(R.id.dayHListView);
+                holder.lvHeader = (TextView) row.findViewById(R.id.lvHeader);
+                horizontaladaapter=new HorizontalAdapter(context,AppConstant.basainewslist);
+                holder.lvHeader.setText(context.getString(R.string.bibid));
+                holder.dayHListView.setAdapter(horizontaladaapter);
+
+            }else if (position == 57) {
+                inflater = ((Activity) context).getLayoutInflater();
+                row = inflater.inflate(R.layout.section_latest_news, parent, false);
+
+                holder = new ViewHolder();
+                holder.section_header=(TextView) row.findViewById(R.id.idSectionTitle);
+                holder.section_header.setText(context.getString(R.string.special_news));
+            }
+            else if (position == 67) {
+                inflater = ((Activity) context).getLayoutInflater();
+                row = inflater.inflate(R.layout.footer_horizontallist_item, parent, false);
+
+                holder = new ViewHolder();
+                holder.lvHeader = (TextView) row.findViewById(R.id.lvHeader);
+                holder.dayHListView = (HListView)row.findViewById(R.id.dayHListView);
+                othernewsadapter=new HorizontalOtherNewsAdapter(context,AppConstant.selectednews);
+                holder.lvHeader.setText(context.getString(R.string.others_news));
+                holder.dayHListView.setAdapter(horizontaladaapter);
+
+            }
+            else {
                 inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(R.layout.row_common_news_item, parent, false);
 
@@ -99,6 +135,9 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
     static class ViewHolder {
         ImageView imgIcon;
         TextView txtTitle;
+        TextView lvHeader;
         TextView tv_dattime;
+        TextView section_header;
+        HListView dayHListView;
     }
 }
