@@ -34,6 +34,16 @@ public class AppConstant {
     public static ArrayList<BasaiNewsInfo> basainewslist;
     public static ArrayList<AllselectedNewsInfo> selectednews;
 
+    // lv position item save
+
+    public static int topnews_size=0;
+    public static int seperator_latestnews_size=0;
+    public static int latestnews_size=0;
+    public static int seperator_bibid_size=0;
+    public static int seperator_specialnews_size=0;
+    public static int specialnews_size=0;
+    public static int seperator_oternews_size=0;
+
 
 
 

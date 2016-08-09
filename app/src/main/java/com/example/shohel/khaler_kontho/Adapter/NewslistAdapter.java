@@ -68,7 +68,7 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
                 holder.tv_dattime.setText(newsitem.getDatetime());
                 Picasso.with(getContext()).load(newsitem.getFeatured_image()).placeholder(R.drawable.ic_launcher).into(holder.imgIcon);
 
-            } else if (position == AppConstant.topnewslist.size()) {
+            } else if (position == AppConstant.topnews_size) {
                 inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(R.layout.section_latest_news, parent, false);
 
@@ -76,7 +76,7 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
                 holder.section_header=(TextView) row.findViewById(R.id.idSectionTitle);
                 holder.section_header.setText(context.getString(R.string.latest_news));
 
-            }else if (position == 56) {
+            }else if (position == AppConstant.latestnews_size) {
                 inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(R.layout.footer_horizontallist_item, parent, false);
 
@@ -87,7 +87,7 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
                 holder.lvHeader.setText(context.getString(R.string.bibid));
                 holder.dayHListView.setAdapter(horizontaladaapter);
 
-            }else if (position == 57) {
+            }else if (position == AppConstant.seperator_bibid_size) {
                 inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(R.layout.section_latest_news, parent, false);
 
@@ -95,7 +95,7 @@ public class NewslistAdapter extends ArrayAdapter<NewsItem> {
                 holder.section_header=(TextView) row.findViewById(R.id.idSectionTitle);
                 holder.section_header.setText(context.getString(R.string.special_news));
             }
-            else if (position == 67) {
+            else if (position == AppConstant.specialnews_size) {
                 inflater = ((Activity) context).getLayoutInflater();
                 row = inflater.inflate(R.layout.footer_horizontallist_item, parent, false);
 

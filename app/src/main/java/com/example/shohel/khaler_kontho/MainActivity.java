@@ -24,24 +24,24 @@ public class MainActivity extends AppCompatActivity {
          *Setup the DrawerLayout and NavigationView
          */
 
-             mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-             mNavigationView = (NavigationView) findViewById(R.id.shitstuff) ;
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mNavigationView = (NavigationView) findViewById(R.id.shitstuff);
 
         /**
          * Lets inflate the very first fragment
          * Here , we are inflating the TabFragment as the first Fragment
          */
 
-             mFragmentManager = getSupportFragmentManager();
-             mFragmentTransaction = mFragmentManager.beginTransaction();
-             mFragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
         /**
          * Setup click events on the Navigation View Items.
          */
 
-             mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-             @Override
-             public boolean onNavigationItemSelected(MenuItem menuItem) {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
 
 
@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if (menuItem.getItemId() == R.id.nav_item_inbox) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+                    xfragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
                 }
 
-                 return false;
+                return false;
             }
 
         });
@@ -66,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
          * Setup Drawer Toggle of the Toolbar
          */
 
-                android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-                ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
+
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name,
                 R.string.app_name);
 
-                mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-                mDrawerToggle.syncState();
+        mDrawerToggle.syncState();
+
+        // set here nav icon if want to change
+      //  toolbar.setNavigationIcon(R.id.nav_icon);
+
 
     }
 }

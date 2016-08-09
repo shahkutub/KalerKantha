@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.shohel.khaler_kontho.Adapter.HorizontalAdapter;
 import com.example.shohel.khaler_kontho.Adapter.NewslistAdapter;
@@ -127,23 +129,37 @@ public class HomeFragment extends Fragment {
 
                                 // add two arraylist into single arraylist (allnewslist)
                                 allnewslist.addAll(topnewslist);
-                                // increase one position of list for set seperator in adapter (latest news seperator
+                                AppConstant.topnews_size=allnewslist.size();
+                                Log.e("All list after top >>",""+ AppConstant.topnews_size);
+                                // increase one position of list for set seperator in adapter (latest news seperator)
                                 allnewslist.add(new NewsItem());
+                                AppConstant.seperator_latestnews_size=allnewslist.size();
+                                Log.e("All list add s ln >>",""+AppConstant.seperator_latestnews_size);
                                 allnewslist.addAll(latestnewslist);
+                                AppConstant.latestnews_size=allnewslist.size();
+                                Log.e("All list after ln >>",""+ AppConstant.latestnews_size);
                                 // bibid news seperator
                                 allnewslist.add(new NewsItem());
+                                AppConstant.seperator_bibid_size=allnewslist.size();
+                                Log.e("All list s b >>",""+AppConstant.seperator_bibid_size);
                                 //special news seperator
-                               // allnewslist.add(new NewsItem());
+                                allnewslist.add(new NewsItem());
+                                AppConstant.seperator_specialnews_size=allnewslist.size();
+                                Log.e("All list s sp >>",""+AppConstant.seperator_specialnews_size);
                                 allnewslist.addAll(specialnewslist);
+                                AppConstant.specialnews_size=allnewslist.size();
+                                Log.e("All list af sn>>",""+ AppConstant.specialnews_size);
                                 //others news seperator
                                 allnewslist.add(new NewsItem());
+                                AppConstant.seperator_oternews_size=allnewslist.size();
+                                Log.e("All list s on >>",""+AppConstant.seperator_oternews_size);
 
                                 //
                                 AppConstant.basainewslist=newslistresponsee.getBasainews();
                                 AppConstant.selectednews=newslistresponsee.getSelectednews();
                                 AppConstant.allnewsinfo = allnewslist;
 
-                                Log.e("All newslist >>",""+allnewslist.size());
+                                Log.e("All newslist final >>",""+allnewslist.size());
 
                                 // after getting server data and set listview
                                 if (newslistresponsee.getTop_news().size() > 0) {
@@ -151,6 +167,13 @@ public class HomeFragment extends Fragment {
                                     lvNewsList.setAdapter(adapter);
                                     AppConstant.topnewslist = newslistresponsee.getTop_news();
                                     Log.e("Appconstant size>> ", "" + AppConstant.topnewslist.size());
+                                   lvNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                       @Override
+                                       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                           Toast.makeText(con,""+position,Toast.LENGTH_LONG).show();
+                                           Log.e("Item position: >>",""+position);
+                                       }
+                                   });
                                 }
 
                             }
