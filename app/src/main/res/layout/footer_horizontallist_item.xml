@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/lvHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:padding="10dp"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:layout_margin="10dp"
-        android:text=" বিবিধ "/>
 
     <it.sephiroth.android.library.widget.HListView
         android:id="@+id/dayHListView"

@@ -9,13 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.shohel.khaler_kontho.Model.AllselectedNewsInfo;
+import com.example.shohel.khaler_kontho.Model.CommonNewsItem;
 
-import com.example.shohel.khaler_kontho.R;
+import com.kalerkantho.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Shohel on 8/3/2016.
@@ -23,15 +22,15 @@ import java.util.List;
  */
 
 
-public class HorizontalOtherNewsAdapter extends ArrayAdapter<AllselectedNewsInfo> {
+public class HorizontalOtherNewsAdapter extends ArrayAdapter<CommonNewsItem> {
 
     Context context;
     int layoutResourceId;
-    ArrayList<AllselectedNewsInfo> newslist;
-    AllselectedNewsInfo newsitem;
+    ArrayList<CommonNewsItem> newslist;
+    CommonNewsItem newsitem;
 
 
-    public HorizontalOtherNewsAdapter(Context context, ArrayList<AllselectedNewsInfo> newslist) {
+    public HorizontalOtherNewsAdapter(Context context, ArrayList<CommonNewsItem> newslist) {
         super(context, R.layout.row_others_news, newslist);
         this.context = context;
         this.newslist = newslist;
@@ -57,7 +56,7 @@ public class HorizontalOtherNewsAdapter extends ArrayAdapter<AllselectedNewsInfo
 
 
         newsitem=newslist.get(position);
-        Picasso.with(getContext()).load(newsitem.getFeatured_image()).placeholder(R.drawable.ic_launcher).into(holder.imgIcon);
+        //Picasso.with(getContext()).load(newsitem.getFeatured_image()).placeholder(R.drawable.ic_launcher).into(holder.imgIcon);
         holder.txtTitle.setText(newsitem.getTitle());
 
         return row;

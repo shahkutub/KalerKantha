@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.example.shohel.khaler_kontho.R;
+import com.kalerkantho.R;
 
 
 public class BusyDialog {

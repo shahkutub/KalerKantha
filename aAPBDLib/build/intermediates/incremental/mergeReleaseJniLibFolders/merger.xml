@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\Shohel\Desktop\Khaler_Kontho\aAPBDLib\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="C:\Users\Shohel\Desktop\Khaler_Kontho\aAPBDLib\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\Apps\KalerKantha\aAPBDLib\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="E:\Apps\KalerKantha\aAPBDLib\src\release\jniLibs"/></dataSet></merger>

@@ -10,8 +10,11 @@
     <string name="special_news"> স্পেশাল নিউজ </string>
     <string name="others_news">ভিন্ন ধরনের খবর </string>
     <string name="bibid"> বিবিধ </string>
+    <string name="aro">আরো >></string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

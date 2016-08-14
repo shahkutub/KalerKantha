@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.example.shohel.khaler_kontho.R;
+import com.kalerkantho.R;
 
 
 public class AlertMessage {

@@ -1,17 +1,7 @@
 package com.example.shohel.khaler_kontho.Utils;
 
 
-import android.graphics.Bitmap;
-
-
-import com.example.shohel.khaler_kontho.Model.AllNewsInfo;
-import com.example.shohel.khaler_kontho.Model.AllselectedNewsInfo;
-import com.example.shohel.khaler_kontho.Model.BasaiNewsInfo;
-import com.example.shohel.khaler_kontho.Model.LatestNewsInfo;
-import com.example.shohel.khaler_kontho.Model.NewsItem;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Shohel on 2/15/2016.
@@ -29,10 +19,7 @@ public class AppConstant {
 
 
     // news item data
-    public static ArrayList<NewsItem> topnewslist;
-    public static ArrayList<NewsItem> allnewsinfo;
-    public static ArrayList<BasaiNewsInfo> basainewslist;
-    public static ArrayList<AllselectedNewsInfo> selectednews;
+
 
     // lv position item save
 

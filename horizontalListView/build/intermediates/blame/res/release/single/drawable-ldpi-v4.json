@@ -1,10 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\Shohel\\Desktop\\Khaler_Kontho\\horizontalListView\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\hlv_overscroll_edge.png",
-        "source": "C:\\Users\\Shohel\\Desktop\\Khaler_Kontho\\horizontalListView\\src\\main\\res\\drawable-ldpi\\hlv_overscroll_edge.png"
+        "merged": "E:\\Apps\\KalerKantha\\horizontalListView\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\hlv_overscroll_glow.png",
+        "source": "E:\\Apps\\KalerKantha\\horizontalListView\\src\\main\\res\\drawable-ldpi\\hlv_overscroll_glow.png"
     },
     {
-        "merged": "C:\\Users\\Shohel\\Desktop\\Khaler_Kontho\\horizontalListView\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\hlv_overscroll_glow.png",
-        "source": "C:\\Users\\Shohel\\Desktop\\Khaler_Kontho\\horizontalListView\\src\\main\\res\\drawable-ldpi\\hlv_overscroll_glow.png"
+        "merged": "E:\\Apps\\KalerKantha\\horizontalListView\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\hlv_overscroll_edge.png",
+        "source": "E:\\Apps\\KalerKantha\\horizontalListView\\src\\main\\res\\drawable-ldpi\\hlv_overscroll_edge.png"
     }
 ]

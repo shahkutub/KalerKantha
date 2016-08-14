@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.shohel.khaler_kontho"
+        applicationId "com.kalerkantho"
         // Enabling multidex support.
         multiDexEnabled true
         minSdkVersion 15

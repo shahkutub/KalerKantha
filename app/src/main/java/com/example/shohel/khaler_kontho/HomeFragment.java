@@ -1,6 +1,6 @@
 package com.example.shohel.khaler_kontho;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,25 +13,28 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.example.shohel.khaler_kontho.Adapter.HorizontalAdapter;
 import com.example.shohel.khaler_kontho.Adapter.NewslistAdapter;
-import com.example.shohel.khaler_kontho.Model.AllNewsInfo;
-import com.example.shohel.khaler_kontho.Model.AllnewsResponse;
-import com.example.shohel.khaler_kontho.Model.LatestNewsInfo;
-import com.example.shohel.khaler_kontho.Model.NewsItem;
-import com.example.shohel.khaler_kontho.Model.SpecialNewsInfo;
+import com.example.shohel.khaler_kontho.Model.All_Cat_News_Obj;
+import com.example.shohel.khaler_kontho.Model.CommonNewsItem;
+
 import com.example.shohel.khaler_kontho.Utils.AAPBDHttpClient;
 import com.example.shohel.khaler_kontho.Utils.AlertMessage;
 import com.example.shohel.khaler_kontho.Utils.AppConstant;
 import com.example.shohel.khaler_kontho.Utils.BusyDialog;
 import com.example.shohel.khaler_kontho.Utils.NetInfo;
+import com.example.shohel.khaler_kontho.holder.AllCommonNewsItem;
+import com.example.shohel.khaler_kontho.holder.AllNewsObj;
 import com.google.gson.Gson;
+import com.kalerkantho.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
-import it.sephiroth.android.library.widget.HListView;
 
 public class HomeFragment extends Fragment {
 
@@ -39,6 +42,7 @@ public class HomeFragment extends Fragment {
     Context con;
     final String URL = "http://www.kalerkantho.com/api/homenews";
     NewslistAdapter adapter;
+    private List<AllCommonNewsItem> allCommonNewsItem=new ArrayList<AllCommonNewsItem>();
 
     @Nullable
     @Override
@@ -107,71 +111,98 @@ public class HomeFragment extends Fragment {
                             Log.e("Response", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
                                 Gson g = new Gson();
-                                AllnewsResponse newslistresponsee = g.fromJson(new String(response), AllnewsResponse.class);
+                               // AllnewsResponse newslistresponsee = g.fromJson(new String(response), AllnewsResponse.class);
+
+                              //  Log.e("getData()", ">>" + getActivity().getResources().getString(R.string.a));
+
+                                //String jsonString=getActivity().getResources().getString(R.string.a).toString();
+                                String jsonString=loadAssetTextAsString(getContext(),"abc.txt");
 
 
-
-                                ArrayList<NewsItem> topnewslist = new ArrayList<>();
-                                ArrayList<NewsItem> latestnewslist = new ArrayList<>();
-                                ArrayList<NewsItem> specialnewslist = new ArrayList<>();
-                                ArrayList<NewsItem> allnewslist = new ArrayList<>();
-
-                                topnewslist = newslistresponsee.getTop_news();
-                                latestnewslist = newslistresponsee.getLatestnews();
-                                specialnewslist= newslistresponsee.getSpecialnews();
+                                AllNewsObj allObj=g.fromJson(jsonString,AllNewsObj.class);
 
 
-                                Log.e("Top news size>> ", "" + topnewslist.size());
-                                Log.e("Latest news size>> ", "" + latestnewslist.size());
-                                Log.e("Basai news size>> ", "" + newslistresponsee.getBasainews().size());
-                                Log.e("special news size>> ", "" + specialnewslist.size());
+                              //  allCommonNewsItem  =new ArrayList<>();
+                                allCommonNewsItem.clear();
+
+                                int i=0;
+                                // for top news and below list
+                                for(CommonNewsItem topNews:allObj.getTop_news())
+                                {
+                                    if(i==0)
+                                    {
+                                        AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                                        singleObj.setType("fullscreen");
+                                        singleObj.setNews_obj(topNews);
+                                        allCommonNewsItem.add(singleObj);
 
 
-                                // add two arraylist into single arraylist (allnewslist)
-                                allnewslist.addAll(topnewslist);
-                                AppConstant.topnews_size=allnewslist.size();
-                                Log.e("All list after top >>",""+ AppConstant.topnews_size);
-                                // increase one position of list for set seperator in adapter (latest news seperator)
-                                allnewslist.add(new NewsItem());
-                                AppConstant.seperator_latestnews_size=allnewslist.size();
-                                Log.e("All list add s ln >>",""+AppConstant.seperator_latestnews_size);
-                                allnewslist.addAll(latestnewslist);
-                                AppConstant.latestnews_size=allnewslist.size();
-                                Log.e("All list after ln >>",""+ AppConstant.latestnews_size);
-                                // bibid news seperator
-                                allnewslist.add(new NewsItem());
-                                AppConstant.seperator_bibid_size=allnewslist.size();
-                                Log.e("All list s b >>",""+AppConstant.seperator_bibid_size);
-                                //special news seperator
-                                allnewslist.add(new NewsItem());
-                                AppConstant.seperator_specialnews_size=allnewslist.size();
-                                Log.e("All list s sp >>",""+AppConstant.seperator_specialnews_size);
-                                allnewslist.addAll(specialnewslist);
-                                AppConstant.specialnews_size=allnewslist.size();
-                                Log.e("All list af sn>>",""+ AppConstant.specialnews_size);
-                                //others news seperator
-                                allnewslist.add(new NewsItem());
-                                AppConstant.seperator_oternews_size=allnewslist.size();
-                                Log.e("All list s on >>",""+AppConstant.seperator_oternews_size);
+                                    }else
+                                    {
+                                        AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                                        singleObj.setType("defaultscreen");
+                                        singleObj.setNews_obj(topNews);
+                                        allCommonNewsItem.add(singleObj);
+                                    }
+                                    i++;
+                                }
 
-                                //
-                                AppConstant.basainewslist=newslistresponsee.getBasainews();
-                                AppConstant.selectednews=newslistresponsee.getSelectednews();
-                                AppConstant.allnewsinfo = allnewslist;
+                                // for bibid row
+                                AllCommonNewsItem titleObj=new AllCommonNewsItem();
+                                titleObj.setType("titleshow");
+                                titleObj.setCategory_title(getActivity().getResources().getString(R.string.bibid));
+                                allCommonNewsItem.add(titleObj);
 
-                                Log.e("All newslist final >>",""+allnewslist.size());
+                                // for bibid row
+                                AllCommonNewsItem hListObj=new AllCommonNewsItem();
+                                hListObj.setType("horizontal");
+                                hListObj.setList_news_obj(allObj.getBlueslide());
+                                allCommonNewsItem.add(hListObj);
+
+                                // All category object need to add
+
+                                for(All_Cat_News_Obj allCat:allObj.getAll_cat_news())
+                                {
+                                    // for bibid row
+                                    AllCommonNewsItem a1=new AllCommonNewsItem();
+                                    a1.setType("titleshow");
+                                    a1.setCategory_title(allCat.getCategory_name());
+                                    a1.setCategory_id(allCat.getCategory_id());
+                                    allCommonNewsItem.add(a1);
+
+                                    for(CommonNewsItem cn:allCat.getNews())
+                                    {
+                                        AllCommonNewsItem a2=new AllCommonNewsItem();
+                                        a2.setType("defaultscreen");
+                                        a2.setNews_obj(cn);
+                                        allCommonNewsItem.add(a2);
+                                    }
+                                }
+
+                                // for bhinow nes
+                                AllCommonNewsItem b3Obj=new AllCommonNewsItem();
+                                b3Obj.setType("titleshow");
+                                b3Obj.setCategory_title(getActivity().getResources().getString(R.string.others_news));
+                                allCommonNewsItem.add(b3Obj);
+
+                                // for bibid row
+                                AllCommonNewsItem redObj=new AllCommonNewsItem();
+                                redObj.setType("horizontal");
+                                redObj.setList_news_obj(allObj.getRedslider());
+                                allCommonNewsItem.add(redObj);
+
+
+                                Log.e("allCommonNewsItem.size", ""+ allCommonNewsItem.size());
 
                                 // after getting server data and set listview
-                                if (newslistresponsee.getTop_news().size() > 0) {
-                                    adapter = new NewslistAdapter(con, allnewslist);
+                                if (allCommonNewsItem.size() > 0) {
+                                    adapter = new NewslistAdapter(con, allCommonNewsItem);
                                     lvNewsList.setAdapter(adapter);
-                                    AppConstant.topnewslist = newslistresponsee.getTop_news();
-                                    Log.e("Appconstant size>> ", "" + AppConstant.topnewslist.size());
                                    lvNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                        @Override
                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                           Toast.makeText(con,""+position,Toast.LENGTH_LONG).show();
-                                           Log.e("Item position: >>",""+position);
+                                           //Toast.makeText(con,""+position,Toast.LENGTH_LONG).show();
+                                           //Log.e("Item position: >>",""+position);
                                        }
                                    });
                                 }
@@ -191,5 +222,67 @@ public class HomeFragment extends Fragment {
         });
 
 
+    }
+
+    public String getData()
+    {
+        try {
+            InputStream is = getActivity().getAssets().open("abc.txt");
+
+            // We guarantee that the available method returns the total
+            // size of the asset...  of course, this does mean that a single
+            // asset can't be more than 2 gigs.
+            int size = is.available();
+
+            // Read the entire asset into a local byte buffer.
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            // Convert the buffer into a string.
+            String text = new String(buffer);
+
+            // Finally stick the string into the text view.
+            // Replace with whatever you need to have the text into.
+
+          return  text;
+
+        } catch (IOException e) {
+            // Should never happen!
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    private String loadAssetTextAsString(Context context, String name) {
+        BufferedReader in = null;
+        try {
+            StringBuilder buf = new StringBuilder();
+            InputStream is = context.getAssets().open(name);
+            in = new BufferedReader(new InputStreamReader(is));
+
+            String str;
+            boolean isFirst = true;
+            while ( (str = in.readLine()) != null ) {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    buf.append('\n');
+                buf.append(str);
+            }
+            return buf.toString();
+        } catch (IOException e) {
+            Log.e("fff", "Error opening asset " + name);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.e("fff", "Error closing asset " + name);
+                }
+            }
+        }
+
+        return null;
     }
 }
