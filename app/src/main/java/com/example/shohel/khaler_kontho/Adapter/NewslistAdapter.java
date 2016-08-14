@@ -110,7 +110,7 @@ public class NewslistAdapter extends ArrayAdapter<AllCommonNewsItem> {
 
                 //else if (position == AppConstant.latestnews_size)
               //  inflater = ((Activity) context).getLayoutInflater();
-                row = inflater.inflate(R.layout.footer_horizontallist_item, parent, false);
+                row = inflater.inflate(R.layout.headertilte, parent, false);
 
                 holder = new ViewHolder();
                 //holder.dayHListView = (HListView)row.findViewById(R.id.dayHListView);
@@ -124,7 +124,7 @@ public class NewslistAdapter extends ArrayAdapter<AllCommonNewsItem> {
             }
             else if(type==3){
                 //inflater = ((Activity) context).getLayoutInflater();
-                row = inflater.inflate(R.layout.headertilte, parent, false);
+                row = inflater.inflate(R.layout.footer_horizontallist_item, parent, false);
 
                holder = new ViewHolder();
                // holder.imgIcon = (ImageView) row.findViewById(R.id.img_commonnews);

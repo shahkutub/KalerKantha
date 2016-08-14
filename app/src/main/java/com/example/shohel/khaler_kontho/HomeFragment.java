@@ -164,11 +164,11 @@ public class HomeFragment extends Fragment {
                                 for(All_Cat_News_Obj allCat:allObj.getAll_cat_news())
                                 {
                                     // for bibid row
-                                    AllCommonNewsItem a1=new AllCommonNewsItem();
-                                    a1.setType("titleshow");
-                                    a1.setCategory_title(allCat.getCategory_name());
-                                    a1.setCategory_id(allCat.getCategory_id());
-                                    allCommonNewsItem.add(a1);
+                                    AllCommonNewsItem a4=new AllCommonNewsItem();
+                                    a4.setType("titleshow");
+                                    a4.setCategory_title(allCat.getCategory_name());
+                                    a4.setCategory_id(allCat.getCategory_id());
+                                    allCommonNewsItem.add(a4);
 
                                     for(CommonNewsItem cn:allCat.getNews())
                                     {
@@ -190,6 +190,14 @@ public class HomeFragment extends Fragment {
                                 redObj.setType("horizontal");
                                 redObj.setList_news_obj(allObj.getRedslider());
                                 allCommonNewsItem.add(redObj);
+
+
+                                for(AllCommonNewsItem a:allCommonNewsItem)
+                                {
+                                    Log.e("title", ""+ a.getType());
+                                }
+
+
 
 
                                 Log.e("allCommonNewsItem.size", ""+ allCommonNewsItem.size());
