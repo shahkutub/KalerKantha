@@ -1,77 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:paddingTop="4dp"
-    android:layout_marginRight="2dp"
-    android:layout_marginLeft="2dp"
-    android:background="@drawable/bar_common_news"
-    android:paddingBottom="4dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
     <ImageView
         android:id="@+id/img_commonnews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:padding="2dp"
+        android:layout_width="@dimen/default_image"
+        android:layout_height="@dimen/default_image"
         android:layout_marginLeft="2dp"
         android:gravity="center"
-
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
         />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tvTitleComonnews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title here"
-        android:textSize="15sp"
-        android:textColor="#000"
-        android:layout_margin="10dp"
-        android:textStyle="bold"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp">
-        <TextView
-            android:id="@+id/tvDatetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:textSize="12sp"
-            android:textColor="#9E9E9E"
-            android:gravity="center"
-            android:text="Date time"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="time here"/>
-
-        <View
-            android:layout_width="5px"
-            android:layout_height="10dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="8dp"
-            android:gravity="center"
-            android:background="@color/colorPrimaryDark"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@android:color/holo_blue_light"
-            android:text="জাতীয়"/>
 
     </LinearLayout>
 
-        >
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitleComonnews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title here"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tvDatetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:text="Date time"
+                android:textColor="#9E9E9E"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:text="time here"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="5px"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="8dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="জাতীয়"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

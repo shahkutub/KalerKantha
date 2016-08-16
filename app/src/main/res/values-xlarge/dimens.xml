@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- Xlarge dimen -->
+     <dimen name="fullscreen_image_height">250dp</dimen>
+    <dimen name="default_image">150dp</dimen>
+
+</resources>

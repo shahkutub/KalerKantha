@@ -2,39 +2,31 @@ package com.example.shohel.khaler_kontho.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.shohel.khaler_kontho.Model.CommonNewsItem;
-
 import com.kalerkantho.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-/**
- * Created by Shohel on 8/3/2016.
- *
- */
-
+import java.util.List;
 
 public class HorizontalAdapter extends ArrayAdapter<CommonNewsItem> {
 
     Context context;
-    int layoutResourceId;
-    ArrayList<CommonNewsItem> newslist;
-    CommonNewsItem newsitem;
+    List<CommonNewsItem> hlist = new ArrayList<CommonNewsItem>();
 
-
-    public HorizontalAdapter(Context context, ArrayList<CommonNewsItem> newslist) {
-        super(context, R.layout.row_others_news, newslist);
+    public HorizontalAdapter(Context context, List<CommonNewsItem> hlist) {
+        super(context, R.layout.row_others_news, hlist);
         this.context = context;
-        this.newslist = newslist;
-        //  this.layoutResourceId=resource;
+        this.hlist = hlist;
+
     }
 
     @Override
@@ -49,15 +41,29 @@ public class HorizontalAdapter extends ArrayAdapter<CommonNewsItem> {
             holder = new ViewHolder();
             holder.imgIcon = (ImageView) row.findViewById(R.id.others_news_icon);
             holder.txtTitle = (TextView) row.findViewById(R.id.otersnews_title);
+
+            final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+
+            if (!TextUtils.isEmpty(hlist.get(position).getImage())){
+                Picasso.with(getContext()).load(hlist.get(position).getImage()).placeholder(R.drawable.ic_launcher).into(holder.imgIcon);
+            }else{
+                Picasso.with(getContext()).load(R.drawable.ic_launcher).placeholder(R.drawable.ic_launcher).into(holder.imgIcon);
+            }
+
+            if (!TextUtils.isEmpty(hlist.get(position).getTitle())){
+                holder.txtTitle.setText(hlist.get(position).getTitle());
+            }else{
+                holder.txtTitle.setText("");
+            }
+
+            holder.txtTitle.setTypeface(face_reg);
+
             row.setTag(holder);
+
         } else {
             holder = (ViewHolder) row.getTag();
         }
 
-
-        newsitem=newslist.get(position);
-       // Picasso.with(getContext()).load(newsitem.getFeatured_image()).placeholder(R.drawable.ic_launcher).into(holder.imgIcon);
-        holder.txtTitle.setText(newsitem.getTitle());
 
         return row;
     }

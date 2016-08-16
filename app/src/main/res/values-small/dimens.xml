@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- small dimen -->
+     <dimen name="fullscreen_image_height">150dp</dimen>
+    <dimen name="default_image">80dp</dimen>
+
+</resources>

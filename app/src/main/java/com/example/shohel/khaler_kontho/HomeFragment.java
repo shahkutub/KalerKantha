@@ -12,14 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.example.shohel.khaler_kontho.Adapter.NewslistAdapter;
 import com.example.shohel.khaler_kontho.Model.All_Cat_News_Obj;
 import com.example.shohel.khaler_kontho.Model.CommonNewsItem;
 
 import com.example.shohel.khaler_kontho.Utils.AAPBDHttpClient;
 import com.example.shohel.khaler_kontho.Utils.AlertMessage;
-import com.example.shohel.khaler_kontho.Utils.AppConstant;
 import com.example.shohel.khaler_kontho.Utils.BusyDialog;
 import com.example.shohel.khaler_kontho.Utils.NetInfo;
 import com.example.shohel.khaler_kontho.holder.AllCommonNewsItem;
@@ -40,7 +38,7 @@ public class HomeFragment extends Fragment {
 
     private ListView lvNewsList;
     Context con;
-    final String URL = "http://www.kalerkantho.com/api/homenews";
+    final String URL = "http://www.kalerkantho.com/appapi/homenews";
     NewslistAdapter adapter;
     private List<AllCommonNewsItem> allCommonNewsItem=new ArrayList<AllCommonNewsItem>();
 
@@ -94,16 +92,14 @@ public class HomeFragment extends Fragment {
                 } catch (Exception e) {
                     // TODO: handle exception
                     Log.e("MYAPP", "exception", e);
-                    if (busyNow != null) {
-                        busyNow.dismis();
-                    }
+
                 }
 
                 getActivity().runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
+
                         if (busyNow != null) {
                             busyNow.dismis();
                         }
@@ -116,10 +112,10 @@ public class HomeFragment extends Fragment {
                               //  Log.e("getData()", ">>" + getActivity().getResources().getString(R.string.a));
 
                                 //String jsonString=getActivity().getResources().getString(R.string.a).toString();
-                                String jsonString=loadAssetTextAsString(getContext(),"abc.txt");
+                               // String jsonString=loadAssetTextAsString(getContext(),"abc.txt");
 
 
-                                AllNewsObj allObj=g.fromJson(jsonString,AllNewsObj.class);
+                                AllNewsObj allObj=g.fromJson(new String(response),AllNewsObj.class);
 
 
                               //  allCommonNewsItem  =new ArrayList<>();
@@ -192,10 +188,10 @@ public class HomeFragment extends Fragment {
                                 allCommonNewsItem.add(redObj);
 
 
-                                for(AllCommonNewsItem a:allCommonNewsItem)
+                            /*    for(AllCommonNewsItem a:allCommonNewsItem)
                                 {
-                                    Log.e("title", ""+ a.getType());
-                                }
+                                    Log.e("title", ""+ a.getList_news_obj().get(0).getTitle());
+                                }*/
 
 
 

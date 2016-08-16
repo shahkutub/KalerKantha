@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- Normal dimen -->
+     <dimen name="fullscreen_image_height">200dp</dimen>
+    <dimen name="default_image">100dp</dimen>
+
+</resources>

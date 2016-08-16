@@ -11,6 +11,18 @@
     <string name="others_news">ভিন্ন ধরনের খবর </string>
     <string name="bibid"> বিবিধ </string>
     <string name="aro">আরো >></string>
+    <string name="month1">জানুয়ারী</string>
+    <string name="month2">ফেব্রুয়ারি</string>
+    <string name="month3">মার্চ</string>
+    <string name="month4">এপ্রিল</string>
+    <string name="month5">মে</string>
+    <string name="month6">জুন</string>
+    <string name="month7">জুলাই</string>
+    <string name="month8">অগাস্ট</string>
+    <string name="month9">সেপ্টেম্বর</string>
+    <string name="month10">অক্টবর</string>
+    <string name="month11">নভেম্বর</string>
+    <string name="month12">ডিসেম্বর</string>
 
 
 
