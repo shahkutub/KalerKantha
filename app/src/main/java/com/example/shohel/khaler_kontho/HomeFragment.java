@@ -2,9 +2,14 @@ package com.example.shohel.khaler_kontho;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import com.example.shohel.khaler_kontho.Adapter.NewslistAdapter;
+import android.widget.ProgressBar;
+
+import com.example.shohel.khaler_kontho.Adapter.RecyclerAdapter;
 import com.example.shohel.khaler_kontho.Model.All_Cat_News_Obj;
 import com.example.shohel.khaler_kontho.Model.CommonNewsItem;
 
 import com.example.shohel.khaler_kontho.Utils.AAPBDHttpClient;
 import com.example.shohel.khaler_kontho.Utils.AlertMessage;
+import com.example.shohel.khaler_kontho.Utils.AllURL;
 import com.example.shohel.khaler_kontho.Utils.BusyDialog;
+import com.example.shohel.khaler_kontho.Utils.DividerItemDecoration;
 import com.example.shohel.khaler_kontho.Utils.NetInfo;
 import com.example.shohel.khaler_kontho.holder.AllCommonNewsItem;
 import com.example.shohel.khaler_kontho.holder.AllNewsObj;
@@ -36,11 +45,14 @@ import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
 
-    private ListView lvNewsList;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private RecyclerAdapter mAdapter;
+    ProgressBar progressShow;
+
     Context con;
-    final String URL = "http://www.kalerkantho.com/appapi/homenews";
-    NewslistAdapter adapter;
-    private List<AllCommonNewsItem> allCommonNewsItem=new ArrayList<AllCommonNewsItem>();
+   // final String URL = "http://www.kalerkantho.com/appapi/homenews";
+    private List<AllCommonNewsItem> allCommonNewsItem = new ArrayList<AllCommonNewsItem>();
 
     @Nullable
     @Override
@@ -57,42 +69,40 @@ public class HomeFragment extends Fragment {
     }
 
     public void initUI() {
-        lvNewsList = (ListView)getView().findViewById(R.id.lvNewsList);
-        requestGetNeslist(URL);
+        progressShow = (ProgressBar) getView().findViewById(R.id.progressShow);
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview);
+
+        Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
+        RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(con);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        requestGetNeslist(AllURL.getHomeNews());
 
 
     }
 
     private void requestGetNeslist(final String url) {
-        // TODO Auto-generated method stub
         if (!NetInfo.isOnline(con)) {
             AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
             return;
         }
         Log.e("URL : ", url);
-        final BusyDialog busyNow = new BusyDialog(con, true, false);
-        busyNow.show();
+
+        progressShow.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
             String response = "";
 
             @Override
             public void run() {
 
-
-/*
-
-                Map<String,String> param =new HashMap();
-                param.put("api_token",PersistData.getStringData(getActivity(), AppConstant.TOKEN));
-
-*/
-
-
                 try {
                     response = AAPBDHttpClient.get(url).body();
                 } catch (Exception e) {
-                    // TODO: handle exception
-                    Log.e("MYAPP", "exception", e);
-
+                    e.printStackTrace();
                 }
 
                 getActivity().runOnUiThread(new Runnable() {
@@ -100,9 +110,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void run() {
 
-                        if (busyNow != null) {
-                            busyNow.dismis();
-                        }
+                        progressShow.setVisibility(View.GONE);
+
                         try {
                             Log.e("Response", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
@@ -143,11 +152,11 @@ public class HomeFragment extends Fragment {
                                     i++;
                                 }
 
-                                // for bibid row
+                        /*        // for bibid row
                                 AllCommonNewsItem titleObj=new AllCommonNewsItem();
                                 titleObj.setType("titleshow");
                                 titleObj.setCategory_title(getActivity().getResources().getString(R.string.bibid));
-                                allCommonNewsItem.add(titleObj);
+                                allCommonNewsItem.add(titleObj);*/
 
                                 // for bibid row
                                 AllCommonNewsItem hListObj=new AllCommonNewsItem();
@@ -175,11 +184,11 @@ public class HomeFragment extends Fragment {
                                     }
                                 }
 
-                                // for bhinow nes
+                             /*   // for bhinow nes
                                 AllCommonNewsItem b3Obj=new AllCommonNewsItem();
                                 b3Obj.setType("titleshow");
                                 b3Obj.setCategory_title(getActivity().getResources().getString(R.string.others_news));
-                                allCommonNewsItem.add(b3Obj);
+                                allCommonNewsItem.add(b3Obj);*/
 
                                 // for bibid row
                                 AllCommonNewsItem redObj=new AllCommonNewsItem();
@@ -187,36 +196,20 @@ public class HomeFragment extends Fragment {
                                 redObj.setList_news_obj(allObj.getRedslider());
                                 allCommonNewsItem.add(redObj);
 
-
-                            /*    for(AllCommonNewsItem a:allCommonNewsItem)
-                                {
-                                    Log.e("title", ""+ a.getList_news_obj().get(0).getTitle());
-                                }*/
-
-
-
-
-                                Log.e("allCommonNewsItem.size", ""+ allCommonNewsItem.size());
-
-                                // after getting server data and set listview
                                 if (allCommonNewsItem.size() > 0) {
-                                    adapter = new NewslistAdapter(con, allCommonNewsItem);
-                                    lvNewsList.setAdapter(adapter);
-                                   lvNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                       @Override
-                                       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                           //Toast.makeText(con,""+position,Toast.LENGTH_LONG).show();
-                                           //Log.e("Item position: >>",""+position);
-                                       }
-                                   });
+                                    //recyclerview adapter
+                                    mAdapter = new RecyclerAdapter(con, allCommonNewsItem);
+                                    //set adpater for recyclerview
+                                    mRecyclerView.setAdapter(mAdapter);
+
                                 }
 
                             }
 
 
                         } catch (final Exception e) {
-
                             e.printStackTrace();
+                            progressShow.setVisibility(View.GONE);
                         }
 
 

@@ -2,6 +2,7 @@
 
     <!-- large -->
      <dimen name="fullscreen_image_height">220dp</dimen>
-    <dimen name="default_image">130dp</dimen>
+    <dimen name="default_imageh">150dp</dimen>
+    <dimen name="default_imagew">190dp</dimen>
     
 </resources>

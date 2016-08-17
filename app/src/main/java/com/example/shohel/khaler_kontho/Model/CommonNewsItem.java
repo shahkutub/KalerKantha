@@ -23,6 +23,7 @@ public class CommonNewsItem {
     private String start_time;
     private String category;
     private String url;
+    private String category_name;
 
     public String getId() {
         return id;
@@ -102,6 +103,14 @@ public class CommonNewsItem {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
     public String getBanglaDateString() {

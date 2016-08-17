@@ -2,10 +2,9 @@ package com.example.shohel.khaler_kontho.Utils;
 
 
 public class BaseURL {
-	
-//	public static String HTTP = "http://lovelane.aapbd.xyz/api/v1/";
-	public static String HTTP = "http://luna.aapbd.xyz/api/v1/contractor/";
-	public static String ADD_API_TOKEN="?api_token=";
+
+	public static String HTTP = "http://www.kalerkantho.com/appapi/";
+	//public static String ADD_API_TOKEN="?api_token=";
 
 	/**
 	 * @return the hTTP

@@ -2,6 +2,7 @@
 
     <!-- Normal dimen -->
      <dimen name="fullscreen_image_height">200dp</dimen>
-    <dimen name="default_image">100dp</dimen>
+    <dimen name="default_imageh">110dp</dimen>
+    <dimen name="default_imagew">140dp</dimen>
 
 </resources>
