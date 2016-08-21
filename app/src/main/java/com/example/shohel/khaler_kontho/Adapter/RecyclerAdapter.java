@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.example.shohel.khaler_kontho.holder.AllCommonNewsItem;
 import com.kalerkantho.R;
 import com.squareup.picasso.Picasso;
@@ -98,9 +100,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
 
 
             if (!(TextUtils.isEmpty(newsitem.getNews_obj().getImage()))) {
-                Picasso.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.fullscreen).into(firstHolder.fullScreen);
+                Glide.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.fullscreen).into(firstHolder.fullScreen);
             } else {
-                Picasso.with(mContext).load(R.drawable.fullscreen).placeholder(R.drawable.fullscreen).into(firstHolder.fullScreen);
+                Glide.with(mContext).load(R.drawable.fullscreen).placeholder(R.drawable.fullscreen).into(firstHolder.fullScreen);
             }
             if (!TextUtils.isEmpty(newsitem.getNews_obj().getTitle())) {
                 firstHolder.titleFullScreen.setText(newsitem.getNews_obj().getTitle());
@@ -131,9 +133,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             DataTwo commonHolder = (DataTwo)holder;
 
             if (!(TextUtils.isEmpty(newsitem.getNews_obj().getImage()))) {
-                Picasso.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.defaulticon).into(commonHolder.commonImage);
+                Glide.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.defaulticon).into(commonHolder.commonImage);
             } else {
-                Picasso.with(mContext).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(commonHolder.commonImage);
+                Glide.with(mContext).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(commonHolder.commonImage);
             }
 
             if (!TextUtils.isEmpty(newsitem.getNews_obj().getTitle())) {

@@ -4,6 +4,7 @@ package com.example.shohel.khaler_kontho;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private RecyclerAdapter mAdapter;
     ProgressBar progressShow;
+    private boolean isViewShown = false;
 
     Context con;
    // final String URL = "http://www.kalerkantho.com/appapi/homenews";
@@ -79,10 +81,23 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(con);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        //requestGetNeslist(AllURL.getHomeNews());
 
-        requestGetNeslist(AllURL.getHomeNews());
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
+        if(isVisibleToUser){
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    requestGetNeslist(AllURL.getHomeNews());
+                }
+            },100);
+        }
     }
 
     private void requestGetNeslist(final String url) {

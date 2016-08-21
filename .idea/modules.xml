@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/KalerKantha.iml" filepath="$PROJECT_DIR$/KalerKantha.iml" />
       <module fileurl="file://$PROJECT_DIR$/aAPBDLib/aAPBDLib.iml" filepath="$PROJECT_DIR$/aAPBDLib/aAPBDLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/horizontalListView/horizontalListView.iml" filepath="$PROJECT_DIR$/horizontalListView/horizontalListView.iml" />
     </modules>
   </component>
 </project>

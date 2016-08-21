@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.shohel.khaler_kontho.Model.CommonNewsItem;
 import com.kalerkantho.R;
 import com.squareup.picasso.Picasso;
@@ -49,9 +50,9 @@ public class HorizontalRecyAdapter extends RecyclerView.Adapter<HorizontalRecyAd
         final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
 
         if (!TextUtils.isEmpty(hlist.get(position).getImage())){
-            Picasso.with(context).load(hlist.get(position).getImage()).placeholder(R.drawable.defaulticon).into(holder.imageHorizontal);
+            Glide.with(context).load(hlist.get(position).getImage()).placeholder(R.drawable.defaulticon).into(holder.imageHorizontal);
         }else{
-            Picasso.with(context).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(holder.imageHorizontal);
+            Glide.with(context).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(holder.imageHorizontal);
         }
 
         if (!TextUtils.isEmpty(hlist.get(position).getTitle())){
