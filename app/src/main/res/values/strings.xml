@@ -25,6 +25,12 @@
     <string name="month12">ডিসেম্বর</string>
 
 
+    <string name="nijoso">নিজস্ব পছন্দের</string>
+    <string name="subjectplus">বিষয় যোগ করে তৈরি কর \nতোমার সংবাদ!</string>
+    <string name="seehere">তোমার পছন্দের সর্বশেষ সংবাদগুলো এখানে\nদেখতে পাবে।</string>
+    <string name="letsgoo">চলো শুরু করি!!!</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

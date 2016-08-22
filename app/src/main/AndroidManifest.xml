@@ -5,13 +5,23 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+    <!-- GPS Tracker using -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- End GPS Tracker -->
+    <uses-permission android:name="com.kalerkantho.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
 
         >
-            <activity android:name="com.example.shohel.khaler_kontho.Splash"
+        <activity
+            android:name="com.kalerkantho.Splash"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
 
             <intent-filter>
@@ -22,15 +32,34 @@
         </activity>
 
 
-
         <activity
-            android:name="com.example.shohel.khaler_kontho.MainActivity"
+            android:name="com.kalerkantho.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
+        <!-- for GCM start -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+
+        <receiver
+            android:name="com.kalerkantho.Gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.aapbd.dlive" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.kalerkantho.Gcm.GcmIntentService" />
+        <!-- for GCM end -->
 
 
     </application>

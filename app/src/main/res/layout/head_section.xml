@@ -10,11 +10,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textColor="@color/white"
-    android:paddingTop="5dp"
+    android:paddingTop="8dp"
     android:paddingLeft="30dp"
-    android:paddingBottom="5dp"
+    android:paddingBottom="8dp"
     android:text="হোম"
-    android:textSize="16sp"/>
+    android:textSize="18sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -27,11 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:paddingTop="5dp"
+        android:paddingTop="8dp"
         android:paddingLeft="30dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="শীর্ষ সংবাদ"
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -45,11 +45,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:paddingTop="5dp"
+        android:paddingTop="8dp"
         android:paddingLeft="30dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="সর্বশেষ সংবাদ"
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -61,11 +61,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:paddingTop="5dp"
+        android:paddingTop="8dp"
         android:paddingLeft="30dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="8dp"
         android:text="সর্বাধিক পঠিত"
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -74,20 +74,21 @@
         />
 
 <RelativeLayout
+    android:id="@+id/printBtn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginRight="10dp"
     >
     <TextView
-        android:id="@+id/nijMenu"
+        android:id="@+id/printVersion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:paddingLeft="30dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:text="প্রিন্ট ভার্সন"
-        android:textSize="16sp"/>
+        android:textSize="18sp"/>
     <ImageView
         android:id="@+id/showPrintListView"
         android:layout_width="wrap_content"
