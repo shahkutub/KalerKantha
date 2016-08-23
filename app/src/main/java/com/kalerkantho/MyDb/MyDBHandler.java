@@ -13,6 +13,7 @@ import java.util.Vector;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
+    private Context con;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "categoryDB.db";
     private static final String TABLE_CAT = "category";
@@ -22,8 +23,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String CAT_NAME = "cat_name";
     public static final String CAT_TYPE = "cat_type";
 
-    public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+
+
+    public MyDBHandler(Context context) {
+        super(context, MyDBHandler.DATABASE_NAME, null,MyDBHandler.DATABASE_VERSION);
+        con = context;
     }
 
     @Override
@@ -136,5 +140,20 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         db.close();
         return flag;
+    }
+
+
+
+    public int removeCat(Category cat) {
+        final SQLiteDatabase db = getWritableDatabase();
+		/*
+		 * final String removequery = " Delete " + " FROM " +
+		 * DatabaseHandler.TABLE_ORDER + " where " + DatabaseHandler._IMAGEID +
+		 * "='" + fl.getId()+ "'";
+		 */
+
+        final int numRow = db.delete(MyDBHandler.TABLE_CAT, MyDBHandler.CAT_ID + "='" + cat.getId() + "'", null);
+        db.close();
+        return numRow;
     }
 }

@@ -32,11 +32,10 @@ public class AllNewsRecyAdapter extends RecyclerView.Adapter<AllNewsRecyAdapter.
     }
 
 
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_row, parent, false);
         return new MyViewHolder(itemView);
     }
 

@@ -3,6 +3,8 @@ package com.kalerkantho;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
 import com.kalerkantho.Model.Category;
+import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.holder.AllCategory;
@@ -34,6 +38,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mDrawerToggle;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Drawable dividerDrawable;
     List<Category> printList= new ArrayList<Category>();
     List<Category> onlineList= new ArrayList<Category>();
-    List<String> heading4= new ArrayList<String>();
+    private MyDBHandler db;
     private LinearLayoutManager mLayoutManager,mmLayoutManager,mmmLayoutManager;
 
     private ImageView showPrintListView,shokolShonbadListView,nirbacitoMenuView;
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        db = new MyDBHandler(getApplicationContext());
         /**
          *Setup the DrawerLayout and NavigationView
          */
@@ -69,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         final Typeface face_bold = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+        mDrawerLayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+
         mNavigationView = (NavigationView) findViewById(R.id.shitstuff);
         listViewMenu = (RecyclerView) findViewById(R.id.listViewMenu);
         shokolshogbadList= (RecyclerView) findViewById(R.id.shokolshogbadList);
@@ -131,23 +139,6 @@ public class MainActivity extends AppCompatActivity {
         dividerDrawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.lineee);
 
 
-
-        heading4.add("Submenu of item 1");
-        heading4.add("Submenu of item 2");
-        heading4.add("Submenu of item 3");
-        heading4.add("Submenu of item 4");
-        heading4.add("Submenu of item 5");
-        heading4.add("Submenu of item 6");
-        heading4.add("Submenu of item 7");
-        heading4.add("Submenu of item 8");
-        heading4.add("Submenu of item 9");
-        heading4.add("Submenu of item 10");
-        heading4.add("Submenu of item 11");
-        heading4.add("Submenu of item 12");
-        heading4.add("Submenu of item 13");
-        heading4.add("Submenu of item 14");
-        heading4.add("Submenu of item 15");
-
         Gson g = new Gson();
         allCategory = g.fromJson(PersistData.getStringData(getApplicationContext(), AppConstant.CATEGORY_RESPONSE),AllCategory.class);
 
@@ -158,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                if (listViewMenu.getVisibility() == View.GONE){
                    listViewMenu.setVisibility(View.VISIBLE);
-                   showPrintListView.setImageResource(R.drawable.back_show);
+
 
                    printList.clear();
 
@@ -167,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
 
                            printList.add(allCategory.getCategory_list().get(i));
                        }
+                   }
+
+                   if(printList.size()>0){
+
+                       showPrintListView.setImageResource(R.drawable.back_show);
                    }
 
                    mAdapter = new MenuRecyAdapter(getApplicationContext(), printList,null);
@@ -186,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (shokolshogbadList.getVisibility() == View.GONE){
-                    shokolShonbadListView.setImageResource(R.drawable.back_show);
+
                     shokolshogbadList.setVisibility(View.VISIBLE);
                     onlineList.clear();
 
@@ -196,6 +192,11 @@ public class MainActivity extends AppCompatActivity {
 
                             onlineList.add(allCategory.getCategory_list().get(i));
                         }
+                    }
+
+                    if(onlineList.size()>0){
+
+                        shokolShonbadListView.setImageResource(R.drawable.back_show);
                     }
 
                     mAdapter2 = new Menu2RecyAdapter(getApplicationContext(), onlineList);
@@ -214,13 +215,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (nirbachitoList.getVisibility() == View.GONE){
-                    nirbacitoMenuView.setImageResource(R.drawable.back_show);
-                    nirbachitoList.setVisibility(View.VISIBLE);
-                    mAdapter3 = new Menu3RecyAdapter(getApplicationContext(), heading4);
-                    nirbachitoList.setAdapter(mAdapter3);
 
+
+                    if(db.getCatList().size()>0){
+                        nirbacitoMenuView.setImageResource(R.drawable.back_show);
+                    }
+
+                    nirbachitoList.setVisibility(View.VISIBLE);
+                    mAdapter3 = new Menu3RecyAdapter(getApplicationContext(),null);
+                    nirbachitoList.setAdapter(mAdapter3);
+                    mAdapter3.notifyDataSetChanged();
                     RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                     nirbachitoList.addItemDecoration(dividerItemDecoration);
+
+
 
                 }else{
                     nirbacitoMenuView.setImageResource(R.drawable.back_gone);
@@ -299,12 +307,11 @@ public class MainActivity extends AppCompatActivity {
          */
 
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
+         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
+         mDrawerLayout.setDrawerListener(mDrawerToggle);
+         mDrawerToggle.syncState();
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        mDrawerToggle.syncState();
 
         // set here nav icon if want to change
       //  toolbar.setNavigationIcon(R.id.nav_icon);
@@ -312,23 +319,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
- /*   @Override
-    public void onBackPressed() {
-        if (isNavDrawerOpen()) {
-            closeNavDrawer();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    protected boolean isNavDrawerOpen() {
-        return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
-    }
-
-    protected void closeNavDrawer() {
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }*/
 }

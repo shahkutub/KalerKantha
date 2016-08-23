@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.kalerkantho.Fragment.AllnewsFragment;
 import com.kalerkantho.Fragment.NirbaChitoCategoryFragment;
+import com.kalerkantho.Fragment.PrintVFragment;
+import com.kalerkantho.Fragment.SubjectLikeFragment;
 import com.kalerkantho.Utils.AppConstant;
 
 public class TabFragment extends Fragment {
@@ -73,7 +75,7 @@ public class TabFragment extends Fragment {
 
     class MyAdapter extends FragmentPagerAdapter {
 
-        private String tabTitles[] = new String[] { "হোম", "শীর্ষ সংবাদ", "সর্বশেষ সংবাদ", "সর্বাধিক দর্শন", "নিজ সংবাদ", "প্রিন্ট ভার্সন", "নির্বাচিত ক্যাটাগরি","বিষয় পছন্দ করুন","সকল সংবাদ"};
+        private String tabTitles[] = new String[] { "হোম", "শীর্ষ সংবাদ", "সর্বশেষ সংবাদ", "সর্বাধিক দর্শন", "নির্বাচিত সংবাদ", "প্রিন্ট ভার্সন", "নির্বাচিত ক্যাটাগরি","বিষয় পছন্দ করুন","সকল সংবাদ"};
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
@@ -113,15 +115,16 @@ public class TabFragment extends Fragment {
 
               case 5 :
 
-                  return new MostviewNewsFragment();
+                  return new PrintVFragment();
 
               case 6 :
 
-                  return new MostviewNewsFragment();
+                  return new NirbaChitoCategoryFragment();
 
               case 7 :
 
-                    return new NirbaChitoCategoryFragment();
+                  return new SubjectLikeFragment();
+
                 case 8 :
 
                     return new AllnewsFragment();

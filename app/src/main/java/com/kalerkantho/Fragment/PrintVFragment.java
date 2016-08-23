@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.AllNewsRecyAdapter;
@@ -19,26 +20,27 @@ import com.kalerkantho.R;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.holder.AllCategory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class AllnewsFragment extends Fragment {
+public class PrintVFragment extends Fragment {
     private Context con;
-    private RecyclerView allNewsList;
+    private RecyclerView printvirsionList;
     AllNewsRecyAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    List<Category> onlineList= new ArrayList<Category>();
+    List<Category> printList= new ArrayList<Category>();
     AllCategory allCategory;
     Drawable dividerDrawable;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.allnewsfragment,null);
+        return inflater.inflate(R.layout.printvirsion,null);
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -50,23 +52,25 @@ public class AllnewsFragment extends Fragment {
 
     private void intiU() {
 
-        allNewsList = (RecyclerView) getView().findViewById(R.id.allNewsList);
-        mLayoutManager = new LinearLayoutManager(con);
-        allNewsList.setLayoutManager(mLayoutManager);
+        printvirsionList = (RecyclerView) getView().findViewById(R.id.printvirsionList);
 
-        if (onlineList!=null)
-            onlineList.clear();
+        mLayoutManager = new LinearLayoutManager(con);
+        printvirsionList.setLayoutManager(mLayoutManager);
+
+        if (printList!=null)
+            printList.clear();
 
         dividerDrawable = ContextCompat.getDrawable(con, R.drawable.lineee);
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-        allNewsList.addItemDecoration(dividerItemDecoration);
+        printvirsionList.addItemDecoration(dividerItemDecoration);
 
         for (int i=0;i<allCategory.getCategory_list().size();i++){
-            if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("online")){
-                onlineList.add(allCategory.getCategory_list().get(i));
+            if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("print")){
+                printList.add(allCategory.getCategory_list().get(i));
             }
         }
-        mAdapter = new AllNewsRecyAdapter(con, onlineList);
-        allNewsList.setAdapter(mAdapter);
+        mAdapter = new AllNewsRecyAdapter(con, printList);
+        printvirsionList.setAdapter(mAdapter);
+
     }
 }

@@ -2,24 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+
+    android:background="#F5F5F5"
  >
 
     <LinearLayout
+        android:id="@+id/emptyFv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+       >
 
     <ImageView
+        android:id="@+id/selectBtniv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:src="@drawable/addfavo"/>
 
         <TextView
+            android:id="@+id/tvLike"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -29,6 +36,7 @@
             android:text="@string/nijoso"/>
 
         <TextView
+            android:id="@+id/tvTitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -39,6 +47,7 @@
 
 
         <TextView
+            android:id="@+id/tvTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -49,6 +58,7 @@
 
 
         <TextView
+            android:id="@+id/startBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -63,7 +73,6 @@
             android:text="@string/letsgoo"/>
 
 
-
     </LinearLayout>
 
 
@@ -71,6 +80,8 @@
         android:id="@+id/recFvoList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:visibility="gone"/>
 
 </RelativeLayout>
