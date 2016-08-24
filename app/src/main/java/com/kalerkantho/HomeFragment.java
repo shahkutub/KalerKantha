@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.RecyclerAdapter;
 import com.kalerkantho.Model.All_Cat_News_Obj;
@@ -24,6 +25,7 @@ import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.Utils.AAPBDHttpClient;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
+import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllCommonNewsItem;
@@ -45,9 +47,10 @@ public class HomeFragment extends Fragment {
     private RecyclerAdapter mAdapter;
     ProgressBar progressShow;
     private boolean isViewShown = false;
+    public  List<AllCommonNewsItem> allCommonNewsItem = new ArrayList<AllCommonNewsItem>();
 
     Context con;
-    private List<AllCommonNewsItem> allCommonNewsItem = new ArrayList<AllCommonNewsItem>();
+
 
     @Nullable
     @Override
@@ -63,6 +66,7 @@ public class HomeFragment extends Fragment {
         initUI();
     }
 
+
     public void initUI() {
         progressShow = (ProgressBar) getView().findViewById(R.id.progressShow);
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview);
@@ -74,7 +78,7 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(con);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        //requestGetNeslist(AllURL.getHomeNews());
+
 
     }
 
@@ -131,11 +135,12 @@ public class HomeFragment extends Fragment {
                                 //String jsonString=getActivity().getResources().getString(R.string.a).toString();
                                // String jsonString=loadAssetTextAsString(getContext(),"abc.txt");
 
+                                PersistData.setStringData(con, AppConstant.HOMERESPONSE,response);
 
                                 AllNewsObj allObj=g.fromJson(new String(response),AllNewsObj.class);
 
 
-                              //  allCommonNewsItem  =new ArrayList<>();
+
                                 allCommonNewsItem.clear();
 
                                 int i=0;
@@ -145,6 +150,7 @@ public class HomeFragment extends Fragment {
                                     if(i==0)
                                     {
                                         AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                                        singleObj.setNewsCategory("topnews");
                                         singleObj.setType("fullscreen");
                                         singleObj.setNews_obj(topNews);
                                         allCommonNewsItem.add(singleObj);
@@ -153,9 +159,10 @@ public class HomeFragment extends Fragment {
                                     }else
                                     {
                                         AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                                        singleObj.setNewsCategory("topnews");
                                         singleObj.setType("defaultscreen");
                                         singleObj.setNews_obj(topNews);
-                                        allCommonNewsItem.add(singleObj);
+                                       allCommonNewsItem.add(singleObj);
                                     }
                                     i++;
                                 }
@@ -168,6 +175,7 @@ public class HomeFragment extends Fragment {
 
                                 // for bibid row
                                 AllCommonNewsItem hListObj=new AllCommonNewsItem();
+                                hListObj.setNewsCategory("blueslide");
                                 hListObj.setType("horizontal");
                                 hListObj.setList_news_obj(allObj.getBlueslide());
                                 allCommonNewsItem.add(hListObj);
@@ -178,6 +186,7 @@ public class HomeFragment extends Fragment {
                                 {
                                     // for bibid row
                                     AllCommonNewsItem a4=new AllCommonNewsItem();
+                                    a4.setNewsCategory("allnews");
                                     a4.setType("titleshow");
                                     a4.setCategory_title(allCat.getCategory_name());
                                     a4.setCategory_id(allCat.getCategory_id());
@@ -186,11 +195,14 @@ public class HomeFragment extends Fragment {
                                     for(CommonNewsItem cn:allCat.getNews())
                                     {
                                         AllCommonNewsItem a2=new AllCommonNewsItem();
+                                        a4.setNewsCategory("allnews");
                                         a2.setType("defaultscreen");
                                         a2.setNews_obj(cn);
-                                        allCommonNewsItem.add(a2);
+                                       allCommonNewsItem.add(a2);
                                     }
                                 }
+
+
 
                              /*   // for bhinow nes
                                 AllCommonNewsItem b3Obj=new AllCommonNewsItem();
@@ -199,10 +211,14 @@ public class HomeFragment extends Fragment {
                                 allCommonNewsItem.add(b3Obj);*/
 
                                 // for bibid row
+
+
                                 AllCommonNewsItem redObj=new AllCommonNewsItem();
+                                redObj.setNewsCategory("bibid");
                                 redObj.setType("horizontal");
                                 redObj.setList_news_obj(allObj.getRedslider());
                                 allCommonNewsItem.add(redObj);
+
 
                                 if (allCommonNewsItem.size() > 0) {
                                     //recyclerview adapter

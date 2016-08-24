@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kalerkantho.Adapter.MyFvRecyAdapter;
+import com.kalerkantho.Adapter.MyFvRecyAdapterList;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AllURL;
@@ -34,7 +35,7 @@ private Context con;
     private MyDBHandler db;
     private RecyclerView recFvoList;
 
-    private MyFvRecyAdapter myAdapter;
+    private MyFvRecyAdapterList myAdapter;
     Drawable dividerDrawable;
     private LinearLayoutManager myFvLayoutManager;
 
@@ -84,7 +85,7 @@ private Context con;
 
             recFvoList.setVisibility(View.VISIBLE);
             emptyFv.setVisibility(View.GONE);
-            myAdapter =new MyFvRecyAdapter(con,null);
+            myAdapter =new MyFvRecyAdapterList(con,null);
             recFvoList.setAdapter(myAdapter);
             myAdapter.notifyDataSetChanged();
 

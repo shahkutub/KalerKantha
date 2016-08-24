@@ -12,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kalerkantho.Fragment.AllnewsFragment;
+import com.kalerkantho.Fragment.LatestNewsFragment;
+import com.kalerkantho.Fragment.MostReadFragment;
 import com.kalerkantho.Fragment.NirbaChitoCategoryFragment;
 import com.kalerkantho.Fragment.PrintVFragment;
+import com.kalerkantho.Fragment.SelectedNewsFragment;
 import com.kalerkantho.Fragment.SubjectLikeFragment;
-import com.kalerkantho.Utils.AppConstant;
+import com.kalerkantho.Fragment.TopNewsFragment;
+
 
 public class TabFragment extends Fragment {
 
@@ -99,19 +103,19 @@ public class TabFragment extends Fragment {
 
               case 1 :
 
-                  return new LatestNewsFragment();
+                  return new TopNewsFragment();
 
               case 2 :
 
-                  return new TopNewsFragment();
+                  return new LatestNewsFragment();
 
               case 3 :
 
-                  return new MostviewNewsFragment();
+                  return new MostReadFragment();
 
               case 4 :
 
-                  return new MostviewNewsFragment();
+                  return new SelectedNewsFragment();
 
               case 5 :
 

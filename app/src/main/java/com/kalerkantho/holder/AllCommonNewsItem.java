@@ -13,6 +13,16 @@ public class AllCommonNewsItem {
     private String type;
     private String category_title;
     private String category_id;
+
+    public String getNewsCategory() {
+        return newsCategory;
+    }
+
+    public void setNewsCategory(String newsCategory) {
+        this.newsCategory = newsCategory;
+    }
+
+    private String newsCategory;
     private CommonNewsItem news_obj = new CommonNewsItem();
     private List<CommonNewsItem> list_news_obj = new ArrayList<CommonNewsItem>();
 

@@ -1,12 +1,18 @@
 package com.kalerkantho.Utils;
 
 
+import com.kalerkantho.holder.AllCommonNewsItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppConstant {
     public static final String[] FACEBOOK_PERMISSION = {"email", "user_about_me", "read_stream", "user_photos", "public_profile" };
     public static String COLOR_MAIN = "#A551D0";
 
     public static final String COLOR_DEFAULT_MAIN = "#A551D0";
     public static final String COLOR_DEFAULT_SECONDARY = "#FFFFFF";
+
 
     public static final String COLOR_SETTINGS = "#4C436E";
     public static final String COLOR_SHARE = "#0054A5";
@@ -15,6 +21,7 @@ public class AppConstant {
     public static String GCMID = "gcmid";
     public static String SystemTime = "systemtime";
     public static String CATEGORY_RESPONSE = "category_response";
+    public static String HOMERESPONSE = "homeresponse";
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 

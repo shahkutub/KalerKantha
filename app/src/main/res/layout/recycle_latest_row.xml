@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+
+
+  <ImageView
+        android:id="@+id/imag_comm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/defaulticon"
+        android:scaleType="fitXY"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imag_comm"
+        android:layout_alignLeft="@+id/imag_comm"
+        android:layout_alignRight="@+id/imag_comm"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/commonTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/common_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/comDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:layout_marginTop="5dp"
+            android:textColor="#9E9E9E"
+            android:textSize="12sp" />
+    </LinearLayout>
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
