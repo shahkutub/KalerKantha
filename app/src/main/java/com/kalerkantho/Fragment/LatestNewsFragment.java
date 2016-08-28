@@ -3,6 +3,7 @@ package com.kalerkantho.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.kalerkantho.Adapter.LatestRecyAdapter;
 import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.GridSpacingItemDecoration;
@@ -45,7 +47,7 @@ public class LatestNewsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
 
-        intiU();
+
     }
 
     private void intiU() {
@@ -74,5 +76,21 @@ public class LatestNewsFragment extends Fragment {
         lAdapter = new LatestRecyAdapter(con,latestNews,null);
         latestNewRecList.setAdapter(lAdapter);
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser){
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    intiU();
+                }
+            },100);
+        }
     }
 }

@@ -26,6 +26,7 @@ public class TabFragment extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
    public static int int_items = 9;
+    private int fragmentPos=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +38,14 @@ public class TabFragment extends Fragment {
              viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
 
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            fragmentPos = bundle.getInt("pos", 0);
+        }
+
             viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+            setPageItem(fragmentPos);
+
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -72,6 +80,11 @@ public class TabFragment extends Fragment {
 
         return x;
 
+    }
+
+    void setPageItem(int i)
+    {
+        viewPager.setCurrentItem(i);
     }
 
 

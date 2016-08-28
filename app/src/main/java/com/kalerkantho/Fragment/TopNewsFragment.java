@@ -53,9 +53,12 @@ public class TopNewsFragment extends Fragment {
 
     private void intiU() {
 
-
         Gson g = new Gson();
-        allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
+        if (PersistData.getStringData(con, AppConstant.HOMERESPONSE)!=null){
+
+            allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
+        }
+
 
         topnews.clear();
 

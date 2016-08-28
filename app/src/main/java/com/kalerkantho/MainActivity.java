@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,14 @@ public class MainActivity extends AppCompatActivity {
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
+
+        TabFragment fragment= new TabFragment();
+
+      /*  Bundle bundle = new Bundle();
+        bundle.putInt("pos", 0);
+        fragment.setArguments(bundle);*/
+
+        mFragmentTransaction.replace(R.id.containerView, fragment).commit();
         /**
          * Setup click events on the Navigation View Items.
          */
@@ -143,9 +151,28 @@ public class MainActivity extends AppCompatActivity {
         allCategory = g.fromJson(PersistData.getStringData(getApplicationContext(), AppConstant.CATEGORY_RESPONSE),AllCategory.class);
 
 
+       /* homeMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 2);
+                fragment.setArguments(bundle);
+
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+                //mNavigationView.setVisibility(View.GONE);
+
+            }
+        });*/
         printBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                if (listViewMenu.getVisibility() == View.GONE){
                    listViewMenu.setVisibility(View.VISIBLE);
@@ -315,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
 
         // set here nav icon if want to change
       //  toolbar.setNavigationIcon(R.id.nav_icon);
-        
+
 
 
     }
