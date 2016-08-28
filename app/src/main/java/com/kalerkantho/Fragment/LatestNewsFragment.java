@@ -5,9 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +18,7 @@ import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
+import com.kalerkantho.Utils.GridSpacingItemDecoration;
 import com.kalerkantho.holder.AllCommonNewsItem;
 import com.kalerkantho.holder.AllNewsObj;
 
@@ -68,14 +67,9 @@ public class LatestNewsFragment extends Fragment {
 
         latestNewRecList= (RecyclerView) getView().findViewById(R.id.latestNewRecList);
 
-       //mLayoutManager = new LinearLayoutManager(con);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(con,2);
-        latestNewRecList.setLayoutManager(mLayoutManager);
-       // dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
-        //dividerDrawable.clearColorFilter();
-       // RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-        //latestNewRecList.addItemDecoration(dividerItemDecoration);
+        latestNewRecList.setLayoutManager(new GridLayoutManager(con, 2));
+        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
+        latestNewRecList.addItemDecoration(itemDecoration);
 
         lAdapter = new LatestRecyAdapter(con,latestNews,null);
         latestNewRecList.setAdapter(lAdapter);

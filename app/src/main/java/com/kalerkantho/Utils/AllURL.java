@@ -37,6 +37,12 @@ public class AllURL {
 		return getcommonURLWithParamAndAction("menu_list", temp);
 	}
 
+
+	public static String getNirbachitoList(String rURL,int pagNumber) {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("my_news"+"/"+rURL+"/"+pagNumber,temp);
+	}
+
 	public static String getHomeNews() {
 		final Vector<KeyValue> temp = new Vector();
 		//temp.add(new KeyValue("token",token));

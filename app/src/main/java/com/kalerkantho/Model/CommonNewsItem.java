@@ -23,6 +23,15 @@ public class CommonNewsItem {
     private String category;
     private String url;
     private String category_name;
+    private String details;
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
     public String getId() {
         return id;

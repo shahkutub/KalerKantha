@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+
     >
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:elevation="1dp">
 
     <RelativeLayout
@@ -18,9 +18,9 @@
 
   <ImageView
         android:id="@+id/imag_comm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/defaulticon"
+        android:layout_width="@dimen/grid_imagew"
+        android:layout_height="@dimen/grid_imageh"
+       android:background="@drawable/defaulticon"
         android:scaleType="fitXY"
         />
 
@@ -39,6 +39,8 @@
             android:text=""
             android:textColor="@android:color/black"
             android:textSize="15sp"
+            android:maxLines="2"
+            android:lines="2"
             android:textStyle="bold" />
 
         <TextView
@@ -46,9 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:maxLines="1"
+            android:lines="1"
             android:textColor="@android:color/holo_blue_light"
             android:layout_marginTop="5dp"
             android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/comDateTime"
@@ -56,9 +64,30 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text=""
+            android:maxLines="1"
+            android:lines="1"
             android:layout_marginTop="5dp"
             android:textColor="#9E9E9E"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_alignParentLeft="true"
+            />
+
+            <TextView
+                android:id="@+id/numberingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:maxLines="1"
+                android:lines="1"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:background="@color/homTop"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
     </LinearLayout>
     </RelativeLayout>
     </android.support.v7.widget.CardView>

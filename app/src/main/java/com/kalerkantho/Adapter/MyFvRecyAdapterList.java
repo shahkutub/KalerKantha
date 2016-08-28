@@ -9,65 +9,104 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kalerkantho.Model.Category;
+import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.Model.OnItemClickListener;
+import com.kalerkantho.Model.OnItemClickListenerNews;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyFvRecyAdapterList extends RecyclerView.Adapter<MyFvRecyAdapterList.MyViewHolder> {
     Context context;
-    private final OnItemClickListener listener;
-    MyDBHandler db;
+    private final OnItemClickListenerNews listener;
+    private List<CommonNewsItem> listData = new ArrayList<CommonNewsItem>();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView menu;
-        ImageView removeFvBtn;
+
+        ImageView commonImage;
+        TextView commonTitle;
+        TextView commonDateTime;
+        TextView commonCategory;
+        View divderView;
+
 
         public MyViewHolder(View view) {
             super(view);
-            menu = (TextView) view.findViewById(R.id.headlist);
-            removeFvBtn = (ImageView) view.findViewById(R.id.revBtn);
+
+            divderView = (View) view.findViewById(R.id.divderView);
+            commonImage = (ImageView) view.findViewById(R.id.imag_comm);
+            commonTitle = (TextView) view.findViewById(R.id.commonTitle);
+            commonDateTime = (TextView) view.findViewById(R.id.comDateTime);
+            commonCategory = (TextView) view.findViewById(R.id.common_cat);
+
         }
 
-        public void bind(final Category item, final OnItemClickListener listener) {
+        public void bind(final CommonNewsItem item, final OnItemClickListenerNews listener) {
 
             final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
 
-            if (!TextUtils.isEmpty(item.getName())){
-                menu.setText(item.getName());
-            }else{
-                menu.setText("");
+            if (!(TextUtils.isEmpty(item.getImage()))) {
+                Glide.with(context).load(item.getImage()).placeholder(R.drawable.defaulticon).into(commonImage);
+            } else {
+                Glide.with(context).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(commonImage);
             }
-            menu.setTypeface(face_reg);
 
-            removeFvBtn.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(item.getTitle())) {
+                commonTitle.setText(item.getTitle());
+
+            } else {
+              commonTitle.setText("");
+            }
+
+            if (!TextUtils.isEmpty(item.getBanglaDateString())){
+                commonDateTime.setText(item.getBanglaDateString());
+            }else{
+                commonDateTime.setText("");
+            }
+
+            if (!TextUtils.isEmpty(item.getCategory_name())){
+               commonCategory.setText(item.getCategory_name());
+            }else{
+                commonCategory.setText("");
+                divderView.setVisibility(View.GONE);
+            }
+
+            commonTitle.setTypeface(face_reg);
+            commonDateTime.setTypeface(face_reg);
+            commonCategory.setTypeface(face_reg);
+
+
 
 
         }
     }
-    public MyFvRecyAdapterList(Context context, OnItemClickListener listener) {
+    public MyFvRecyAdapterList(Context context, List<CommonNewsItem> listData,OnItemClickListenerNews listener) {
         this.context = context;
         this.listener = listener;
-        db = new MyDBHandler(context);
+        this.listData = listData;
     }
 
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_common_item, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-         holder.bind(db.getCatList().get(position), listener);
+         holder.bind(listData.get(position), listener);
 
     }
 
     @Override
     public int getItemCount() {
-        return db.getCatList().size();
+        return listData.size();
     }
 }

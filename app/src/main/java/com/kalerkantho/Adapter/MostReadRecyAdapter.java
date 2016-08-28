@@ -10,18 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.kalerkantho.Model.Category;
-import com.kalerkantho.Model.CommonNewsItem;
-import com.kalerkantho.Model.OnItemClickListener;
 import com.kalerkantho.Model.OnItemClickListenerNews;
-import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
 import com.kalerkantho.holder.AllCommonNewsItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LatestRecyAdapter extends RecyclerView.Adapter<LatestRecyAdapter.MyViewHolder> {
+public class MostReadRecyAdapter extends RecyclerView.Adapter<MostReadRecyAdapter.MyViewHolder> {
     Context context;
     private final OnItemClickListenerNews listener;
     private List<AllCommonNewsItem> latestList = new ArrayList<AllCommonNewsItem>();
@@ -35,6 +31,7 @@ public class LatestRecyAdapter extends RecyclerView.Adapter<LatestRecyAdapter.My
 
 
 
+
         public MyViewHolder(View view) {
             super(view);
 
@@ -43,9 +40,10 @@ public class LatestRecyAdapter extends RecyclerView.Adapter<LatestRecyAdapter.My
             commonDateTime = (TextView) view.findViewById(R.id.comDateTime);
             commonCategory = (TextView) view.findViewById(R.id.common_cat);
             numberingText = (TextView) view.findViewById(R.id.numberingText);
+
         }
 
-        public void bind(final AllCommonNewsItem item, final OnItemClickListenerNews listener) {
+        public void bind(final AllCommonNewsItem item, final OnItemClickListenerNews listener,int pos) {
 
             final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
             final Typeface face_bold = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
@@ -69,6 +67,7 @@ public class LatestRecyAdapter extends RecyclerView.Adapter<LatestRecyAdapter.My
                 commonDateTime.setText("");
             }
 
+
             if (!TextUtils.isEmpty(item.getNews_obj().getCategory_name())){
                 commonCategory.setText(item.getNews_obj().getCategory_name());
             }else{
@@ -76,16 +75,21 @@ public class LatestRecyAdapter extends RecyclerView.Adapter<LatestRecyAdapter.My
 
             }
 
-            numberingText.setVisibility(View.GONE);
+
+            numberingText.setVisibility(View.VISIBLE);
+
+            numberingText.setText(""+(pos+1));
+
 
             commonTitle.setTypeface(face_bold);
             commonDateTime.setTypeface(face_reg);
             commonCategory.setTypeface(face_reg);
+            numberingText.setTypeface(face_bold);
 
 
         }
     }
-    public LatestRecyAdapter(Context context,List<AllCommonNewsItem> latestList,OnItemClickListenerNews listener) {
+    public MostReadRecyAdapter(Context context, List<AllCommonNewsItem> latestList, OnItemClickListenerNews listener) {
         this.context = context;
         this.listener = listener;
         this.latestList = latestList;
@@ -101,7 +105,7 @@ public class LatestRecyAdapter extends RecyclerView.Adapter<LatestRecyAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-         holder.bind(latestList.get(position), listener);
+         holder.bind(latestList.get(position), listener,position);
 
     }
 

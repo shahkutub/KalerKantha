@@ -4,5 +4,9 @@
      <dimen name="fullscreen_image_height">250dp</dimen>
     <dimen name="default_imageh">160dp</dimen>
     <dimen name="default_imagew">210dp</dimen>
+    <dimen name="space">15dp</dimen>
+
+    <dimen name="grid_imageh">150dp</dimen>
+    <dimen name="grid_imagew">200dp</dimen>
 
 </resources>
