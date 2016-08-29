@@ -36,6 +36,11 @@ public class AllURL {
 		final Vector<KeyValue> temp = new Vector();
 		return getcommonURLWithParamAndAction("menu_list", temp);
 	}
+	public static String getDetails(String id,String user) {
+		final Vector<KeyValue> temp = new Vector();
+		//temp.add(new KeyValue("token",id));
+		return getcommonURLWithParamAndAction("news_details/"+id+"/"+user, temp);
+	}
 
 
 	public static String getNirbachitoList(String rURL,int pagNumber) {
