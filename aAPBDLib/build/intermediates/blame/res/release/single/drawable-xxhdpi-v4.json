@@ -4,20 +4,12 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-plus\\9.4.0\\res\\drawable-xxhdpi-v4\\ic_plusone_tall_off_client.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_btn_rating_star_off_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_rating_star_off_mtrl_alpha.png"
-    },
-    {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_cast_white_36.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_cast_white_36.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_search_api_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_search_api_mtrl_alpha.png"
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_play_arrow_grey600_36.png",
@@ -40,20 +32,16 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_forward_30_white_24.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_skip_previous_grey600_36.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_skip_previous_grey600_36.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png"
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_full_open_on_phone.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_full_open_on_phone.png"
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_pause_circle_filled_grey600_36.png",
@@ -64,12 +52,16 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_replay_30_white_36.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_full_open_on_phone.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_full_open_on_phone.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\ic_cast_on_0_light.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\23.0.0\\res\\drawable-xxhdpi\\ic_cast_on_0_light.png"
+    },
+    {
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_clear_white_24.png",
@@ -216,10 +208,6 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_light_focused.9.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_voice_search_api_mtrl_alpha.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
@@ -288,12 +276,12 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-places\\9.4.0\\res\\drawable-xxhdpi-v4\\places_ic_clear.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_light_normal.9.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_light_normal.9.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_stop_grey600_36.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_stop_grey600_36.png"
+    },
+    {
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_light_normal.9.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_light_normal.9.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_skip_next_white_24.png",
@@ -340,10 +328,6 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_plus_signin_btn_icon_light_normal.9.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_menu_moreoverflow_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_moreoverflow_mtrl_alpha.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_google_signin_btn_text_light_disabled.9.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_text_light_disabled.9.png"
     },
@@ -368,8 +352,8 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_light_disabled.9.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_rating_star_on_mtrl_alpha.png"
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_cast_connected_white_24.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_cast_connected_white_24.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_list_pressed_holo_dark.9.png",
@@ -380,20 +364,8 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_plus_signin_btn_icon_dark_pressed.9.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_cast_connected_white_24.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_cast_connected_white_24.png"
-    },
-    {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_clear_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_clear_mtrl_alpha.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_plus_signin_btn_icon_light_focused.9.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_plus_signin_btn_icon_light_focused.9.png"
-    },
-    {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_ab_back_mtrl_am_alpha.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_volume_off_grey600_36.png",
@@ -404,12 +376,12 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_light_pressed.9.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\ic_play_dark.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\23.0.0\\res\\drawable-xxhdpi\\ic_play_dark.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\back.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\src\\main\\res\\drawable-xxhdpi\\back.png"
+    },
+    {
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\ic_play_dark.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\23.0.0\\res\\drawable-xxhdpi\\ic_play_dark.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\ic_plusone_small_off_client.png",
@@ -468,10 +440,6 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_volume_off_white_36.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_go_search_api_mtrl_alpha.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\ic_cast_dark.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\23.0.0\\res\\drawable-xxhdpi\\ic_cast_dark.png"
     },
@@ -496,12 +464,12 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_text_light_focused.9.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_dark_disabled.9.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_dark_disabled.9.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_ic_star_half_black_48dp.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_dark_disabled.9.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.4.0\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_dark_disabled.9.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_replay_white_24.png",
@@ -560,12 +528,12 @@
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\23.0.0\\res\\drawable-xxhdpi\\ic_cast_on_1_light.png"
     },
     {
-        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
-        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
-    },
-    {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\quantum_ic_forward_30_white_36.png",
         "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast-framework\\9.4.0\\res\\drawable-xxhdpi-v4\\quantum_ic_forward_30_white_36.png"
+    },
+    {
+        "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
     },
     {
         "merged": "E:\\Apps\\KalerKantha\\aAPBDLib\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\ic_plusone_standard_off_client.png",

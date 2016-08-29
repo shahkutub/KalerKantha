@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public String getData()
+   /* public String getData()
     {
         try {
             InputStream is = getActivity().getAssets().open("abc.txt");
@@ -305,5 +305,5 @@ public class HomeFragment extends Fragment {
         }
 
         return null;
-    }
+    }*/
 }
