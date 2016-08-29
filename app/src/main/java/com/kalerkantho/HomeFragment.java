@@ -17,12 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.RecyclerAdapter;
 import com.kalerkantho.Model.All_Cat_News_Obj;
 import com.kalerkantho.Model.CommonNewsItem;
-import com.kalerkantho.Utils.AAPBDHttpClient;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
@@ -31,10 +31,6 @@ import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllCommonNewsItem;
 import com.kalerkantho.holder.AllNewsObj;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;

@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
+import com.kalerkantho.Fragment.PhotoFragment;
 import com.kalerkantho.Model.Category;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AppConstant;
@@ -127,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
         TabFragment fragment= new TabFragment();
 
-      /*  Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putInt("pos", 0);
-        fragment.setArguments(bundle);*/
+        fragment.setArguments(bundle);
 
         mFragmentTransaction.replace(R.id.containerView, fragment).commit();
         /**
@@ -151,23 +152,64 @@ public class MainActivity extends AppCompatActivity {
         allCategory = g.fromJson(PersistData.getStringData(getApplicationContext(), AppConstant.CATEGORY_RESPONSE),AllCategory.class);
 
 
-       /* homeMenu.setOnClickListener(new View.OnClickListener() {
+        homeMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
-                bundle.putInt("pos", 2);
+                bundle.putInt("pos", 0);
                 fragment.setArguments(bundle);
-
                 mFragmentTransaction = mFragmentManager.beginTransaction();
-
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();
-                //mNavigationView.setVisibility(View.GONE);
 
             }
-        });*/
+        });
+
+        shirshoMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 1);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+
+            }
+        });
+
+        shorboMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 2);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+            }
+        });
+
+        shorbaMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 3);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+            }
+        });
+
         printBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,6 +247,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        nirbachitoSongbad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 4);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+            }
+        });
+
+
         shokolBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         nirbachitoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,6 +323,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        photogalery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PhotoFragment fragment= new PhotoFragment();
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+
+            }
+        });
+
+
+
+
+
+
+
+
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

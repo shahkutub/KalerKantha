@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -20,24 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.aapbd.utils.storage.PersistData;
+import com.aapbd.utils.network.AAPBDHttpClient;
 import com.google.gson.Gson;
-import com.kalerkantho.Adapter.MyFvRecyAdapter;
 import com.kalerkantho.Adapter.MyFvRecyAdapterList;
-import com.kalerkantho.Adapter.RecyclerAdapter;
-import com.kalerkantho.Model.All_Cat_News_Obj;
 import com.kalerkantho.Model.Category;
-import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
-import com.kalerkantho.Utils.AAPBDHttpClient;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
-import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
-import com.kalerkantho.holder.AllCommonNewsItem;
-import com.kalerkantho.holder.AllNewsObj;
 import com.kalerkantho.holder.AllNirbahito;
 
 import java.util.concurrent.Executors;
@@ -124,10 +115,12 @@ private Context con;
         }
 
 
+        getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
+
     }
 
 
-    @Override
+/*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -140,7 +133,7 @@ private Context con;
                 }
             },100);
         }
-    }
+    }*/
 
 
 

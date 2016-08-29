@@ -28,12 +28,15 @@ android {
 
 repositories {
     mavenCentral()
+    maven {
+        url  "http://dl.bintray.com/aapbd/maven"
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile project(':aAPBDLib')
+
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support:design:23.4.0'
@@ -43,6 +46,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.3.+'
     compile 'com.android.support:cardview-v7:23.3.+'
     compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.aapbd.aapbdlib:aapbd-lib:1.0.0'
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
 

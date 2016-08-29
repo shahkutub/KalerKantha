@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.aapbd.utils.geolocation.GPSTracker;
+import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
-import com.kalerkantho.Utils.AAPBDHttpClient;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
