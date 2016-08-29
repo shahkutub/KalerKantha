@@ -3,6 +3,7 @@ package com.kalerkantho.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -48,7 +49,7 @@ public class MostReadFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
 
-        intiU();
+       // intiU();
     }
 
     private void intiU() {
@@ -78,5 +79,21 @@ public class MostReadFragment extends Fragment {
         mAdapter = new MostReadRecyAdapter(con,mostRead,null);
         mostReadNewRecList.setAdapter(mAdapter);
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser){
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    intiU();
+                }
+            },100);
+        }
     }
 }
