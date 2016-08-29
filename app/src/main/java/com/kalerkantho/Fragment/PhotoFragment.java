@@ -73,11 +73,11 @@ public class PhotoFragment extends Fragment {
 
 
         photoGalleryList.setLayoutManager(new GridLayoutManager(con, 3));
-        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
+        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.spacepad);
         photoGalleryList.addItemDecoration(itemDecoration);
 
 
-        pAdapter = new PhotoRecyAdapter(con,allPhotolist,null);
+        pAdapter = new PhotoRecyAdapter(getActivity(),allPhotolist,null);
         photoGalleryList.setAdapter(pAdapter);
 
 

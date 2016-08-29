@@ -5,6 +5,7 @@
     <dimen name="default_imageh">110dp</dimen>
     <dimen name="default_imagew">140dp</dimen>
     <dimen name="space">5dp</dimen>
+    <dimen name="spacepad">2dp</dimen>
 
 
     <dimen name="grid_imageh">120dp</dimen>

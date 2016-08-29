@@ -37,6 +37,11 @@ public class AllURL {
 		return getcommonURLWithParamAndAction("menu_list", temp);
 	}
 
+	public static String getPhotoList(String cat) {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("photogallery"+"/"+cat, temp);
+	}
+
 
 	public static String getNirbachitoList(String rURL,int pagNumber) {
 		final Vector<KeyValue> temp = new Vector();
