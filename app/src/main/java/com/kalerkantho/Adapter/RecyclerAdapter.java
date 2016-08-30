@@ -201,6 +201,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
                 id = newsitem.getNews_obj().getId();
                 Intent i = new Intent(mContext, DetailsActivity.class);
                 i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
                 mContext.startActivity(i);
 
             }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.aapbd.utils.network.AAPBDHttpClient;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.kalerkantho.Model.DetailsModel;
 import com.kalerkantho.Model.FvrtModel;
 import com.kalerkantho.MyDb.MyDBHandler;
@@ -30,7 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
     private Context con;
     private TextView headingTxt,txt_positive_like,txt_negative_like,txt_comment,txtDate,txtCategory,detailsTxt;
    private  ImageView backImgMain,fvImg,backBtn;
-    private String content_id = "";
+    private String content_id = "",isFvrtString = "";
     private ProgressBar progressShow;
     private MyDBHandler db;
     private FvrtModel fm = new FvrtModel();
@@ -53,7 +54,7 @@ public class DetailsActivity extends AppCompatActivity {
         progressShow = (ProgressBar)findViewById(R.id.progressShow);
 
         content_id = getIntent().getExtras().getString("content_id");
-
+        isFvrtString = getIntent().getExtras().getString("is_favrt");
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,9 +64,48 @@ public class DetailsActivity extends AppCompatActivity {
         db = new MyDBHandler(con);
 
         // call url for detals
+
         if(!content_id.isEmpty()){
-            Log.e("id details:",content_id);
-            requestGetNeslist(AllURL.getDetails(content_id,""));
+            if(isFvrtString.equalsIgnoreCase("1") ){
+                Log.e("fff","favrt");
+                try {
+                    String response = "";
+
+                    for(FvrtModel fm:db.getAllFvrtModels()) {
+                        if (content_id.equalsIgnoreCase(fm.getFvrtId())) {
+                            response = fm.getFvrtObject();
+                            break;
+                        }
+                    }
+
+
+                    Gson g = new Gson();
+                    allDetail=g.fromJson(new String(response),DetailsModel.class);
+
+                    if(allDetail != null) {
+                        headingTxt.setText(allDetail.getNews().getTitle());
+                        detailsTxt.setText(allDetail.getNews().getDetails());
+                        Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
+
+                        if (allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()) {
+                            txt_positive_like.setText(allDetail.getLike_count());
+                        }
+                        if (allDetail.getIs_disliked().equalsIgnoreCase("true") && !allDetail.getDislike_count().isEmpty()) {
+                            txt_positive_like.setText(allDetail.getDislike_count());
+                        }
+                        if (!allDetail.getComments_count().equalsIgnoreCase("0"))
+                            txt_comment.setText(allDetail.getComments_count());
+                        txtDate.setText(allDetail.getNews().getDatetime() + "  | ");
+                        txtCategory.setText(allDetail.getNews().getCategory_name());
+                    }
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                Log.e("id details:", content_id);
+                requestGetNeslist(AllURL.getDetails(content_id, ""));
+            }
         }
 
         fvImg.setOnClickListener(new View.OnClickListener() {

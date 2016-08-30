@@ -140,7 +140,9 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
                 String id = photoList.get(position).getNews().getId();
                 Intent i = new Intent(context, DetailsActivity.class);
                 i.putExtra("content_id",id);
+                i.putExtra("is_favrt","1");
                 context.startActivity(i);
+
                     context.finish();
             }
         });

@@ -1,5 +1,7 @@
 package com.kalerkantho.Adapter;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
-import com.kalerkantho.Model.OnItemClickListenerNews;
+import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.R;
 import com.kalerkantho.holder.AllCommonNewsItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +67,7 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        AllCommonNewsItem newsitem = topnews.get(position);
+       final AllCommonNewsItem newsitem = topnews.get(position);
 
         final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
         final Typeface face_bold = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
@@ -136,6 +140,17 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
             commonHolder.commonCategory.setTypeface(face_reg);
 
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = newsitem.getNews_obj().getId();
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
+                context.startActivity(i);
+            }
+        });
 
     }
 
