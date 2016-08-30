@@ -23,6 +23,11 @@
     <string name="month10">অক্টবর</string>
     <string name="month11">নভেম্বর</string>
     <string name="month12">ডিসেম্বর</string>
+    <string name="registration">রেজিস্ট্রেশান</string>
+    <string name="nam">নাম</string>
+    <string name="email">ই-মেইল</string>
+    <string name="password">পাসওয়ার্ড </string>
+
 
 
     <string name="nijoso">নিজস্ব পছন্দের</string>
