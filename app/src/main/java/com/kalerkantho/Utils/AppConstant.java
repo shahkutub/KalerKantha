@@ -1,7 +1,7 @@
 package com.kalerkantho.Utils;
 
 
-import com.kalerkantho.holder.AllCommonNewsItem;
+import com.kalerkantho.Model.CommonNewsItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ public class AppConstant {
     public static String SystemTime = "systemtime";
     public static String CATEGORY_RESPONSE = "category_response";
     public static String HOMERESPONSE = "homeresponse";
+    public static List<CommonNewsItem> PHOTOLIST = new ArrayList<CommonNewsItem>();
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 

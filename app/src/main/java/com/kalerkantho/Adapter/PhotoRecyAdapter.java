@@ -1,26 +1,42 @@
 package com.kalerkantho.Adapter;
-import android.content.Context;
-import android.graphics.Typeface;
+import android.app.Activity;
+
+import android.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.app.FragmentManager;
 
+
+import com.aapbd.utils.network.AAPBDHttpClient;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.kalerkantho.Dialog.PhotoViewDialog;
+import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.Model.OnItemClickListenerNews;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AlertMessage;
+import com.kalerkantho.Utils.AllURL;
+import com.kalerkantho.Utils.AppConstant;
+import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllCommonNewsItem;
+import com.kalerkantho.holder.AllPhoto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyViewHolder> {
-    Context context;
+    Activity context;
     private final OnItemClickListenerNews listener;
     private List<AllCommonNewsItem> photoList = new ArrayList<AllCommonNewsItem>();
+    private List<CommonNewsItem> allPhotoList = new ArrayList<CommonNewsItem>();
+    private AllPhoto allPhoto;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView photo;
@@ -34,15 +50,33 @@ public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyVi
 
         public void bind(final AllCommonNewsItem item, final OnItemClickListenerNews listener) {
 
+
+
             if (!(TextUtils.isEmpty(item.getNews_obj().getImage()))) {
                 Glide.with(context).load(item.getNews_obj().getImage()).placeholder(R.drawable.defaulticon).into(photo);
             } else {
                 Glide.with(context).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(photo);
             }
+
+
+
+            photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.e(" object ",">>"+item.toString());
+
+                    String cat = item.getNews_obj().getCategory();
+                    Log.e("cat id",""+cat);
+                    getPhotoList(AllURL.getPhotoList(cat));
+
+
+                }
+            });
         }
 
     }
-    public PhotoRecyAdapter(Context context, List<AllCommonNewsItem> photoList, OnItemClickListenerNews listener) {
+    public PhotoRecyAdapter(Activity context, List<AllCommonNewsItem> photoList, OnItemClickListenerNews listener) {
         this.context = context;
         this.listener = listener;
         this.photoList = photoList;
@@ -65,5 +99,70 @@ public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyVi
     @Override
     public int getItemCount() {
         return photoList.size();
+    }
+
+
+
+    private void getPhotoList(final String url) {
+        if (!NetInfo.isOnline(context)) {
+            AlertMessage.showMessage(context, context.getString(R.string.app_name), "No Internet!");
+            return;
+        }
+        Log.e("URL : ", url);
+        //progressNirbachito.setVisibility(View.VISIBLE);
+        Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
+            String response = "";
+
+            @Override
+            public void run() {
+
+                try {
+                    response = AAPBDHttpClient.get(url).body();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                context.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                       // progressNirbachito.setVisibility(View.GONE);
+
+                        try {
+                            Log.e("Response", ">>" + new String(response));
+                            if (!TextUtils.isEmpty(new String(response))) {
+
+
+
+                               /* Gson g = new Gson();
+                                Type fooType = new TypeToken<ArrayList<Photo>>() {
+
+                                }.getType();
+                                allPhotoList = g.fromJson(new String(response), fooType);*/
+
+                                Gson g = new Gson();
+                                allPhoto=g.fromJson(new String(response),AllPhoto.class);
+
+
+                                 if (allPhoto.getStatus().equalsIgnoreCase("1")){
+                                     AppConstant.PHOTOLIST.addAll(allPhoto.getImages());
+                                     Log.e("Size",""+AppConstant.PHOTOLIST.size());
+                                     FragmentManager manager = ((Activity) context).getFragmentManager();
+                                     PhotoViewDialog dialogMenu = new PhotoViewDialog();
+                                     dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                                     dialogMenu.show(manager,"");
+                                 }
+
+                            }
+
+                        } catch (final Exception e) {
+                            e.printStackTrace();
+                            //progressNirbachito.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            }
+        });
     }
 }

@@ -13,6 +13,7 @@
     <dimen name="grid_imagew">160dp</dimen>
 
     <dimen name="space">5dp</dimen>
+    <dimen name="spacepad">2dp</dimen>
 
 
 </resources>
