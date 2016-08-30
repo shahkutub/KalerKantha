@@ -1,21 +1,19 @@
 package com.kalerkantho;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +59,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion;
     private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
     private TextView favorite,photogalery,setting,motamot;
-
+private Context con;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        con = this;
         db = new MyDBHandler(getApplicationContext());
         /**
          *Setup the DrawerLayout and NavigationView

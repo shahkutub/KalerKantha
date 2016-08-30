@@ -127,7 +127,7 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_favrt, parent, false);
         return new MyViewHolder(itemView);
     }
-
+//
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
