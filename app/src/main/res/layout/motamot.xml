@@ -55,7 +55,7 @@
             ></View>
 
     </LinearLayout>
-    
+
     <TextView
         android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
