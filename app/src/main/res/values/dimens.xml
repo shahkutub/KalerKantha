@@ -16,6 +16,9 @@
     <dimen name="dim20">20dp</dimen>
     <dimen name="dim07">7dp</dimen>
 
+    <dimen name="dim30">30dp</dimen>
+    <dimen name="dim40">40dp</dimen>
+
 
     <dimen name="space">5dp</dimen>
     <dimen name="spacepad">1dp</dimen>
