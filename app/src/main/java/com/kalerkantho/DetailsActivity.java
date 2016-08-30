@@ -9,11 +9,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.kalerkantho.Model.DetailsModel;
+import com.kalerkantho.Model.FvrtModel;
+import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.NetInfo;
@@ -29,7 +32,9 @@ public class DetailsActivity extends AppCompatActivity {
    private  ImageView backImgMain,fvImg,backBtn;
     private String content_id = "";
     private ProgressBar progressShow;
-
+    private MyDBHandler db;
+    private FvrtModel fm = new FvrtModel();
+    private DetailsModel allDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +60,7 @@ public class DetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        db = new MyDBHandler(con);
 
         // call url for detals
         if(!content_id.isEmpty()){
@@ -67,6 +72,35 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                boolean isFvrt = false;
+                for (FvrtModel fm : db.getAllFvrtModels()) {
+                    if (content_id.equalsIgnoreCase(fm.getFvrtId())) {
+                        Log.e("get compared:", "true");
+                        isFvrt = true;
+                        break;
+                    }
+                }
+
+
+                if (!isFvrt) { // not added before
+
+                    //isFvrt = true;
+                    //   AppConstant.mAdapter.notifyDataSetChanged();
+                    fm.setFvrtId(content_id);
+                    Gson gson = new Gson();
+                    String favObject = gson.toJson(allDetail);
+                    fm.setFvrtId(content_id);
+                    fm.setFvrtObject(favObject);
+                    db.addFavrtEntry(fm);
+                    Toast.makeText(con,"Data Added Successfully",Toast.LENGTH_SHORT);
+
+                } else {
+                    // isFvrt = false;
+
+                    db.removeSingleFavENtry(content_id);
+                }
+                //isFvrt = false;
+                Log.e("All Frvt Size:", ">>" + db.getAllFvrtModels().size());
             }
         });
 
@@ -104,7 +138,7 @@ public class DetailsActivity extends AppCompatActivity {
                             Log.e("details response:", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
                                 Gson g = new Gson();
-                                DetailsModel allDetail=g.fromJson(new String(response),DetailsModel.class);
+                                 allDetail=g.fromJson(new String(response),DetailsModel.class);
 
                                 headingTxt.setText(allDetail.getNews().getTitle());
                                 detailsTxt.setText(allDetail.getNews().getDetails());
