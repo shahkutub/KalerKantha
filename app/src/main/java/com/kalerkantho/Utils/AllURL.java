@@ -36,6 +36,14 @@ public class AllURL {
 		final Vector<KeyValue> temp = new Vector();
 		return getcommonURLWithParamAndAction("menu_list", temp);
 	}
+	public static String registrationURL() {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("reg", temp);
+	}
+	public static String loginURL() {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("login", temp);
+	}
 	public static String getDetails(String id,String user) {
 		final Vector<KeyValue> temp = new Vector();
 		//temp.add(new KeyValue("token",id));

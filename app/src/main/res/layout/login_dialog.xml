@@ -13,18 +13,18 @@
         android:padding="@dimen/dim10">
 
         <ImageView
-            android:id="@+id/imgCross"
+            android:id="@+id/imgCrossLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dim10"
             android:src="@drawable/descripasasss_06" />
 
         <TextView
-            android:id="@+id/tvRegistration"
+            android:id="@+id/tvLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/registration"
+            android:text="@string/login"
             android:textSize="20sp"
             android:textColor="@color/whiteMy" />
     </LinearLayout>
@@ -39,31 +39,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dim20"
-        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
         android:layout_marginTop="@dimen/dim50"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/etName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/name"
-            android:inputType="textCapSentences"
-            android:maxLines="1"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:singleLine="true"
-            android:textColor="@android:color/black" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="@color/homTop" />
-
-        <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmailLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -81,7 +63,7 @@
             android:background="@color/homTop" />
 
         <EditText
-            android:id="@+id/etPasword"
+            android:id="@+id/etPaswordLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -98,19 +80,33 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvEnter"
+        android:id="@+id/tvEnterLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/enter"
         android:paddingTop="@dimen/dim10"
         android:paddingBottom="@dimen/dim10"
-        android:paddingLeft="@dimen/dim40"
-        android:paddingRight="@dimen/dim40"
+        android:paddingLeft="@dimen/dim50"
+        android:paddingRight="@dimen/dim50"
+        android:textSize="20sp"
         android:layout_marginTop="@dimen/dim50"
         android:gravity="center"
-        android:textSize="20sp"
         android:background="@drawable/button"
         android:textColor="@color/whiteMy" />
+    <TextView
+        android:id="@+id/tvRegistrationLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/registration"
+        android:paddingTop="@dimen/dim10"
+        android:paddingBottom="@dimen/dim10"
+        android:paddingLeft="@dimen/dim50"
+        android:textSize="20sp"
+        android:paddingRight="@dimen/dim50"
+        android:layout_marginTop="@dimen/dim20"
+        android:gravity="center"
+        android:textColor="@color/homTop" />
 
 </LinearLayout>

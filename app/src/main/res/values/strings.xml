@@ -24,9 +24,11 @@
     <string name="month11">নভেম্বর</string>
     <string name="month12">ডিসেম্বর</string>
     <string name="registration">রেজিস্ট্রেশান</string>
-    <string name="nam">নাম</string>
+    <string name="name">নাম</string>
     <string name="email">ই-মেইল</string>
     <string name="password">পাসওয়ার্ড </string>
+    <string name="enter">প্রবেশ করুন</string>
+    <string name="login">লগইন</string>
 
 
 

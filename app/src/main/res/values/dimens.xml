@@ -14,6 +14,8 @@
     <dimen name="dim10">10dp</dimen>
     <dimen name="dim50">50dp</dimen>
     <dimen name="dim20">20dp</dimen>
+    <dimen name="dim30">30dp</dimen>
+    <dimen name="dim40">40dp</dimen>
 
     <dimen name="space">5dp</dimen>
     <dimen name="spacepad">2dp</dimen>

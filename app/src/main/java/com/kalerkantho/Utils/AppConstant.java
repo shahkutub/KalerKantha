@@ -9,6 +9,9 @@ import java.util.List;
 public class AppConstant {
     public static final String[] FACEBOOK_PERMISSION = {"email", "user_about_me", "read_stream", "user_photos", "public_profile" };
     public static String COLOR_MAIN = "#A551D0";
+    public static String id="";
+    public static String email="";
+    public static String token="";
 
     public static final String COLOR_DEFAULT_MAIN = "#A551D0";
     public static final String COLOR_DEFAULT_SECONDARY = "#FFFFFF";
