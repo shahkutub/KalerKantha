@@ -95,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
 
-        AllCommonNewsItem newsitem = newslist.get(position);
+        final AllCommonNewsItem newsitem = newslist.get(position);
         id = "";
         final Typeface face_reg = Typeface.createFromAsset(mContext.getAssets(), "fonts/SolaimanLipi_reg.ttf");
         final Typeface face_bold = Typeface.createFromAsset(mContext.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
@@ -103,7 +103,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         if (holder.getItemViewType() == dataOne){
             DataOne firstHolder = (DataOne)holder;
 
-            id = newsitem.getNews_obj().getId();
+
             if (!(TextUtils.isEmpty(newsitem.getNews_obj().getImage()))) {
                 Glide.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.fullscreen).into(firstHolder.fullScreen);
             } else {
@@ -136,7 +136,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
 
         }else if(holder.getItemViewType() == dataTwo){
             DataTwo commonHolder = (DataTwo)holder;
-            id = newsitem.getNews_obj().getId();
+
             if (!(TextUtils.isEmpty(newsitem.getNews_obj().getImage()))) {
                 Glide.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.defaulticon).into(commonHolder.commonImage);
             } else {
@@ -168,7 +168,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             commonHolder.commonCategory.setTypeface(face_reg);
 
         }else if(holder.getItemViewType() == dataThree){
-            id = newsitem.getNews_obj().getId();
+
             DataThree headerHolder = (DataThree)holder;
 
             if(!TextUtils.isEmpty(newsitem.getCategory_title())){
@@ -197,10 +197,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("DDD"," here");
-
+                Log.e("DDD"," here  "+id);
+                id = newsitem.getNews_obj().getId();
                 Intent i = new Intent(mContext, DetailsActivity.class);
                 i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
                 mContext.startActivity(i);
 
             }

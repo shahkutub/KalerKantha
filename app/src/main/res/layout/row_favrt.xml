@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/topWhite"
+        android:layout_height="10dp"></RelativeLayout>
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/topWhite"
+        android:id="@+id/imgFvrt"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fvrtTxtTitle"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_below="@+id/imgFvrt"
+        android:layout_marginLeft="15sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fvrtCategory"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="#0089CF"
+        android:layout_below="@+id/fvrtTxtTitle"
+        android:layout_marginLeft="15sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateFvrt"
+        android:layout_below="@+id/fvrtCategory"
+        android:text=""
+        android:textSize="10sp"
+        android:layout_marginLeft="15sp"
+        android:textColor="#bfc9ca"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/fvrtBtn"
+        android:layout_below="@+id/fvrtCategory"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15sp"
+        android:layout_marginTop="-10dp"/>
+
+</RelativeLayout>

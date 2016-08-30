@@ -8,9 +8,11 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 <TextView
+    android:id="@+id/motamotTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/motamotyour"
+    android:layout_marginTop="15dp"
     android:textSize="16sp"
     android:textStyle="bold"
     android:textColor="@android:color/black"/>
@@ -21,6 +23,7 @@
         android:layout_marginTop="50dp"
         android:orientation="vertical">
         <EditText
+            android:id="@+id/subjectEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13sp"
@@ -39,6 +42,7 @@
             ></View>
 
         <EditText
+            android:id="@+id/detailsEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13sp"
@@ -57,7 +61,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvComment"
+        android:id="@+id/motatmotBtn"
         android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,11 +69,25 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         android:text="@string/motamot"/>
+
+
+    <TextView
+        android:id="@+id/motamotThanks"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/gray"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="@string/thanks"/>
 
 </LinearLayout>

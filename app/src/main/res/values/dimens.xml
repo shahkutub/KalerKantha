@@ -14,12 +14,14 @@
     <dimen name="dim10">10dp</dimen>
     <dimen name="dim50">50dp</dimen>
     <dimen name="dim20">20dp</dimen>
-    <dimen name="dim30">30dp</dimen>
-    <dimen name="dim40">40dp</dimen>
+    <dimen name="dim07">7dp</dimen>
+
 
     <dimen name="space">5dp</dimen>
-    <dimen name="spacepad">2dp</dimen>
+    <dimen name="spacepad">1dp</dimen>
     <dimen name="toggleh">33dp</dimen>
+    <dimen name="photoh">100dp</dimen>
+    <dimen name="photow">120dp</dimen>
 
 
 </resources>

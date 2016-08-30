@@ -2,6 +2,7 @@ package com.kalerkantho.Adapter;
 import android.app.Activity;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 import com.kalerkantho.Dialog.PhotoViewDialog;
 import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.Model.OnItemClickListenerNews;
+import com.kalerkantho.PhotoGallery;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
@@ -64,10 +66,10 @@ public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyVi
                 @Override
                 public void onClick(View v) {
 
-                    Log.e(" object ",">>"+item.toString());
+                  //  Log.e(" object ",">>"+item.toString());
 
                     String cat = item.getNews_obj().getCategory();
-                    Log.e("cat id",""+cat);
+                    //Log.e("cat id",""+cat);
                     getPhotoList(AllURL.getPhotoList(cat));
 
 
@@ -150,10 +152,14 @@ public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyVi
                                  if (allPhoto.getStatus().equalsIgnoreCase("1")){
                                      AppConstant.PHOTOLIST.addAll(allPhoto.getImages());
                                      Log.e("Size",""+AppConstant.PHOTOLIST.size());
-                                     FragmentManager manager = ((Activity) context).getFragmentManager();
-                                     PhotoViewDialog dialogMenu = new PhotoViewDialog();
-                                     dialogMenu.setStyle(DialogFragment.STYLE_NO_TITLE ,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-                                     dialogMenu.show(manager,"");
+
+
+                                     context.startActivity(new Intent(context, PhotoGallery.class));
+
+//                                     FragmentManager manager = ((Activity) context).getFragmentManager();
+//                                     PhotoViewDialog dialogMenu = new PhotoViewDialog();
+//                                     dialogMenu.setStyle(DialogFragment.STYLE_NO_TITLE ,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+//                                     dialogMenu.show(manager,"");
                                  }
 
                             }
