@@ -34,10 +34,17 @@
 
 
         <activity
-            android:name="com.kalerkantho.MainActivity"
+        android:name="com.kalerkantho.MainActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <activity
+            android:name="com.kalerkantho.PhotoGallery"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity
             android:name="com.kalerkantho.DetailsActivity"
