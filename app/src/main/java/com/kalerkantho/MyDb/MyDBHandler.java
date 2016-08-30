@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.kalerkantho.Model.Category;
+import com.kalerkantho.Model.FvrtModel;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class MyDBHandler extends SQLiteOpenHelper {
@@ -17,13 +19,15 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "categoryDB.db";
     private static final String TABLE_CAT = "category";
+    private static final String TABLE_FAVORITE = "favourite_table";
 
     public static final String _ID = "_id";
     public static final String CAT_ID = "cat_id";
     public static final String CAT_NAME = "cat_name";
     public static final String CAT_TYPE = "cat_type";
 
-
+    public static final String FAV_ID = "fav_id";
+    public static final String FAV_OBJECT = "fav_object";
 
     public MyDBHandler(Context context) {
         super(context, MyDBHandler.DATABASE_NAME, null,MyDBHandler.DATABASE_VERSION);
@@ -39,11 +43,20 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 + CAT_NAME + " TEXT,"
                 + CAT_TYPE + " TEXT " + ")";
         db.execSQL(CREATE_CAT_TABLE);
+
+
+        String CREATE_FAVRT_TABLE = "CREATE TABLE " +
+                TABLE_FAVORITE + "("
+                + _ID + " INTEGER PRIMARY KEY,"
+                + FAV_ID + " TEXT,"
+                + FAV_OBJECT + " TEXT" + ")";
+        db.execSQL(CREATE_FAVRT_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITE);
         onCreate(db);
     }
 
@@ -155,5 +168,86 @@ public class MyDBHandler extends SQLiteOpenHelper {
         final int numRow = db.delete(MyDBHandler.TABLE_CAT, MyDBHandler.CAT_ID + "='" + cat.getId() + "'", null);
         db.close();
         return numRow;
+    }
+
+
+    // add favrt entry
+
+    public void addFavrtEntry(FvrtModel fm) {
+        final SQLiteDatabase db = getWritableDatabase();
+
+        boolean isPreviouslyAdded = false;
+        String[] columns = new String[]{FAV_ID,FAV_OBJECT};
+        Cursor c = db.query(TABLE_FAVORITE, columns, FAV_ID + "=" +fm.getFvrtId(), null, null, null, null);
+        ArrayList a1 = new ArrayList();
+
+        if (c.moveToFirst()) {
+            do {
+                a1.add(c.getString(1));
+            } while (c.moveToNext());
+
+        }
+        if(a1.size()>0) {
+            for (int i = 0; i < a1.size(); i++) {
+                if (a1.get(i).equals(fm.getFvrtId())) {
+                    isPreviouslyAdded = true;
+                }
+
+            }
+        }
+        else{
+            isPreviouslyAdded = false;
+        }
+
+        if(!isPreviouslyAdded) {
+            //	Log.e("DB Image;",fm.getFvrtId());
+            final ContentValues values = new ContentValues();
+            values.put(FAV_ID, fm.getFvrtId());
+            values.put(FAV_OBJECT, fm.getFvrtObject());
+            // Inserting Row
+            db.insert(TABLE_FAVORITE, null, values);
+            //Log.e("Insert Obj:",fm.getFvrtObject().toString());
+        }
+        db.close(); // Closing database connection
+    }
+
+    public ArrayList<FvrtModel> getAllFvrtModels() {
+        ArrayList<FvrtModel> contactList = new ArrayList<FvrtModel>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_FAVORITE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                FvrtModel contact = new FvrtModel();
+                contact.setFvrtId(cursor.getString(1));
+                contact.setFvrtObject(cursor.getString(2));
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        // return contact list
+        return contactList;
+    }
+
+    // remove single entry
+    public boolean removeSingleFavENtry(String fvId) {
+        boolean deleteSuccessful = false;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        deleteSuccessful = db.delete(TABLE_FAVORITE, FAV_ID + "='" + fvId + "'", null) > 0;
+        db.close();
+
+        return deleteSuccessful;
+
+    }
+
+    public void removeAllFavEntry(){
+        final SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_FAVORITE);
+        db.close();
     }
 }

@@ -1,21 +1,19 @@
 package com.kalerkantho;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +26,7 @@ import com.google.gson.Gson;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
-import com.kalerkantho.Fragment.MotamotFragment;
 import com.kalerkantho.Fragment.PhotoFragment;
-import com.kalerkantho.Fragment.SettingFragment;
 import com.kalerkantho.Model.Category;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AppConstant;
@@ -63,13 +59,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion;
     private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
     private TextView favorite,photogalery,setting,motamot;
-
+private Context con;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        con = this;
         db = new MyDBHandler(getApplicationContext());
         /**
          *Setup the DrawerLayout and NavigationView
@@ -339,28 +336,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                SettingFragment fragment= new SettingFragment();
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {/*
+                FavoriteFragment fragment= new FavoriteFragment();
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-                mDrawerLayout.closeDrawers();
+                mDrawerLayout.closeDrawers();*/
 
-            }
-        });
-
-
-        motamot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                MotamotFragment fragment= new MotamotFragment();
-                mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-                mDrawerLayout.closeDrawers();
-
+                Intent i = new Intent(con,FavrtActivity.class);
+               startActivity(i);
             }
         });
 
