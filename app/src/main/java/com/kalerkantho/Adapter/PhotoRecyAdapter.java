@@ -144,6 +144,8 @@ public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyVi
                                 Gson g = new Gson();
                                 allPhoto=g.fromJson(new String(response),AllPhoto.class);
 
+                                AppConstant.PHOTOLIST.clear();
+
 
                                  if (allPhoto.getStatus().equalsIgnoreCase("1")){
                                      AppConstant.PHOTOLIST.addAll(allPhoto.getImages());

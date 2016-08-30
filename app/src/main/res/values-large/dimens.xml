@@ -6,9 +6,10 @@
     <dimen name="default_imagew">190dp</dimen>
     <dimen name="space">8dp</dimen>
     <dimen name="spacepad">3dp</dimen>
-
+    <dimen name="dim10">15dp</dimen>
 
     <dimen name="grid_imageh">150dp</dimen>
     <dimen name="grid_imagew">200dp</dimen>
+    <dimen name="toggleh">40dp</dimen>
     
 </resources>

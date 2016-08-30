@@ -8,8 +8,10 @@
     <color name="orange">#FA0</color>
     <color name="white">#FFF</color>
     <color name="homTop">#0089CF</color>
+    <color name="whiteMy">#FFFFFF</color>
 
 
     <color name="kalerkontho_actionbar">#0089CF</color>
+    <color name="gray">#A9A9A9</color>
 
 </resources>

@@ -9,5 +9,6 @@
 
     <dimen name="grid_imageh">150dp</dimen>
     <dimen name="grid_imagew">200dp</dimen>
+    <dimen name="toggleh">45dp</dimen>
 
 </resources>

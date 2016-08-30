@@ -1,6 +1,7 @@
 package com.kalerkantho.Adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.Model.DetailsModel;
 import com.kalerkantho.Model.FvrtModel;
 import com.kalerkantho.Model.OnItemClickListenerNews;
@@ -91,7 +93,7 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
                             fm.setFvrtObject(favObject);
                             db.addFavrtEntry(fm);
                             Toast.makeText(con,"Data Added Successfully",Toast.LENGTH_SHORT);*/
-
+//
                         } else {
                             // isFvrt = false;
                             fvrtBtn.setBackgroundResource(R.drawable.fav_off);
@@ -127,10 +129,21 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.bind(photoList.get(position), listener);
        // holder.bind();
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = photoList.get(position).getNews().getId();
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                context.startActivity(i);
+                    context.finish();
+            }
+        });
     }
 
     @Override

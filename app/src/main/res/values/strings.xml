@@ -23,6 +23,11 @@
     <string name="month10">অক্টবর</string>
     <string name="month11">নভেম্বর</string>
     <string name="month12">ডিসেম্বর</string>
+    <string name="registration">রেজিস্ট্রেশান</string>
+    <string name="nam">নাম</string>
+    <string name="email">ই-মেইল</string>
+    <string name="password">পাসওয়ার্ড </string>
+
 
 
     <string name="nijoso">নিজস্ব পছন্দের</string>
@@ -31,6 +36,29 @@
     <string name="letsgoo">চলো শুরু করি!!!</string>
     <string name="likesubject">পছন্দের বিষয়</string>
     <string name="subjectselect">বিষয় নির্বাচন</string>
+
+    <string name="notification1">নোটিফিকেশন</string>
+    <string name="notification2">ব্রেকিং নিউজ নোটিফিকেশন</string>
+    <string name="notification3">কালেরকন্ঠ সরাসরি ব্রেকিং নিউজ পাঠাতে পারবে আপনার ডিভাইসে</string>
+    <string name="sound1">সাউন্ড</string>
+    <string name="sound2">সাউন্ড নোটিফিকেশন</string>
+    <string name="vivration1">ভাইব্রেসন</string>
+    <string name="vivration2">ভাইব্রেসন নোটিফিকেশন</string>
+    <string name="privacy1">প্রাইভেসি পলিসি</string>
+    <string name="tram1">প্রাইভেসি অ্যান্ড ট্রাম </string>
+    <string name="tram2">ব্যবহারকারির পলিসি</string>
+    <string name="help">সাহায্য</string>
+
+    <string name="motamotyour">আপনার মতামত জানান</string>
+    <string name="subject">বিষয়</string>
+    <string name="detailss">বিস্তারিত লিখুন</string>
+    <string name="motamot">মতামত</string>
+    <string name="thanks">আপনার মূল্যবান মতামতের জন্য ধন্যবাদ!!!</string>
+
+
+
+
+
 
 
 
