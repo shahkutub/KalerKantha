@@ -15,6 +15,7 @@
 
     <dimen name="space">5dp</dimen>
     <dimen name="spacepad">2dp</dimen>
+    <dimen name="toggleh">33dp</dimen>
 
 
 </resources>
