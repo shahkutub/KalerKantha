@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kalerkantho.R;
@@ -32,7 +34,7 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ((RelativeLayout) object);
     }
 
     @Override
@@ -40,12 +42,27 @@ public class CustomPagerAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.dialog_row, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.photo);
+        TextView titlePhoto = (TextView) itemView.findViewById(R.id.titlePhoto);
+        TextView photoNameText = (TextView) itemView.findViewById(R.id.photoNameText);
 
         if (!(TextUtils.isEmpty(AppConstant.PHOTOLIST.get(position).getImage()))) {
             Glide.with(mContext).load(AppConstant.PHOTOLIST.get(position).getImage()).placeholder(R.drawable.defaulticon).into(imageView);
         } else {
             Glide.with(mContext).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(imageView);
         }
+
+        if (!(TextUtils.isEmpty(AppConstant.PHOTOLIST.get(position).getCaption()))){
+            titlePhoto.setText(AppConstant.PHOTOLIST.get(position).getCaption());
+        }else{
+            titlePhoto.setText("");
+        }
+
+        if (!(TextUtils.isEmpty(AppConstant.PHOTOLIST.get(position).getTitle()))){
+            photoNameText.setText(AppConstant.PHOTOLIST.get(position).getTitle());
+        }else{
+            photoNameText.setText("");
+        }
+
 
         container.addView(itemView);
 
@@ -54,6 +71,6 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        container.removeView((RelativeLayout) object);
     }
 }
