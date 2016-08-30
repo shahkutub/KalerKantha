@@ -13,6 +13,7 @@
        android:gravity="center_vertical"
        android:orientation="vertical">
        <TextView
+           android:id="@+id/notificationHeadTx"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:textColor="@color/kalerkontho_actionbar"
@@ -25,6 +26,7 @@
            android:gravity="center_vertical"
            android:orientation="horizontal">
        <TextView
+           android:id="@+id/notificationTitle"
            android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:layout_weight="3"
@@ -53,6 +55,7 @@
 
        </LinearLayout>
        <TextView
+           android:id="@+id/notificatonAnnounce"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:textColor="@color/gray"
@@ -69,6 +72,7 @@
         android:layout_marginLeft="15dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/soundHeadText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/kalerkontho_actionbar"
@@ -82,6 +86,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/soundTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -120,6 +125,7 @@
         android:layout_marginLeft="15dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/vivrationHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/kalerkontho_actionbar"
@@ -133,6 +139,7 @@
          android:gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/vivrationTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -171,6 +178,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/privacyHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/kalerkontho_actionbar"
@@ -179,6 +187,7 @@
             android:text="@string/privacy1"/>
 
         <TextView
+            android:id="@+id/privacyTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -196,6 +205,7 @@
         android:layout_marginLeft="15dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tramHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/kalerkontho_actionbar"
@@ -204,6 +214,7 @@
             android:text="@string/tram1"/>
 
         <TextView
+            android:id="@+id/tramTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -220,6 +231,7 @@
         android:layout_marginLeft="15dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/helpHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/kalerkontho_actionbar"
@@ -228,6 +240,7 @@
             android:text="@string/help"/>
 
         <TextView
+            android:id="@+id/helpTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
