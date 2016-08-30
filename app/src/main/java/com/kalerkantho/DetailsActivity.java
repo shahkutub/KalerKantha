@@ -63,6 +63,13 @@ public class DetailsActivity extends AppCompatActivity {
             requestGetNeslist(AllURL.getDetails(content_id,""));
         }
 
+        fvImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
 
