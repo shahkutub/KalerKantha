@@ -1,10 +1,12 @@
 package com.kalerkantho.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.R;
 import com.kalerkantho.holder.AllCommonNewsItem;
 
@@ -21,6 +24,7 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CustomViewHolder> {
     List<AllCommonNewsItem> newslist = new ArrayList<AllCommonNewsItem>();
     HorizontalRecyAdapter hAdapter;
+    private  String id = "";
 
     private Context mContext;
     public static final int dataOne = 1;
@@ -31,6 +35,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
     public RecyclerAdapter(Context context, List<AllCommonNewsItem> newslist) {
         this.newslist = newslist;
         this.mContext = context;
+        id = "";
 
     }
 
@@ -91,14 +96,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
     public void onBindViewHolder(CustomViewHolder holder, int position) {
 
         AllCommonNewsItem newsitem = newslist.get(position);
-
+        id = "";
         final Typeface face_reg = Typeface.createFromAsset(mContext.getAssets(), "fonts/SolaimanLipi_reg.ttf");
         final Typeface face_bold = Typeface.createFromAsset(mContext.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         if (holder.getItemViewType() == dataOne){
             DataOne firstHolder = (DataOne)holder;
 
-
+            id = newsitem.getNews_obj().getId();
             if (!(TextUtils.isEmpty(newsitem.getNews_obj().getImage()))) {
                 Glide.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.fullscreen).into(firstHolder.fullScreen);
             } else {
@@ -131,7 +136,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
 
         }else if(holder.getItemViewType() == dataTwo){
             DataTwo commonHolder = (DataTwo)holder;
-
+            id = newsitem.getNews_obj().getId();
             if (!(TextUtils.isEmpty(newsitem.getNews_obj().getImage()))) {
                 Glide.with(mContext).load(newsitem.getNews_obj().getImage()).placeholder(R.drawable.defaulticon).into(commonHolder.commonImage);
             } else {
@@ -163,7 +168,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             commonHolder.commonCategory.setTypeface(face_reg);
 
         }else if(holder.getItemViewType() == dataThree){
-
+            id = newsitem.getNews_obj().getId();
             DataThree headerHolder = (DataThree)holder;
 
             if(!TextUtils.isEmpty(newsitem.getCategory_title())){
@@ -188,6 +193,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             hListHolder.horizontal_recycler_view.setAdapter(hAdapter);
             hAdapter.notifyDataSetChanged();
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("DDD"," here");
+
+                Intent i = new Intent(mContext, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                mContext.startActivity(i);
+
+            }
+        });
     }
 
     @Override
