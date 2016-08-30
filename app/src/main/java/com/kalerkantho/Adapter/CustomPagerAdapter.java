@@ -63,7 +63,8 @@ public class CustomPagerAdapter extends PagerAdapter {
             photoNameText.setText("");
         }
 
-       // Log.e();
+        Log.e("Caption",""+AppConstant.PHOTOLIST.get(position).getCaption());
+        Log.e("Title",""+AppConstant.PHOTOLIST.get(position).getTitle());
 
 
         container.addView(itemView);

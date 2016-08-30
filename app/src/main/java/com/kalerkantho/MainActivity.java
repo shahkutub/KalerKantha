@@ -28,7 +28,9 @@ import com.google.gson.Gson;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
+import com.kalerkantho.Fragment.MotamotFragment;
 import com.kalerkantho.Fragment.PhotoFragment;
+import com.kalerkantho.Fragment.SettingFragment;
 import com.kalerkantho.Model.Category;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AppConstant;
@@ -337,8 +339,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SettingFragment fragment= new SettingFragment();
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+            }
+        });
 
 
+        motamot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MotamotFragment fragment= new MotamotFragment();
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+            }
+        });
 
 
 
