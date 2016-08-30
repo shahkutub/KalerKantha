@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:background="@android:color/transparent"
+    android:background="#D8000000"
     >
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:id="@+id/titlePhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:maxLines="2"
             android:lines="2"
@@ -60,7 +60,7 @@
                 android:id="@+id/photoNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:lines="1"
                 android:maxLines="1"
