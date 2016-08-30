@@ -25,7 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
     List<AllCommonNewsItem> newslist = new ArrayList<AllCommonNewsItem>();
     HorizontalRecyAdapter hAdapter;
     private  String id = "";
-
+//
     private Context mContext;
     public static final int dataOne = 1;
     public static final int dataTwo = 2;
