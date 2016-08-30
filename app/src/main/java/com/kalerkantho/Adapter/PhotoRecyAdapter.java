@@ -150,7 +150,7 @@ public class PhotoRecyAdapter extends RecyclerView.Adapter<PhotoRecyAdapter.MyVi
                                      Log.e("Size",""+AppConstant.PHOTOLIST.size());
                                      FragmentManager manager = ((Activity) context).getFragmentManager();
                                      PhotoViewDialog dialogMenu = new PhotoViewDialog();
-                                     dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                                     dialogMenu.setStyle(DialogFragment.STYLE_NO_TITLE ,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
                                      dialogMenu.show(manager,"");
                                  }
 
