@@ -42,7 +42,7 @@ public class LoginDialogFragment extends DialogFragment {
 private String email,password;
     private TextView tvEnterLogin,tvRegistrationLog;
     private EditText etEmailLogin, etPaswordLogin;
-    private LoginResponse logInResponse;
+    private LoginResponse loginResponse;
 
 
     @Nullable
@@ -170,26 +170,22 @@ private String email,password;
 
                 //------------Data persist using Gson------------------
                 Gson g = new Gson();
-                logInResponse = g.fromJson(new String(response), LoginResponse.class);
+                loginResponse = g.fromJson(new String(response), LoginResponse.class);
 
-                Log.e("Loginstatus", "=" + logInResponse.getStatus());
+                Log.e("Loginstatus", "=" + loginResponse.getStatus());
 
-                if (logInResponse.getStatus().equalsIgnoreCase("1")) {
-                    Toast.makeText(con, logInResponse.getMsg(), Toast.LENGTH_LONG).show();
+                if (loginResponse.getStatus().equalsIgnoreCase("1")) {
+                    Toast.makeText(con, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
                     PersistentUser.setLogin(con);
-                    PersistData.setStringData(con, AppConstant.id,
-                            logInResponse.getUserdetails().getId());
-                    PersistData.setStringData(con, AppConstant.email,
-                            logInResponse.getUserdetails().getEmail());
-//
-                    PersistData.setStringData(con, AppConstant.token,
-                            logInResponse.getToken());
-
+                    PersistentUser.setLogin(con);
+                    PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
+                    PersistentUser.setUserEmail(con,loginResponse.getUserdetails().getEmail());
+                    PersistentUser.setAccessToken(con,loginResponse.getToken());
                     Log.e("token", "=" + PersistData.getStringData(con, AppConstant.token));
 
                     getDialog().dismiss();
                 } else {
-					AlertMessage.showMessage(con, getResources().getString(R.string.app_name), logInResponse.getMsg() + "");
+					AlertMessage.showMessage(con, getResources().getString(R.string.app_name), loginResponse.getMsg() + "");
                     return;
                 }
 
