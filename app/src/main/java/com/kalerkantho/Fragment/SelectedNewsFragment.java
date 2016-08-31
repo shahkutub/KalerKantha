@@ -48,7 +48,7 @@ public class SelectedNewsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
 
-        //intiU();
+        intiU();
     }
 
     private void intiU() {
@@ -90,7 +90,7 @@ public class SelectedNewsFragment extends Fragment {
 
     }
 
-    @Override
+  /*  @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -104,5 +104,5 @@ public class SelectedNewsFragment extends Fragment {
                 }
             },100);
         }
-    }
+    }*/
 }

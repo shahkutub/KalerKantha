@@ -149,7 +149,7 @@ public class SubjectLikeFragment extends Fragment {
 
     }
 
-    @Override
+  /*  @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -162,5 +162,5 @@ public class SubjectLikeFragment extends Fragment {
                 }
             },100);
         }
-    }
+    }*/
 }
