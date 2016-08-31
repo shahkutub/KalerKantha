@@ -177,6 +177,7 @@ private String full_name,email,password,device_type,push_id,registrationtype;
                     PersistData.setStringData(con, AppConstant.token,
                             loginResponse.getToken());
                     Log.e("token", "=" + PersistData.getStringData(con, AppConstant.token));
+                    getDialog().dismiss();
 
                     //---------Go Tab Activity-----------------------
 //                    MainActivity.instance.finish();

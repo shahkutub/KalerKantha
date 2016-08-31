@@ -1,4 +1,4 @@
-package com.kalerkantho.Fragment;
+package com.kalerkantho.Dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -34,7 +34,7 @@ import com.kalerkantho.Utils.NetInfo;
 import java.util.concurrent.Executors;
 
 
-public class MotamotFragment extends Fragment {
+public class MotamotDialogFragment extends DialogFragment {
     private Context con;
     private TextView motamotTitle,motatmotBtn,motamotThanks;
     private EditText subjectEditText,detailsEditText;
@@ -191,7 +191,8 @@ private Typeface face_reg,face_bold;
                          * ---------main Ui related work--------------
                          */
                         if (feedbackResponse.getStatus().equalsIgnoreCase("1")) {
-                            Toast.makeText(con,feedbackResponse.getMsg(),Toast.LENGTH_LONG).show();
+                            motamotThanks.setVisibility(View.VISIBLE);
+//                            Toast.makeText(con,feedbackResponse.getMsg(),Toast.LENGTH_LONG).show();
                             subjectEditText.setText("");
                             detailsEditText.setText("");
                         } else {
