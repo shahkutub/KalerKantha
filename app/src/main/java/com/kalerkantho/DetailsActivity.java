@@ -93,13 +93,22 @@ public class DetailsActivity extends AppCompatActivity {
                         Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
 
                         if (allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()) {
-                            txt_positive_like.setText(allDetail.getLike_count());
+                            txt_positive_like.setText("("+allDetail.getLike_count()+")");
+                        }
+                        else{
+                            txt_positive_like.setText("("+0+")");
                         }
                         if (allDetail.getIs_disliked().equalsIgnoreCase("true") && !allDetail.getDislike_count().isEmpty()) {
-                            txt_positive_like.setText(allDetail.getDislike_count());
+                            txt_negative_like.setText("("+allDetail.getDislike_count()+")");
+                        }
+                        else{
+                            txt_negative_like.setText("("+0+")");
                         }
                         if (!allDetail.getComments_count().equalsIgnoreCase("0"))
-                            txt_comment.setText(allDetail.getComments_count());
+                            txt_comment.setText("("+allDetail.getComments_count()+")");
+                        else{
+                            txt_comment.setText("("+0+")");
+                        }
                         txtDate.setText(allDetail.getNews().getBanglaDateString() + "  | ");
                         txtCategory.setText(allDetail.getNews().getCategory_name());
 
@@ -200,13 +209,22 @@ public class DetailsActivity extends AppCompatActivity {
                                 Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
 
                                 if (allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()) {
-                                    txt_positive_like.setText(allDetail.getLike_count());
+                                    txt_positive_like.setText("("+allDetail.getLike_count()+")");
+                                }
+                                else{
+                                    txt_positive_like.setText("("+0+")");
                                 }
                                 if (allDetail.getIs_disliked().equalsIgnoreCase("true") && !allDetail.getDislike_count().isEmpty()) {
-                                    txt_negative_like.setText(allDetail.getDislike_count());
+                                    txt_negative_like.setText("("+allDetail.getDislike_count()+")");
+                                }
+                                else{
+                                    txt_negative_like.setText("("+0+")");
                                 }
                                 if (!allDetail.getComments_count().equalsIgnoreCase("0"))
-                                    txt_comment.setText(allDetail.getComments_count());
+                                    txt_comment.setText("("+allDetail.getComments_count()+")");
+                                else{
+                                    txt_comment.setText("("+0+")");
+                                }
                                 txtDate.setText(allDetail.getNews().getBanglaDateString() + "  | ");
                                 txtCategory.setText(allDetail.getNews().getCategory_name());
 
