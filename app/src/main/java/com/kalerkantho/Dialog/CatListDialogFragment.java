@@ -82,10 +82,9 @@ public class CatListDialogFragment extends DialogFragment {
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
         catRcyList.addItemDecoration(dividerItemDecoration);*/
 
-        catHeadText.setText(getString(R.string.catlist));
+       // catHeadText.setText(getString(R.string.catlist));
+        catHeadText.setText(AppConstant.CATEGORYTITLE);
         catHeadText.setTypeface(face_bold);
-
-
 
         dissmissCatListBtn.setOnClickListener(new View.OnClickListener() {
             @Override

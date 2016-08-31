@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import com.kalerkantho.Adapter.MyFvRecyAdapterList;
 import com.kalerkantho.Model.Category;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
+import com.kalerkantho.TabFragment;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.DividerItemDecoration;
@@ -53,6 +56,10 @@ private Context con;
     private String allCategoryID="";
     private int pageNumber =1;
 
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +78,9 @@ private Context con;
     }
 
     private void initU() {
+
+        mFragmentManager = getActivity().getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         final Typeface face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
@@ -114,8 +124,39 @@ private Context con;
             allCategoryID=allCategoryID.substring(0,allCategoryID.length()-1);
         }
 
+        if (allCategoryID.length()>0){
+                getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
+      }else{
 
-        getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
+       }
+
+        selectBtniv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 7);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+
+            }
+        });
+
+
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 7);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+
+            }
+        });
+
 
     }
 

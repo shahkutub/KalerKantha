@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion;
     private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
     private TextView favorite,photogalery,setting,motamot;
-private Context con;
+    private Context con;
 
 
     @Override
