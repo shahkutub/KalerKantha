@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-   >
-    <LinearLayout
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/homTop"
@@ -17,6 +17,7 @@
             android:id="@+id/imgBackComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:padding="@dimen/dim10"
             android:src="@drawable/descrip_03" />
 
@@ -24,18 +25,29 @@
             android:id="@+id/tvComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dim30"
+            android:layout_toRightOf="@+id/imgBackComment"
             android:text="@string/motamot"
-            android:textSize="20sp"
-            android:textColor="@color/whiteMy" />
-    </LinearLayout>
+            android:textColor="@color/whiteMy"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imgMenuComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dim10"
+            android:src="@drawable/menu" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/motamotTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dim40"
         android:text="@string/motamotyour"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -44,7 +56,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim50"
         android:orientation="vertical">
 
         <EditText
@@ -92,11 +106,11 @@
         android:id="@+id/motatmotBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/dim50"
         android:background="@drawable/button"
         android:gravity="center"
         android:paddingBottom="10dp"
-        android:paddingLeft="70dp"
+        android:paddingLeft="@dimen/dim50"
         android:paddingRight="70dp"
         android:paddingTop="10dp"
         android:text="@string/motamot"
@@ -111,12 +125,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:visibility="gone"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="@string/thanks"
         android:textColor="@color/gray"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </LinearLayout>

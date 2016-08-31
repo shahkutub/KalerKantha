@@ -1,5 +1,6 @@
 package com.kalerkantho;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -27,6 +28,7 @@ import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
 import com.kalerkantho.Dialog.MotamotDialogFragment;
+import com.kalerkantho.Dialog.Registration;
 import com.kalerkantho.Fragment.PhotoFragment;
 import com.kalerkantho.Fragment.SettingFragment;
 import com.kalerkantho.Model.Category;
@@ -369,10 +371,12 @@ public class MainActivity extends AppCompatActivity {
         motamot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MotamotDialogFragment fragment= new MotamotDialogFragment();
-                mFragmentTransaction = mFragmentManager.beginTransaction();
-//                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+
+                MotamotDialogFragment motamotDialogFragment= new MotamotDialogFragment();
+                motamotDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                motamotDialogFragment.show(getFragmentManager(), "");
                 mDrawerLayout.closeDrawers();
+
             }
         });
 
