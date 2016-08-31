@@ -25,6 +25,7 @@ import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.CatListRecyAdapter;
 import com.kalerkantho.MainActivity;
+import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
@@ -33,6 +34,8 @@ import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllNirbahito;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class CatListDialogFragment extends DialogFragment {
@@ -41,13 +44,14 @@ public class CatListDialogFragment extends DialogFragment {
     private View view;
     private ImageView dissmissCatListBtn;
     private TextView catHeadText;
-    private ProgressBar progressCat;
+    //private ProgressBar progressCat;
     private RecyclerView catRcyList;
     private CatListRecyAdapter catAdapter;
     private String response="";
     private AllNirbahito allCatList;
     private LinearLayoutManager mLayoutManager;
     private int pagNumber =1,totalItemCount,pastVisiblesItems,totalpage,visibleItemCount;
+    private List<CommonNewsItem> my_newsListTemp = new ArrayList<CommonNewsItem>();
    // Drawable dividerDrawable;
 
     @Nullable
@@ -72,7 +76,7 @@ public class CatListDialogFragment extends DialogFragment {
 
         catRcyList = (RecyclerView) view.findViewById(R.id.catRcyList);
 
-        progressCat = (ProgressBar) view.findViewById(R.id.progressCat);
+        //progressCat = (ProgressBar) view.findViewById(R.id.progressCat);
         catHeadText = (TextView) view.findViewById(R.id.catHeadText);
 
         mLayoutManager = new LinearLayoutManager(con);
@@ -132,7 +136,7 @@ public class CatListDialogFragment extends DialogFragment {
      }
 
      Log.e("URL : ", url);
-     progressCat.setVisibility(View.VISIBLE);
+     //progressCat.setVisibility(View.VISIBLE);
 
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
 
@@ -151,7 +155,7 @@ public class CatListDialogFragment extends DialogFragment {
                     @Override
                     public void run() {
 
-                        progressCat.setVisibility(View.GONE);
+                      //  progressCat.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
@@ -160,10 +164,11 @@ public class CatListDialogFragment extends DialogFragment {
                                 Gson g = new Gson();
                                 allCatList=g.fromJson(new String(response),AllNirbahito.class);
 
+                                my_newsListTemp.addAll(allCatList.getMy_news());
 
                                 if(allCatList.getStatus().equalsIgnoreCase("1")){
 
-                                      catAdapter = new CatListRecyAdapter(con,allCatList.getMy_news(),null);
+                                      catAdapter = new CatListRecyAdapter(con,my_newsListTemp,null);
                                       catRcyList.setAdapter(catAdapter);
 
                                        //Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
@@ -175,7 +180,7 @@ public class CatListDialogFragment extends DialogFragment {
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                            progressCat.setVisibility(View.GONE);
+                            //progressCat.setVisibility(View.GONE);
                         }
                     }
                 });

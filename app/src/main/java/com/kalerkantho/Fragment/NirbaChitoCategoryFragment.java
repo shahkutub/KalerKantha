@@ -26,6 +26,7 @@ import com.aapbd.utils.network.AAPBDHttpClient;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.MyFvRecyAdapterList;
 import com.kalerkantho.Model.Category;
+import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
 import com.kalerkantho.TabFragment;
@@ -36,6 +37,8 @@ import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllNirbahito;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 /**
@@ -48,7 +51,7 @@ private Context con;
     private LinearLayout emptyFv;
     private MyDBHandler db;
     private RecyclerView recFvoList;
-    private ProgressBar progressNirbachito;
+   // private ProgressBar progressNirbachito;
 
     private MyFvRecyAdapterList myAdapter;
     Drawable dividerDrawable;
@@ -60,6 +63,7 @@ private Context con;
 
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+    private List<CommonNewsItem> my_newsListTemp = new ArrayList<CommonNewsItem>();
 
 
     @Nullable
@@ -88,7 +92,7 @@ private Context con;
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         selectBtniv = (ImageView) getView().findViewById(R.id.selectBtniv);
-        progressNirbachito = (ProgressBar) getView().findViewById(R.id.progressNirbachito);
+       // progressNirbachito = (ProgressBar) getView().findViewById(R.id.progressNirbachito);
         emptyFv = (LinearLayout) getView().findViewById(R.id.emptyFv);
         tvLike = (TextView) getView().findViewById(R.id.tvLike);
         tvTitle1 = (TextView) getView().findViewById(R.id.tvTitle1);
@@ -208,7 +212,7 @@ private Context con;
         }
         Log.e("URL : ", url);
 
-        progressNirbachito.setVisibility(View.VISIBLE);
+      //  progressNirbachito.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
             String response = "";
 
@@ -226,7 +230,7 @@ private Context con;
                     @Override
                     public void run() {
 
-                        progressNirbachito.setVisibility(View.GONE);
+                       // progressNirbachito.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
@@ -236,11 +240,13 @@ private Context con;
 
                                 if (allnirbahito.getStatus().equalsIgnoreCase("1")) {
 
-                                    if (allnirbahito.getMy_news().size()>0){
+                                    my_newsListTemp.addAll(allnirbahito.getMy_news());
+
+                                    if (my_newsListTemp.size()>0){
 
                                         recFvoList.setVisibility(View.VISIBLE);
                                         emptyFv.setVisibility(View.GONE);
-                                        myAdapter =new MyFvRecyAdapterList(con,allnirbahito.getMy_news(),null);
+                                        myAdapter =new MyFvRecyAdapterList(con,my_newsListTemp,null);
                                         recFvoList.setAdapter(myAdapter);
                                         myAdapter.notifyDataSetChanged();
 
@@ -255,7 +261,7 @@ private Context con;
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                            progressNirbachito.setVisibility(View.GONE);
+                           // progressNirbachito.setVisibility(View.GONE);
                         }
                     }
                 });
