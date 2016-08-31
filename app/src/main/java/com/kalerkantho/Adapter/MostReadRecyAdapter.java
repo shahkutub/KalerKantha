@@ -1,5 +1,6 @@
 package com.kalerkantho.Adapter;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.Model.OnItemClickListenerNews;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AppConstant;
@@ -22,6 +24,7 @@ public class MostReadRecyAdapter extends RecyclerView.Adapter<MostReadRecyAdapte
     Context context;
     private final OnItemClickListenerNews listener;
     private List<AllCommonNewsItem> latestList = new ArrayList<AllCommonNewsItem>();
+    private  AllCommonNewsItem allNewsItem ;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView commonImage;
@@ -103,10 +106,19 @@ public class MostReadRecyAdapter extends RecyclerView.Adapter<MostReadRecyAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
          holder.bind(latestList.get(position), listener,position);
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = latestList.get(position).getNews_obj().getId();
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override

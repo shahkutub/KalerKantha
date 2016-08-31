@@ -82,10 +82,19 @@ public class AllOnlineRecyAdapter extends RecyclerView.Adapter<AllOnlineRecyAdap
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder,final int position) {
 
          holder.bind(onlineList.get(position), listener);
-
+       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = onlineList.get(position).getId();
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
+                context.startActivity(i);
+            }
+        });*/
     }
 
     @Override
