@@ -1,8 +1,10 @@
 package com.kalerkantho;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +71,8 @@ public class DetailsActivity extends AppCompatActivity {
             if(isFvrtString.equalsIgnoreCase("1") ){
                 Log.e("fff","favrt");
                 try {
+                    final Typeface face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+                    final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
                     String response = "";
 
                     for(FvrtModel fm:db.getAllFvrtModels()) {
@@ -84,7 +88,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                     if(allDetail != null) {
                         headingTxt.setText(allDetail.getNews().getTitle());
-                        detailsTxt.setText(allDetail.getNews().getDetails());
+                        detailsTxt.setText(Html.fromHtml(allDetail.getNews().getDetails()));
                         Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
 
                         if (allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()) {
@@ -95,8 +99,16 @@ public class DetailsActivity extends AppCompatActivity {
                         }
                         if (!allDetail.getComments_count().equalsIgnoreCase("0"))
                             txt_comment.setText(allDetail.getComments_count());
-                        txtDate.setText(allDetail.getNews().getDatetime() + "  | ");
+                        txtDate.setText(allDetail.getNews().getBanglaDateString() + "  | ");
                         txtCategory.setText(allDetail.getNews().getCategory_name());
+
+                        headingTxt.setTypeface(face_bold);
+                        detailsTxt.setTypeface(face_reg);
+                        txt_positive_like.setTypeface(face_reg);
+                        txt_negative_like.setTypeface(face_reg);
+                        txt_comment.setTypeface(face_reg);
+                        txtDate.setTypeface(face_reg);
+                        txtCategory.setTypeface(face_reg);
                     }
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();
@@ -175,25 +187,36 @@ public class DetailsActivity extends AppCompatActivity {
                         progressShow.setVisibility(View.GONE);
 
                         try {
+                            final Typeface face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+                            final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
                             Log.e("details response:", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
                                 Gson g = new Gson();
                                  allDetail=g.fromJson(new String(response),DetailsModel.class);
 
                                 headingTxt.setText(allDetail.getNews().getTitle());
-                                detailsTxt.setText(allDetail.getNews().getDetails());
+                                detailsTxt.setText(Html.fromHtml(allDetail.getNews().getDetails()));
+                                //new OpenTextUrl(con).setTextViewHTMLChat(detailsTxt, allDetail.getNews().getDetails());
                                 Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
 
                                 if(allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()){
                                     txt_positive_like.setText(allDetail.getLike_count());
                                 }
                                 if(allDetail.getIs_disliked().equalsIgnoreCase("true") && !allDetail.getDislike_count().isEmpty()){
-                                    txt_positive_like.setText(allDetail.getDislike_count());
+                                    txt_negative_like.setText(allDetail.getDislike_count());
                                 }
                                 if(!allDetail.getComments_count().equalsIgnoreCase("0"))
                                    txt_comment.setText(allDetail.getComments_count());
-                               txtDate.setText(allDetail.getNews().getDatetime()+"  | ");
+                               txtDate.setText(allDetail.getNews().getBanglaDateString()+"  | ");
                                 txtCategory.setText(allDetail.getNews().getCategory_name());
+
+                                headingTxt.setTypeface(face_bold);
+                                detailsTxt.setTypeface(face_reg);
+                                txt_positive_like.setTypeface(face_reg);
+                                txt_negative_like.setTypeface(face_reg);
+                                txt_comment.setTypeface(face_reg);
+                                txtDate.setTypeface(face_reg);
+                                txtCategory.setTypeface(face_reg);
                             }
 
                         } catch (final Exception e) {
