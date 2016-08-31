@@ -1,5 +1,6 @@
 package com.kalerkantho.Adapter;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.kalerkantho.Model.Category;
+import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.Model.CommonNewsItem;
-import com.kalerkantho.Model.OnItemClickListener;
 import com.kalerkantho.Model.OnItemClickListenerNews;
 import com.kalerkantho.R;
 
@@ -93,9 +92,19 @@ public class CatListRecyAdapter extends RecyclerView.Adapter<CatListRecyAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder,final int position) {
 
         holder.bind(my_newsList.get(position), listener);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = my_newsList.get(position).getId();
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override

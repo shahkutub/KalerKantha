@@ -1,7 +1,6 @@
 package com.kalerkantho.Adapter;
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -74,6 +73,16 @@ public class AllNewsRecyAdapter extends RecyclerView.Adapter<AllNewsRecyAdapter.
         });
 
         holder.menu.setTypeface(face_reg);
+       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = onlineList.get(position).getId();
+                Intent i = new Intent(context, DetailsActivity.class);
+                i.putExtra("content_id",id);
+                i.putExtra("is_favrt","0");
+                context.startActivity(i);
+            }
+        });*/
     }
 
     @Override
