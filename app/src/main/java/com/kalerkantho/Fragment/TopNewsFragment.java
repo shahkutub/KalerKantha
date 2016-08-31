@@ -3,7 +3,6 @@ package com.kalerkantho.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -15,10 +14,10 @@ import android.view.ViewGroup;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.kalerkantho.Adapter.TopNewsRecyAdapter;
 import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
-import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.holder.AllCommonNewsItem;
@@ -53,17 +52,18 @@ public class TopNewsFragment extends Fragment {
 
     private void intiU() {
 
-        Gson g = new Gson();
-        if (PersistData.getStringData(con, AppConstant.HOMERESPONSE)!=null){
+        try {
+            Gson g = new Gson();
+            if (PersistData.getStringData(con, AppConstant.HOMERESPONSE)!=null){
 
-            allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
-        }
+                allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
+            }
 
 
-        topnews.clear();
+            topnews.clear();
 
-        int i=0;
-
+            int i=0;
+            if(allObj !=null && allObj.getTop_news().size()>0)
         for(CommonNewsItem topNews:allObj.getTop_news())
         {
             if(i==0)
@@ -83,20 +83,22 @@ public class TopNewsFragment extends Fragment {
             i++;
         }
 
-        topnewRecList= (RecyclerView) getView().findViewById(R.id.topnewRecList);
-        mLayoutManager = new LinearLayoutManager(con);
-        topnewRecList.setLayoutManager(mLayoutManager);
+            topnewRecList= (RecyclerView) getView().findViewById(R.id.topnewRecList);
+            mLayoutManager = new LinearLayoutManager(con);
+            topnewRecList.setLayoutManager(mLayoutManager);
 
 
+            dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
+            // dividerDrawable.clearColorFilter();
+            RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+            topnewRecList.addItemDecoration(dividerItemDecoration);
 
-        dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
-       // dividerDrawable.clearColorFilter();
-        RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-        topnewRecList.addItemDecoration(dividerItemDecoration);
 
-
-        tAdapter = new TopNewsRecyAdapter(con,topnews);
-        topnewRecList.setAdapter(tAdapter);
+            tAdapter = new TopNewsRecyAdapter(con,topnews);
+            topnewRecList.setAdapter(tAdapter);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
 
     }
 

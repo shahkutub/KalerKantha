@@ -38,7 +38,7 @@ public class MotamotFragment extends Fragment {
     private Context con;
     private TextView motamotTitle,motatmotBtn,motamotThanks;
     private EditText subjectEditText,detailsEditText;
-private Typeface face_reg;
+private Typeface face_reg,face_bold;
 
     @Nullable
     @Override
@@ -56,7 +56,7 @@ private Typeface face_reg;
     private void intiU() {
 
         face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
-        final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
+          face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         motamotTitle = (TextView) getView().findViewById(R.id.motamotTitle);
         subjectEditText = (EditText) getView().findViewById(R.id.subjectEditText);
@@ -107,8 +107,8 @@ private Typeface face_reg;
         //==================Font set==========================
 
         tvTitel2.setTypeface(face_reg);
-        tvLeftCommund.setTypeface(face_reg);
-        tvRightCommund.setTypeface(face_reg);
+        tvLeftCommund.setTypeface(face_bold);
+        tvRightCommund.setTypeface(face_bold);
         tvDescription2.setTypeface(face_reg);
 
 
@@ -119,6 +119,7 @@ private Typeface face_reg;
                 LoginDialogFragment dialogMenu = new LoginDialogFragment();
                 dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogMenu.show(getActivity().getFragmentManager(), "");
+                dialogLogin.dismiss();
             }
         });
 
@@ -164,8 +165,8 @@ private Typeface face_reg;
                 try {
                     Log.e("SubmitFeedback URL", AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString()));
                     //-------------Hit Server---------------------
-                    response = AAPBDHttpClient.get(AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString())).
-                            header("Authorization", "Bearer " + PersistData.getStringData(con, AppConstant.token)).body();
+                    response = AAPBDHttpClient.get(AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString())).body();
+//                            header("Authorization", "Bearer " + PersistData.getStringData(con, AppConstant.token)).body();
                     Log.e("SubmitFeedBack ", ">>" + response);
 
                 } catch (Exception e1) {

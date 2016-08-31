@@ -95,21 +95,20 @@ private String full_name,email,password,device_type,push_id,registrationtype;
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(etName.getText().toString())) {
-//                    AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
+                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_name));
                 }  else if (TextUtils.isEmpty(etEmail.getText().toString())) {
-//                    AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
+                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_email));
                 } else if (!ValidateEmail.validateEmail(etEmail.getText().toString())) {
-//                    AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
+                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_email));
                 }  else if (etName.getText().toString().length() < 3) {
 //                    AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
                 } else if (TextUtils.isEmpty(etPasword.getText().toString())) {
-//                    AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
+                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_password));
                 } else if (etPasword.getText().toString().length() < 3) {
 //                    AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
                 } else{
                     full_name = etName.getText().toString();
                     email = etEmail.getText().toString();
-
                     password = etPasword.getText().toString();
 
                     normalUserSignUp(AllURL.registrationURL());
@@ -122,7 +121,7 @@ private String full_name,email,password,device_type,push_id,registrationtype;
     protected void normalUserSignUp(final String url) {
         //--- for net check-----
         if (!NetInfo.isOnline(con)) {
-            AlertMessage.showMessage(con, "", "");
+            AlertMessage.showMessage(con, getResources().getString(R.string.app_name), "No internet!");
             return;
         }
         final BusyDialog busyNow = new BusyDialog(con, true, false);

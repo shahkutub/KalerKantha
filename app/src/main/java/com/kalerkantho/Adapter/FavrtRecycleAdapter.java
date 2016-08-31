@@ -2,6 +2,7 @@ package com.kalerkantho.Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -53,6 +54,9 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
         public void bind(final DetailsModel item, final OnItemClickListenerNews listener) {
 
             try {
+                final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+                final Typeface face_bold = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
+
                 if (!(TextUtils.isEmpty(item.getNews().getImage()))) {
                     Glide.with(context).load(item.getNews().getImage()).placeholder(R.drawable.defaulticon).into(photo);
                 } else {
@@ -61,9 +65,12 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
                 //item.getNews()
                 heading.setText(item.getNews().getTitle());
                 category.setText(item.getNews().getCategory_name());
-                dateTime.setText(item.getNews().getDatetime());
+                dateTime.setText(item.getNews().getBanglaDateString());
                 fvrtBtn.setBackgroundResource(R.drawable.fav_on);
 
+                heading.setTypeface(face_bold);
+                category.setTypeface(face_reg);
+                dateTime.setTypeface(face_reg);
                 fvrtBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
