@@ -301,7 +301,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        nirbachitoBtn.setOnClickListener(new View.OnClickListener() {
+        nirbachitoCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TabFragment fragment= new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 6);
+                fragment.setArguments(bundle);
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+
+            }
+        });
+
+
+        nirbacitoMenuView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (nirbachitoList.getVisibility() == View.GONE){
@@ -312,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     nirbachitoList.setVisibility(View.VISIBLE);
-                    mAdapter3 = new Menu3RecyAdapter(getApplicationContext(),null);
+                    mAdapter3 = new Menu3RecyAdapter(MainActivity.this,null);
                     nirbachitoList.setAdapter(mAdapter3);
                     mAdapter3.notifyDataSetChanged();
                     RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
@@ -326,6 +343,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         photogalery.setOnClickListener(new View.OnClickListener() {
             @Override

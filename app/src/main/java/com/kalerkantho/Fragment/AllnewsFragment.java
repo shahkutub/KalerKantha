@@ -1,5 +1,6 @@
 package com.kalerkantho.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by Ratan on 7/29/2015.
  */
 public class AllnewsFragment extends Fragment {
-    private Context con;
+    private Activity con;
     private RecyclerView allNewsList;
     AllNewsRecyAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
