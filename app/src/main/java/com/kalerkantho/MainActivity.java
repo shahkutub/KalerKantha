@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.Time;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,10 @@ import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.holder.AllCategory;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     AllCategory allCategory;
 
     private RelativeLayout printBtn,shokolBtn,nirbachitoBtn;
-    private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion;
+    private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion,tvDate;
     private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
     private TextView favorite,photogalery,setting,motamot;
     private Context con;
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         final Typeface face_bold = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_Bold.ttf");
-
+        final Typeface face_reg = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_reg.ttf");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
         mDrawerLayout.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         showPrintListView = (ImageView) findViewById(R.id.showPrintListView);
         shokolShonbadListView = (ImageView) findViewById(R.id.shokolShonbadListView);
         nirbacitoMenuView = (ImageView) findViewById(R.id.nirbacitoMenuView);
-
+        tvDate= (TextView) findViewById(R.id.tvDate);
         homeMenu = (TextView) findViewById(R.id.homeMenu);
         shirshoMenu = (TextView) findViewById(R.id.shirshoMenu);
         shorboMenu = (TextView) findViewById(R.id.shorboMenu);
@@ -120,6 +124,25 @@ public class MainActivity extends AppCompatActivity {
         photogalery.setTypeface(face_bold);
         setting.setTypeface(face_bold);
         motamot.setTypeface(face_bold);
+        tvDate.setTypeface(face_reg);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        String dayOfTheWeek = sdf.format(d);
+        SimpleDateFormat mydate = new SimpleDateFormat("dd");
+        String currentDateandTime = mydate.format(new Date());
+        Time today = new Time(Time.getCurrentTimezone());
+        today.setToNow();
+        Calendar c = Calendar.getInstance();
+
+        String sDate = c.get(Calendar.YEAR) + "-"
+                + c.get(Calendar.MONTH)
+                + "-" + c.get(Calendar.DAY_OF_MONTH)
+                + " at " + c.get(Calendar.HOUR_OF_DAY)
+                + ":" + c.get(Calendar.MINUTE);
+        tvDate.setText(sDate);
+
+        tvDate.setText(getBanglaDay(dayOfTheWeek)+" "+AppConstant.getDigitBanglaFromEnglish(String.valueOf(c.get(Calendar.DAY_OF_MONTH)))+" "+getBanglaMonth(String.valueOf(c.get(Calendar.MONTH)))+AppConstant.getDigitBanglaFromEnglish(String.valueOf(c.get(Calendar.YEAR))));
 
         /**
          * Lets inflate the very first fragment
@@ -483,6 +506,80 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+    static public String getBanglaDay(String day){
+
+        String symbol = null;
+        switch (day.toLowerCase()) {
+            case "saturday":
+                symbol="শনিবার";
+                break;
+            case "sunday":
+                symbol="রবিবার";
+//				symbol="₽";
+                break;
+            case "monday":
+                symbol="সোমবার";
+                break;
+            case "tuesday":
+                symbol="মঙ্গলবার";
+                break;
+            case "wednesday":
+                symbol="বুধবার";
+                break;
+            case "thursday":
+                symbol="বৃহস্পতিবার";
+                break;
+            case "friday":
+                symbol="শুক্রবার";
+                break;
+        }
+        return symbol;
+    }
+
+     public String getBanglaMonth(String englishMonth){
+
+        String symbol = null;
+        switch (englishMonth.toLowerCase()) {
+            case "0":
+                symbol="জানুয়ারি ";
+                break;
+            case "1":
+                symbol="ফেব্রূয়ারি ";
+//				symbol="₽";
+                break;
+            case "2":
+                symbol="মার্চ ";
+                break;
+            case "3":
+                symbol="এপ্রিল ";
+                break;
+            case "4":
+                symbol="মে ";
+                break;
+            case "5":
+                symbol="জুন ";
+                break;
+            case "6":
+                symbol="জুলাই ";
+                break;
+            case "7":
+                symbol="আগস্ট ";
+                break;
+            case "8":
+                symbol="সেপ্টেম্বর";
+                break;
+            case "9":
+                symbol="অক্টোবর ";
+                break;
+            case "10":
+                symbol="নভেম্বর";
+                break;
+            case "11":
+                symbol="ডিসেম্বর";
+                break;
+        }
+        return symbol;
     }
 
 }
