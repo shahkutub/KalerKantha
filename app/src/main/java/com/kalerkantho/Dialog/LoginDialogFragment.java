@@ -177,12 +177,10 @@ private String email,password;
                 if (loginResponse.getStatus().equalsIgnoreCase("1")) {
                     Toast.makeText(con, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
                     PersistentUser.setLogin(con);
-                    PersistentUser.setLogin(con);
                     PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
                     PersistentUser.setUserEmail(con,loginResponse.getUserdetails().getEmail());
                     PersistentUser.setAccessToken(con,loginResponse.getToken());
-                    Log.e("token", "=" + PersistData.getStringData(con, AppConstant.token));
-
+                    Log.e("User id", "=" + PersistentUser.getUserID(con));
                     getDialog().dismiss();
                 } else {
 					AlertMessage.showMessage(con, getResources().getString(R.string.app_name), loginResponse.getMsg() + "");
