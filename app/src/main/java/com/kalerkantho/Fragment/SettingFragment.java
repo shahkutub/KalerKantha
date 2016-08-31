@@ -16,7 +16,6 @@ import com.kalerkantho.Dialog.ConditionDialogFragment;
 import com.kalerkantho.Dialog.HelpDialogFragment;
 import com.kalerkantho.Dialog.PrivacyPolicyDialogFragment;
 import com.kalerkantho.R;
-import com.kalerkantho.Utils.LoginDialogFragment;
 
 
 public class SettingFragment extends Fragment {

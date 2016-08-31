@@ -168,10 +168,11 @@ private String full_name,email,password,device_type,push_id,registrationtype;
                 Toast.makeText(con,loginResponse.getMsg(),Toast.LENGTH_LONG).show();
                 if (loginResponse.getStatus().equalsIgnoreCase("1")) {
                     Toast.makeText(con,loginResponse.getMsg(),Toast.LENGTH_LONG).show();
-
                     PersistentUser.setLogin(con);
-                    PersistData.setStringData(con, AppConstant.id, loginResponse.getUserdetails().getId());
-                    PersistData.setStringData(con, AppConstant.email, loginResponse.getUserdetails().getDevice_type());
+                    PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
+                    PersistentUser.setUserEmail(con,loginResponse.getUserdetails().getEmail());
+//                    PersistData.setStringData(con, AppConstant.id, loginResponse.getUserdetails().getId());
+//                    PersistData.setStringData(con, AppConstant.email, loginResponse.getUserdetails().getDevice_type());
 //                    PersistData.setStringData(con, AppConstant.last_name, logInResponse.getResults().getLast_name());
 
                     PersistData.setStringData(con, AppConstant.token,

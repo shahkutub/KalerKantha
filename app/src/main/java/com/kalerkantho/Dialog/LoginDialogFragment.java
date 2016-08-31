@@ -1,4 +1,4 @@
-package com.kalerkantho.Utils;
+package com.kalerkantho.Dialog;
 
 import android.app.DialogFragment;
 import android.content.Context;
@@ -20,6 +20,12 @@ import com.google.gson.Gson;
 import com.kalerkantho.Dialog.Registration;
 import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AlertMessage;
+import com.kalerkantho.Utils.AllURL;
+import com.kalerkantho.Utils.AppConstant;
+import com.kalerkantho.Utils.BusyDialog;
+import com.kalerkantho.Utils.NetInfo;
+import com.kalerkantho.Utils.PersistentUser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
