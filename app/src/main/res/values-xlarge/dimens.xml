@@ -17,4 +17,7 @@
     <dimen name="photoh">150dp</dimen>
     <dimen name="photow">185dp</dimen>
 
+    <dimen name="dim30">60dp</dimen>
+    <dimen name="dim40">80dp</dimen>
+
 </resources>
