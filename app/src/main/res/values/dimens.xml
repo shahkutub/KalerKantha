@@ -11,6 +11,7 @@
 
     <dimen name="grid_imageh">120dp</dimen>
     <dimen name="grid_imagew">160dp</dimen>
+
     <dimen name="dim10">10dp</dimen>
     <dimen name="dim50">50dp</dimen>
     <dimen name="dim20">20dp</dimen>

@@ -46,7 +46,7 @@ public class LatestNewsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
-
+        intiU();
 
     }
 
@@ -68,17 +68,20 @@ public class LatestNewsFragment extends Fragment {
 
 
         latestNewRecList= (RecyclerView) getView().findViewById(R.id.latestNewRecList);
-
         latestNewRecList.setLayoutManager(new GridLayoutManager(con, 2));
-        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
+       GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
         latestNewRecList.addItemDecoration(itemDecoration);
 
         lAdapter = new LatestRecyAdapter(con,latestNews,null);
         latestNewRecList.setAdapter(lAdapter);
 
+      /* GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
+        latestNewRecList.addItemDecoration(itemDecoration);
+        itemDecoration.notifyAll();*/
+
     }
 
-    @Override
+ /*   @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -92,5 +95,5 @@ public class LatestNewsFragment extends Fragment {
                 }
             },100);
         }
-    }
+    }*/
 }

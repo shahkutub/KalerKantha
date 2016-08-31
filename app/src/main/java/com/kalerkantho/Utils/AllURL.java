@@ -76,4 +76,9 @@ public class AllURL {
 
 	}
 
+	public static String getHelp() {
+		final Vector<KeyValue> temp = new Vector<KeyValue>();
+		return getcommonURLWithParamAndAction("help", temp);
+	}
+
 }

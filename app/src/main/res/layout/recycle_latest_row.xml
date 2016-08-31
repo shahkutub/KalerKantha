@@ -16,20 +16,29 @@
        >
 
 
+       <LinearLayout
+           android:id="@+id/imagewrap"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/gray"
+           android:orientation="vertical">
   <ImageView
         android:id="@+id/imag_comm"
         android:layout_width="@dimen/grid_imagew"
         android:layout_height="@dimen/grid_imageh"
-       android:background="@drawable/defaulticon"
+        android:background="@drawable/defaulticon"
+        android:layout_margin="1px"
         android:scaleType="fitXY"
         />
 
-    <LinearLayout
+       </LinearLayout>
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imag_comm"
-        android:layout_alignLeft="@+id/imag_comm"
-        android:layout_alignRight="@+id/imag_comm"
+        android:layout_below="@+id/imagewrap"
+        android:layout_alignLeft="@+id/imagewrap"
+        android:layout_alignRight="@+id/imagewrap"
         android:layout_marginTop="5dp"
         android:orientation="vertical">
         <TextView
