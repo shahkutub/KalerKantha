@@ -1,5 +1,6 @@
 package com.kalerkantho.Adapter;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.Dialog.CatListDialogFragment;
 import com.kalerkantho.Dialog.ConditionDialogFragment;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.holder.AllCommonNewsItem;
 
 import java.util.ArrayList;
@@ -29,13 +31,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
     HorizontalRecyAdapter hAdapter;
     private  String id = "";
 //
-    private Context mContext;
+    private Activity mContext;
     public static final int dataOne = 1;
     public static final int dataTwo = 2;
     public static final int dataThree = 3;
     public static final int dataFour = 4;
 
-    public RecyclerAdapter(Context context, List<AllCommonNewsItem> newslist) {
+    public RecyclerAdapter(Activity context, List<AllCommonNewsItem> newslist) {
         this.newslist = newslist;
         this.mContext = context;
         id = "";
@@ -137,9 +139,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
                 @Override
                 public void onClick(View v) {
 
-                   /* CatListDialogFragment dialogCatList= new CatListDialogFragment();
+                    AppConstant.CATEGORYTYPE = newsitem.getNews_obj().getCategory();
+                    Log.e("Category Type",""+ AppConstant.CATEGORYTYPE );
+                    CatListDialogFragment dialogCatList= new CatListDialogFragment();
                     dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
-                    dialogCatList.show(getActivity().getFragmentManager(), "");*/
+                    dialogCatList.show(mContext.getFragmentManager(), "");
+
                 }
             });
 

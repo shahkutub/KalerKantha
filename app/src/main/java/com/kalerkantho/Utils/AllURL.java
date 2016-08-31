@@ -32,10 +32,16 @@ public class AllURL {
 
 
 
+	public static String getCatList(String cat,int pagNumber) {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("my_news"+"/"+cat+"/"+pagNumber, temp);
+	}
+
 	public static String getMenuList() {
 		final Vector<KeyValue> temp = new Vector();
 		return getcommonURLWithParamAndAction("menu_list", temp);
 	}
+
 	public static String registrationURL() {
 		final Vector<KeyValue> temp = new Vector();
 		return getcommonURLWithParamAndAction("reg", temp);
