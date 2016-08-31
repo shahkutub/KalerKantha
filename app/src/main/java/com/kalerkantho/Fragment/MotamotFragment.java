@@ -1,5 +1,6 @@
 package com.kalerkantho.Fragment;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.LoginDialogFragment;
 
 
 public class MotamotFragment extends Fragment {
@@ -48,6 +50,15 @@ public class MotamotFragment extends Fragment {
         detailsEditText.setTypeface(face_reg);
         motatmotBtn.setTypeface(face_bold);
         motamotThanks.setTypeface(face_reg);
+
+        motatmotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginDialogFragment dialogMenu= new LoginDialogFragment();
+                dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogMenu.show(getActivity().getFragmentManager(), "");
+            }
+        });
 
     }
 }
