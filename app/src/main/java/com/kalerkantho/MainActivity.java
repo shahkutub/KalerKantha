@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                        showPrintListView.setImageResource(R.drawable.back_show);
                    }
 
-                   mAdapter = new MenuRecyAdapter(getApplicationContext(), printList,null);
+                   mAdapter = new MenuRecyAdapter(MainActivity.this, printList,null);
                    listViewMenu.setAdapter(mAdapter);
                    RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                    listViewMenu.addItemDecoration(dividerItemDecoration);
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         shokolShonbadListView.setImageResource(R.drawable.back_show);
                     }
 
-                    mAdapter2 = new Menu2RecyAdapter(getApplicationContext(), onlineList);
+                    mAdapter2 = new Menu2RecyAdapter(MainActivity.this, onlineList);
                     shokolshogbadList.setAdapter(mAdapter2);
                     RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                     shokolshogbadList.addItemDecoration(dividerItemDecoration);
