@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kalerkantho.Model.OnItemClickListenerNews;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.holder.AllCommonNewsItem;
 
 import java.util.ArrayList;
@@ -78,8 +79,7 @@ public class MostReadRecyAdapter extends RecyclerView.Adapter<MostReadRecyAdapte
 
             numberingText.setVisibility(View.VISIBLE);
 
-            numberingText.setText(""+(pos+1));
-
+            numberingText.setText(""+ AppConstant.getDigitBanglaFromEnglish(""+(pos+1)));
 
             commonTitle.setTypeface(face_bold);
             commonDateTime.setTypeface(face_reg);

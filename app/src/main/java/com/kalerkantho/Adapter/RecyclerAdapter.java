@@ -140,6 +140,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
                 public void onClick(View v) {
 
                     AppConstant.CATEGORYTYPE = newsitem.getNews_obj().getCategory();
+                    AppConstant.CATEGORYTITLE= newsitem.getNews_obj().getCategory_name();
                     Log.e("Category Type",""+ AppConstant.CATEGORYTYPE );
                     CatListDialogFragment dialogCatList= new CatListDialogFragment();
                     dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
@@ -184,6 +185,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
                 commonHolder.divderView.setVisibility(View.GONE);
             }
 
+
+            commonHolder.commonCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppConstant.CATEGORYTYPE = newsitem.getNews_obj().getCategory();
+                    AppConstant.CATEGORYTITLE= newsitem.getNews_obj().getCategory_name();
+                    Log.e("Category Type",""+ AppConstant.CATEGORYTYPE );
+                    CatListDialogFragment dialogCatList= new CatListDialogFragment();
+                    dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                    dialogCatList.show(mContext.getFragmentManager(), "");
+                }
+            });
+
             commonHolder.commonTitle.setTypeface(face_bold);
             commonHolder.commonDateTime.setTypeface(face_reg);
             commonHolder.commonCategory.setTypeface(face_reg);
@@ -198,6 +212,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             }else{
                 headerHolder.headerTitle.setText("");
             }
+
+
+            headerHolder.headerDetailsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AppConstant.CATEGORYTYPE = newsitem.getCategory_id();
+                    AppConstant.CATEGORYTITLE= newsitem.getCategory_title();
+
+                    Log.e("Category Type",""+ AppConstant.CATEGORYTYPE );
+                    CatListDialogFragment dialogCatList= new CatListDialogFragment();
+                    dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                    dialogCatList.show(mContext.getFragmentManager(), "");
+
+
+                }
+            });
 
 
             headerHolder.headerDetailsBtn.setTypeface(face_reg);
