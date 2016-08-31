@@ -34,7 +34,7 @@ public class FavrtActivity extends AppCompatActivity {
     private List<DetailsModel> allDetailsList = new ArrayList<DetailsModel>();
     private MyDBHandler db;
     private ImageView backBtn;
-
+//
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
