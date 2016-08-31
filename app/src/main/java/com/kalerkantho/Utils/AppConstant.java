@@ -29,6 +29,7 @@ public class AppConstant {
     public static List<CommonNewsItem> PHOTOLIST = new ArrayList<CommonNewsItem>();
     public static String CATEGORYTYPE = "";
     public static String CATEGORYTITLE = "";
+    public static int scroolBeforeLatItem =10;
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 

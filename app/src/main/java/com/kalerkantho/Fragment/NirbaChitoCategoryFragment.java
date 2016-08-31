@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,6 +31,7 @@ import com.kalerkantho.R;
 import com.kalerkantho.TabFragment;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
+import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllNirbahito;
@@ -39,7 +41,7 @@ import java.util.concurrent.Executors;
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class NirbaChitoCategoryFragment extends Fragment {
+public class NirbaChitoCategoryFragment extends Fragment{
 private Context con;
     private ImageView selectBtniv;
     private TextView tvLike,tvTitle1,tvTitle2,startBtn;
@@ -54,7 +56,7 @@ private Context con;
 
     private AllNirbahito allnirbahito;
     private String allCategoryID="";
-    private int pageNumber =1;
+    private int pageNumber =1 ,visibleItemCount=0,totalItemCount,pastVisiblesItems,totalpage;
 
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -95,17 +97,37 @@ private Context con;
         recFvoList = (RecyclerView) getView().findViewById(R.id.recFvoList);
 
 
-
-
-
-
         myFvLayoutManager = new LinearLayoutManager(con);
         recFvoList.setLayoutManager(myFvLayoutManager);
+
+
+        recFvoList.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if(dy > 0) //check for scroll down
+                {
+                     visibleItemCount = myFvLayoutManager.getChildCount();
+                     totalItemCount = myFvLayoutManager.getItemCount();
+                     pastVisiblesItems = myFvLayoutManager.findLastVisibleItemPosition();
+                     pageNumber = pageNumber + 1;
+                    if (hasMorePage())
+                    {
+                        if ( ( pastVisiblesItems) >= totalItemCount-AppConstant.scroolBeforeLatItem)
+                        {
+                            getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
+
+                        }
+                    }
+                }
+            }
+        });
+
 
         dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
         recFvoList.addItemDecoration(dividerItemDecoration);
-
 
         tvLike.setTypeface(face_bold);
         tvTitle1.setTypeface(face_reg);
@@ -222,10 +244,11 @@ private Context con;
                                         recFvoList.setAdapter(myAdapter);
                                         myAdapter.notifyDataSetChanged();
 
-
                                     }else{
+
                                         recFvoList.setVisibility(View.GONE);
                                         emptyFv.setVisibility(View.VISIBLE);
+
                                     }
                                 }
                             }
@@ -234,15 +257,28 @@ private Context con;
                             e.printStackTrace();
                             progressNirbachito.setVisibility(View.GONE);
                         }
-
-
                     }
                 });
             }
         });
-
-
     }
 
+    private boolean hasMorePage() {
+        if(allnirbahito.getPaginator()!=null){
+            if (TextUtils.isDigitsOnly(""+allnirbahito.getPaginator().getPageCount())){
+                totalpage = allnirbahito.getPaginator().getPageCount();
+            }else{
+                totalpage=1;
+            }
+            int  currentPageCount = Integer.parseInt(allnirbahito.getPaginator().getPage());
 
+            if (currentPageCount < totalpage) {
+                return true;
+            }
+        }else{
+            return false;
+        }
+
+        return false;
+    }
 }

@@ -47,7 +47,7 @@ public class CatListDialogFragment extends DialogFragment {
     private String response="";
     private AllNirbahito allCatList;
     private LinearLayoutManager mLayoutManager;
-    private int pagNumber =1;
+    private int pagNumber =1,totalItemCount,pastVisiblesItems,totalpage,visibleItemCount;
    // Drawable dividerDrawable;
 
     @Nullable
@@ -78,9 +78,34 @@ public class CatListDialogFragment extends DialogFragment {
         mLayoutManager = new LinearLayoutManager(con);
         catRcyList.setLayoutManager(mLayoutManager);
 
-        /*dividerDrawable = ContextCompat.getDrawable(con, R.drawable.lineee);
+
+
+        catRcyList.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findLastVisibleItemPosition();
+                    pagNumber = pagNumber + 1;
+                    if (hasMorePage())
+                    {
+                        if ( ( pastVisiblesItems) >= totalItemCount-AppConstant.scroolBeforeLatItem)
+                        {
+                            getCatList(AllURL.getCatList(AppConstant.CATEGORYTYPE,pagNumber));
+
+                        }
+                    }
+                }
+            }
+        });
+
+        Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-        catRcyList.addItemDecoration(dividerItemDecoration);*/
+        catRcyList.addItemDecoration(dividerItemDecoration);
 
        // catHeadText.setText(getString(R.string.catlist));
         catHeadText.setText(AppConstant.CATEGORYTITLE);
@@ -138,13 +163,12 @@ public class CatListDialogFragment extends DialogFragment {
 
                                 if(allCatList.getStatus().equalsIgnoreCase("1")){
 
-                                     catAdapter = new CatListRecyAdapter(con,allCatList.getMy_news(),null);
-                                     catRcyList.setAdapter(catAdapter);
+                                      catAdapter = new CatListRecyAdapter(con,allCatList.getMy_news(),null);
+                                      catRcyList.setAdapter(catAdapter);
 
-                                    Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
-                                    RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-                                    catRcyList.addItemDecoration(dividerItemDecoration);
-
+                                       //Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
+                                       //RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+                                       //catRcyList.addItemDecoration(dividerItemDecoration);
 
                                 }
                             }
@@ -157,10 +181,26 @@ public class CatListDialogFragment extends DialogFragment {
                 });
             }
         });
-
-
     }
 
+    private boolean hasMorePage() {
 
+        if(allCatList.getPaginator()!=null){
+            if (TextUtils.isDigitsOnly(""+allCatList.getPaginator().getPageCount())){
+                totalpage = allCatList.getPaginator().getPageCount();
+            }else{
+                totalpage=1;
+            }
+            int  currentPageCount = Integer.parseInt(allCatList.getPaginator().getPage());
+
+            if (currentPageCount < totalpage) {
+                return true;
+            }
+        }else{
+            return false;
+        }
+
+        return false;
+    }
 
 }
