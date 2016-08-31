@@ -73,7 +73,14 @@ public class AllURL {
 		temp.add(new KeyValue("matched_id",matched_id));
 		temp.add(new KeyValue("passed",passed));
 		return getcommonURLWithParamAndAction("add-friend", temp);
+	}
 
+	public static String submitFeedbackURL(String user_id,String feedback_subject,String feedback_text) {
+		final Vector<KeyValue> temp = new Vector();
+		temp.add(new KeyValue("user_id",user_id));
+		temp.add(new KeyValue("feedback_subject",feedback_subject));
+		temp.add(new KeyValue("feedback_text",feedback_text));
+		return getcommonURLWithParamAndAction("submit-feedback", temp);
 	}
 
 	public static String getHelp() {
