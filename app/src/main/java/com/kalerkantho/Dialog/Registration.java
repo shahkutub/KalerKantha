@@ -72,6 +72,7 @@ private String full_name,email,password,device_type,push_id,registrationtype;
     private void initUi() {
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         final Typeface face_normal = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+
         TextView tvRegistration = (TextView) view.findViewById(R.id.tvRegistration);
         TextView tvEnter = (TextView) view.findViewById(R.id.tvEnter);
         ImageView imgCross=(ImageView) view.findViewById(R.id.imgCross);
@@ -171,12 +172,13 @@ private String full_name,email,password,device_type,push_id,registrationtype;
                     PersistentUser.setLogin(con);
                     PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
                     PersistentUser.setUserEmail(con,loginResponse.getUserdetails().getEmail());
+                    PersistentUser.setAccessToken(con,loginResponse.getToken());
 //                    PersistData.setStringData(con, AppConstant.id, loginResponse.getUserdetails().getId());
 //                    PersistData.setStringData(con, AppConstant.email, loginResponse.getUserdetails().getDevice_type());
 //                    PersistData.setStringData(con, AppConstant.last_name, logInResponse.getResults().getLast_name());
 
-                    PersistData.setStringData(con, AppConstant.token,
-                            loginResponse.getToken());
+//                    PersistData.setStringData(con, AppConstant.token,
+//                            loginResponse.getToken());
                     Log.e("token", "=" + PersistData.getStringData(con, AppConstant.token));
                     getDialog().dismiss();
 

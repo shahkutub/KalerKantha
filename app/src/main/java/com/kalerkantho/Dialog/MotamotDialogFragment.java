@@ -15,10 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistData;
+import com.aapbd.utils.storage.PersistentUser;
 import com.google.gson.Gson;
 import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.R;
@@ -26,9 +29,15 @@ import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.BusyDialog;
+import com.kalerkantho.Utils.KeyValue;
 import com.kalerkantho.Utils.NetInfo;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.concurrent.Executors;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class MotamotDialogFragment extends DialogFragment {
@@ -51,7 +60,7 @@ private Typeface face_reg,face_bold;
     }
 
     private void intiU() {
-
+        ImageView imgBackComment=(ImageView) getView().findViewById(R.id.imgBackComment);
         face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
           face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
@@ -67,20 +76,27 @@ private Typeface face_reg,face_bold;
         motatmotBtn.setTypeface(face_bold);
         motamotThanks.setTypeface(face_reg);
 
+        imgBackComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
+
+
         motatmotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.email))){
+                if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))){
                     loginDialoag(con);
 //                    AlertMessage.showMessage(con,getResources().getString(R.string.status),getResources().getString(R.string.login_first));
                 }else {
                     if (TextUtils.isEmpty(subjectEditText.getText().toString())){
                         AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_subject));
-                    }if (TextUtils.isEmpty(detailsEditText.getText().toString())){
+                    }else if (TextUtils.isEmpty(detailsEditText.getText().toString())){
                         AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_details));
                     } else {
-
-                        submitFeedbackAPI(con);
+                        submitFeedbackAPI(AllURL.submitFeedbackURL());
                     }
 
                 }
@@ -131,74 +147,158 @@ private Typeface face_reg,face_bold;
         dialogLogin.show();
     }
 
-    /**
-     * -------------------12. Product Comments List  API------------------
-     */
-    public void submitFeedbackAPI(final Context con) {
+//    /**
+//     * -------------------12. Product Comments List  API------------------
+//     */
+//    public void submitFeedbackAPI(final Context con) {
+//        /**
+//         * ---------------check internet first------------
+//         */
+//        if (!NetInfo.isOnline(con)) {
+//            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
+//            return;
+//        }
+//        /**
+//         * ----------------Show Busy Dialog -----------------------------------------
+//         */
+//        final BusyDialog busy = new BusyDialog(con, false, "Please wait.....", false);
+//        busy.show();
+//        /**
+//         * =========================Start Thread====================================================
+//         */
+//        Executors.newSingleThreadExecutor().submit(new Runnable() {
+//
+//            String msg = "";
+//            String response = "";
+//
+//            @Override
+//            public void run() {
+//                // You can performed your task here.
+//
+//                try {
+//                    Log.e("SubmitFeedback URL", AllURL.submitFeedbackURL(PersistentUser.getUserID(con),subjectEditText.getText().toString(),detailsEditText.getText().toString()));
+//                    //-------------Hit Server---------------------
+//                    response = AAPBDHttpClient.get(AllURL.submitFeedbackURL(PersistentUser.getUserID(con),subjectEditText.getText().toString(),detailsEditText.getText().toString())).body();
+////                            header("Authorization", "Bearer " + PersistData.getStringData(con, AppConstant.token)).body();
+//                    Log.e("SubmitFeedBack ", ">>" + response);
+//
+//                } catch (Exception e1) {
+//                    e1.printStackTrace();
+//                    msg = e1.getMessage();
+//                }
+//
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        /**
+//                         * -------------Here we do UI related tasks inside run() method of runOnUiThread()-------------------
+//                         */
+//
+//                        //-------Stop Busy Dialog-----
+//                        if (busy != null) {
+//                            busy.dismis();
+//                        }
+//                        Gson gson = new Gson();
+//                        LoginResponse feedbackResponse = gson.fromJson(response, LoginResponse.class);
+//                        /**
+//                         * ---------main Ui related work--------------
+//                         */
+//                        if (feedbackResponse.getStatus().equalsIgnoreCase("1")) {
+//                            motamotThanks.setVisibility(View.VISIBLE);
+////                            Toast.makeText(con,feedbackResponse.getMsg(),Toast.LENGTH_LONG).show();
+//                            subjectEditText.setText("");
+//                            detailsEditText.setText("");
+//                        } else {
+//                            msg = feedbackResponse.getMsg();
+//                            AlertMessage.showMessage(con, "Feedback", msg);
+//                        }
+//                    }
+//                });
+//            }
+//        });
+//    }
+
+    protected void submitFeedbackAPI(final String url) {
         /**
-         * ---------------check internet first------------
+         * --------------- Check Internet------------
          */
         if (!NetInfo.isOnline(con)) {
             AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
             return;
         }
-        /**
-         * ----------------Show Busy Dialog -----------------------------------------
-         */
-        final BusyDialog busy = new BusyDialog(con, false, "Please wait.....", false);
-        busy.show();
-        /**
-         * =========================Start Thread====================================================
-         */
-        Executors.newSingleThreadExecutor().submit(new Runnable() {
 
-            String msg = "";
-            String response = "";
+        /**
+         * ------Show Busy Dialog------------------
+         */
+        final BusyDialog busyNow = new BusyDialog(con, true, false);
+        busyNow.show();
+        /**
+         * ---------Create object of  RequestParams to send value with URL---------------
+         */
+        final RequestParams param = new RequestParams();
+
+        try {
+            param.put("user_id", PersistentUser.getUserID(con));
+            param.put("feedback_subject", subjectEditText.getText().toString());
+            param.put("feedback_text", detailsEditText.getText().toString());
+        } catch (final Exception e1) {
+            e1.printStackTrace();
+        }
+        /**
+         * ---------Create object of  AsyncHttpClient class to heat server ---------------
+         */
+        final AsyncHttpClient client = new AsyncHttpClient();
+        Log.e("Submit FeedBack URL ", ">>" + url);
+        client.post(url, param, new AsyncHttpResponseHandler() {
 
             @Override
-            public void run() {
-                // You can performed your task here.
+            public void onStart() {
+            }
 
-                try {
-                    Log.e("SubmitFeedback URL", AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString()));
-                    //-------------Hit Server---------------------
-                    response = AAPBDHttpClient.get(AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString())).body();
-//                            header("Authorization", "Bearer " + PersistData.getStringData(con, AppConstant.token)).body();
-                    Log.e("SubmitFeedBack ", ">>" + response);
+            @Override
+            public void onSuccess(int statusCode, Header[] headers,
+                                  byte[] response) {
+                //-----------Off Busy Dialog ----------------
+                if (busyNow != null) {
+                    busyNow.dismis();
+                }
+                //-----------------Print Response--------------------
+                Log.e("SubmitFeedback ", ">>" + new String(response));
 
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    msg = e1.getMessage();
+                //------------Data persist using Gson------------------
+                Gson g = new Gson();
+                LoginResponse feedbackResponse = g.fromJson(new String(response), LoginResponse.class);
+
+
+                if (feedbackResponse.getStatus().equalsIgnoreCase("1")) {
+                    motamotThanks.setVisibility(View.VISIBLE);
+//                            Toast.makeText(con,feedbackResponse.getMsg(),Toast.LENGTH_LONG).show();
+                    subjectEditText.setText("");
+                    detailsEditText.setText("");
+                } else {
+                    AlertMessage.showMessage(con, "Feedback", feedbackResponse.getMsg());
                 }
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        /**
-                         * -------------Here we do UI related tasks inside run() method of runOnUiThread()-------------------
-                         */
+            }
 
-                        //-------Stop Busy Dialog-----
-                        if (busy != null) {
-                            busy.dismis();
-                        }
-                        Gson gson = new Gson();
-                        LoginResponse feedbackResponse = gson.fromJson(response, LoginResponse.class);
-                        /**
-                         * ---------main Ui related work--------------
-                         */
-                        if (feedbackResponse.getStatus().equalsIgnoreCase("1")) {
-                            motamotThanks.setVisibility(View.VISIBLE);
-//                            Toast.makeText(con,feedbackResponse.getMsg(),Toast.LENGTH_LONG).show();
-                            subjectEditText.setText("");
-                            detailsEditText.setText("");
-                        } else {
-                            msg = feedbackResponse.getMsg();
-                            AlertMessage.showMessage(con, "Feedback", msg);
-                        }
-                    }
-                });
+            @Override
+            public void onFailure(int statusCode, Header[] headers,
+                                  byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+
+//				Log.e("LoginerrorResponse", new String(errorResponse));
+
+                if (busyNow != null) {
+                    busyNow.dismis();
+                }
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+
             }
         });
+
     }
 }
