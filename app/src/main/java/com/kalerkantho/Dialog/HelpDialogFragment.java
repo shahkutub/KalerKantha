@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,25 +14,10 @@ import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.aapbd.utils.storage.PersistData;
-import com.google.gson.Gson;
-import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AllURL;
-import com.kalerkantho.Utils.AppConstant;
-import com.kalerkantho.Utils.BusyDialog;
-import com.kalerkantho.Utils.NetInfo;
-import com.kalerkantho.Utils.PersistentUser;
-import com.kalerkantho.Utils.Registration;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by hp on 8/30/2016.

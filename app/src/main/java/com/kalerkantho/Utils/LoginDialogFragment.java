@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
+import com.kalerkantho.Dialog.Registration;
 import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.R;
 import com.loopj.android.http.AsyncHttpClient;
@@ -93,11 +95,9 @@ private String email,password;
 
                 // --------Check user id and password-----------
                 if (TextUtils.isEmpty(etEmailLogin.getText().toString())) {
-//                    AppConstant.alertDialoag(con,"Alert",getString(R.string.corrent_info),"OK");
-//					AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.please_enter_usr_pass));
+                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_email));
                 } else if (TextUtils.isEmpty(etPaswordLogin.getText().toString())) {
-//                    AppConstant.alertDialoag(con,"Alert",getString(R.string.corrent_info),"OK");
-//					AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.please_ent_password));
+                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_password));
                 } else {
 
                     //--------- Set data of same type of API--------------
@@ -121,7 +121,7 @@ private String email,password;
          * --------------- Check Internet------------
          */
         if (!NetInfo.isOnline(con)) {
-//            AlertMessage.showMessage(con, getString(R.string.status), getString(R.string.checkInternet));
+            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
             return;
         }
 
@@ -172,12 +172,8 @@ private String email,password;
                 Log.e("Loginstatus", "=" + logInResponse.getStatus());
 
                 if (logInResponse.getStatus().equalsIgnoreCase("1")) {
-
+                    Toast.makeText(con, logInResponse.getMsg(), Toast.LENGTH_LONG).show();
                     PersistentUser.setLogin(con);
-
-//					Toast.makeText(con, logInResponse.getMsg(), Toast.LENGTH_LONG).show();
-
-
                     PersistData.setStringData(con, AppConstant.id,
                             logInResponse.getUserdetails().getId());
                     PersistData.setStringData(con, AppConstant.email,
@@ -190,8 +186,7 @@ private String email,password;
 
                     getDialog().dismiss();
                 } else {
-//                    AppConstant.alertDialoag(con,"Status",logInResponse.getMsg(),"Ok");
-//					AlertMessage.showMessage(con, "Status", logInResponse.getMsg() + "");
+					AlertMessage.showMessage(con, getResources().getString(R.string.app_name), logInResponse.getMsg() + "");
                     return;
                 }
 
