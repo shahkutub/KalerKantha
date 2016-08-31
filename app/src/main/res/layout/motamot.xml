@@ -3,91 +3,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
-<TextView
-    android:id="@+id/motamotTitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/motamotyour"
-    android:layout_marginTop="15dp"
-    android:textSize="16sp"
-    android:textStyle="bold"
-    android:textColor="@android:color/black"/>
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/motamotTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/motamotyour"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:orientation="vertical">
+
         <EditText
             android:id="@+id/subjectEditText"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:background="@null"
             android:hint="@string/subject"
-            android:singleLine="true"
+            android:inputType="textCapSentences"
             android:maxLines="1"
-            android:lines="1"
-            android:textColor="@android:color/black"
-            android:background="@null"/>
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/homTop"
-            ></View>
+            android:background="@color/homTop"></View>
 
         <EditText
             android:id="@+id/detailsEditText"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:layout_marginTop="15dp"
+            android:background="@null"
             android:hint="@string/detailss"
-            android:textColor="@android:color/black"
-            android:background="@null"/>
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black" />
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/homTop"
-            ></View>
+            android:background="@color/homTop"></View>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/motatmotBtn"
-        android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:background="@drawable/button"
         android:gravity="center"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
+        android:paddingTop="10dp"
+        android:text="@string/motamot"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/motamot"/>
+        android:textStyle="bold" />
 
 
     <TextView
         android:id="@+id/motamotThanks"
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/thanks"
         android:textColor="@color/gray"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:text="@string/thanks"/>
+        android:textStyle="bold" />
 
 </LinearLayout>

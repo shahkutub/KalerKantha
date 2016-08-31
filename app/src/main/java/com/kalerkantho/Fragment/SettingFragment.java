@@ -1,5 +1,6 @@
 package com.kalerkantho.Fragment;
 
+import android.app.DialogFragment;
 import android.content.Context;;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -8,16 +9,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kalerkantho.Dialog.ConditionDialogFragment;
+import com.kalerkantho.Dialog.HelpDialogFragment;
+import com.kalerkantho.Dialog.PrivacyPolicyDialogFragment;
 import com.kalerkantho.R;
-
+import com.kalerkantho.Utils.LoginDialogFragment;
 
 
 public class SettingFragment extends Fragment {
     private Context con;
     private TextView notificationHeadTx,notificationTitle,notificatonAnnounce,soundHeadText,soundTitle;
     private TextView vivrationHead,vivrationTitle,privacyHead,privacyTitle,tramHead,tramTitle,helpHead,helpTitle;
+    private LinearLayout hepBtn,privacyPolicyBtn,conditionBtn;
 
 
     @Nullable
@@ -51,6 +57,10 @@ public class SettingFragment extends Fragment {
         helpHead = (TextView) getView().findViewById(R.id.helpHead);
         helpTitle = (TextView) getView().findViewById(R.id.helpTitle);
 
+        hepBtn = (LinearLayout) getView().findViewById(R.id.hepBtn);
+        privacyPolicyBtn = (LinearLayout) getView().findViewById(R.id.privacyPolicyBtn);
+        conditionBtn = (LinearLayout) getView().findViewById(R.id.conditionBtn);
+
 
 
         notificationHeadTx.setTypeface(face_bold);
@@ -66,6 +76,38 @@ public class SettingFragment extends Fragment {
         tramTitle.setTypeface(face_reg);
         helpHead.setTypeface(face_bold);
         helpTitle.setTypeface(face_reg);
+
+        privacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PrivacyPolicyDialogFragment dialogPrivacy= new PrivacyPolicyDialogFragment();
+                dialogPrivacy.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogPrivacy.show(getActivity().getFragmentManager(), "");
+            }
+        });
+
+        conditionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ConditionDialogFragment dialogCondition= new ConditionDialogFragment();
+                dialogCondition.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogCondition.show(getActivity().getFragmentManager(), "");
+            }
+        });
+
+        hepBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                HelpDialogFragment dialogHelp= new HelpDialogFragment();
+                dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogHelp.show(getActivity().getFragmentManager(), "");
+
+            }
+        });
 
     }
 }

@@ -170,6 +170,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/privacyPolicyBtn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -186,6 +187,7 @@
             android:textStyle="bold"
             android:text="@string/privacy1"/>
 
+
         <TextView
             android:id="@+id/privacyTitle"
             android:layout_width="match_parent"
@@ -198,6 +200,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/conditionBtn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -224,6 +227,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/hepBtn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

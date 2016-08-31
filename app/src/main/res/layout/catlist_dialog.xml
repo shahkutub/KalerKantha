@@ -11,14 +11,14 @@
         android:padding="5dp"
       >
         <ImageView
-            android:id="@+id/dissmissHelpBtn"
+            android:id="@+id/dissmissCatListBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dim10"
             android:src="@drawable/descripasasss_06" />
 
         <TextView
-            android:id="@+id/tvLogin"
+            android:id="@+id/catHeadText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/dissmissHelpBtn"
@@ -37,7 +37,7 @@
         />
 
     <ProgressBar
-        android:id="@+id/progressHelp"
+        android:id="@+id/progressCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

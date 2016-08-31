@@ -10,25 +10,35 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistData;
+import com.google.gson.Gson;
+import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AlertMessage;
+import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
+import com.kalerkantho.Utils.BusyDialog;
 import com.kalerkantho.Utils.LoginDialogFragment;
+import com.kalerkantho.Utils.NetInfo;
+
+import java.util.concurrent.Executors;
 
 
 public class MotamotFragment extends Fragment {
     private Context con;
     private TextView motamotTitle,motatmotBtn,motamotThanks;
     private EditText subjectEditText,detailsEditText;
-private Typeface face_reg;
+private Typeface face_reg,face_bold;
 
     @Nullable
     @Override
@@ -46,7 +56,7 @@ private Typeface face_reg;
     private void intiU() {
 
         face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
-        final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
+          face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         motamotTitle = (TextView) getView().findViewById(R.id.motamotTitle);
         subjectEditText = (EditText) getView().findViewById(R.id.subjectEditText);
@@ -67,6 +77,14 @@ private Typeface face_reg;
                     loginDialoag(con);
 //                    AlertMessage.showMessage(con,getResources().getString(R.string.status),getResources().getString(R.string.login_first));
                 }else {
+                    if (TextUtils.isEmpty(subjectEditText.getText().toString())){
+                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_subject));
+                    }if (TextUtils.isEmpty(detailsEditText.getText().toString())){
+                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_details));
+                    } else {
+
+                        submitFeedbackAPI(con);
+                    }
 
                 }
             }
@@ -89,8 +107,8 @@ private Typeface face_reg;
         //==================Font set==========================
 
         tvTitel2.setTypeface(face_reg);
-        tvLeftCommund.setTypeface(face_reg);
-        tvRightCommund.setTypeface(face_reg);
+        tvLeftCommund.setTypeface(face_bold);
+        tvRightCommund.setTypeface(face_bold);
         tvDescription2.setTypeface(face_reg);
 
 
@@ -101,6 +119,7 @@ private Typeface face_reg;
                 LoginDialogFragment dialogMenu = new LoginDialogFragment();
                 dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogMenu.show(getActivity().getFragmentManager(), "");
+                dialogLogin.dismiss();
             }
         });
 
@@ -113,5 +132,75 @@ private Typeface face_reg;
         });
 
         dialogLogin.show();
+    }
+
+    /**
+     * -------------------12. Product Comments List  API------------------
+     */
+    public void submitFeedbackAPI(final Context con) {
+        /**
+         * ---------------check internet first------------
+         */
+        if (!NetInfo.isOnline(con)) {
+            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
+            return;
+        }
+        /**
+         * ----------------Show Busy Dialog -----------------------------------------
+         */
+        final BusyDialog busy = new BusyDialog(con, false, "Please wait.....", false);
+        busy.show();
+        /**
+         * =========================Start Thread====================================================
+         */
+        Executors.newSingleThreadExecutor().submit(new Runnable() {
+
+            String msg = "";
+            String response = "";
+
+            @Override
+            public void run() {
+                // You can performed your task here.
+
+                try {
+                    Log.e("SubmitFeedback URL", AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString()));
+                    //-------------Hit Server---------------------
+                    response = AAPBDHttpClient.get(AllURL.submitFeedbackURL(PersistData.getStringData(con,AppConstant.id),subjectEditText.getText().toString(),detailsEditText.getText().toString())).body();
+//                            header("Authorization", "Bearer " + PersistData.getStringData(con, AppConstant.token)).body();
+                    Log.e("SubmitFeedBack ", ">>" + response);
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    msg = e1.getMessage();
+                }
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /**
+                         * -------------Here we do UI related tasks inside run() method of runOnUiThread()-------------------
+                         */
+
+                        //-------Stop Busy Dialog-----
+                        if (busy != null) {
+                            busy.dismis();
+                        }
+                        Gson gson = new Gson();
+                        LoginResponse feedbackResponse = gson.fromJson(response, LoginResponse.class);
+                        /**
+                         * ---------main Ui related work--------------
+                         */
+                        if (feedbackResponse.getStatus().equalsIgnoreCase("1")) {
+                            Toast.makeText(con,feedbackResponse.getMsg(),Toast.LENGTH_LONG).show();
+                            subjectEditText.setText("");
+                            detailsEditText.setText("");
+                        } else {
+                            msg = feedbackResponse.getMsg();
+                            AlertMessage.showMessage(con, "Feedback", msg);
+                        }
+                    }
+                });
+            }
+        });
     }
 }

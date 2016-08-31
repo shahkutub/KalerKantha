@@ -1,4 +1,5 @@
 package com.kalerkantho.Dialog;
+
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,14 +21,14 @@ import android.widget.TextView;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AllURL;
 
-public class HelpDialogFragment extends DialogFragment {
+public class PrivacyPolicyDialogFragment extends DialogFragment {
 
     private Context con;
     private View view;
     private WebView helpWeb;
     private ImageView dissmissHelpBtn;
     private ProgressBar progressHelp;
-    private TextView helpHeadText;
+    private TextView privacyText;
 
     @Nullable
     @Override
@@ -50,11 +51,12 @@ public class HelpDialogFragment extends DialogFragment {
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         dissmissHelpBtn = (ImageView) view.findViewById(R.id.dissmissHelpBtn);
         helpWeb = (WebView) view.findViewById(R.id.helpWeb);
+        privacyText = (TextView) view.findViewById(R.id.tvLogin);
         progressHelp = (ProgressBar) view.findViewById(R.id.progressHelp);
-        helpHeadText = (TextView) view.findViewById(R.id.tvLogin);
 
-        helpHeadText.setText(getString(R.string.help));
-        helpHeadText.setTypeface(face_bold);
+        privacyText.setText(getString(R.string.privacy1) );
+        privacyText.setTypeface(face_bold);
+
 
         dissmissHelpBtn.setOnClickListener(new View.OnClickListener() {
             @Override

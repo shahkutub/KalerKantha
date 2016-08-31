@@ -1,5 +1,6 @@
 package com.kalerkantho.Adapter;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kalerkantho.DetailsActivity;
+import com.kalerkantho.Dialog.CatListDialogFragment;
+import com.kalerkantho.Dialog.ConditionDialogFragment;
 import com.kalerkantho.R;
 import com.kalerkantho.holder.AllCommonNewsItem;
 
@@ -128,6 +131,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             }else{
                 firstHolder.categoryTitle.setText("");
             }
+
+
+            firstHolder.categoryTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                   /* CatListDialogFragment dialogCatList= new CatListDialogFragment();
+                    dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                    dialogCatList.show(getActivity().getFragmentManager(), "");*/
+                }
+            });
+
+
 
 
             firstHolder.titleFullScreen.setTypeface(face_bold);

@@ -32,6 +32,8 @@
     <string name="enter">প্রবেশ করুন</string>
     <string name="login">লগইন</string>
     <string name="login_first">মতামত দিতে লগইন করুন </string>
+    <string name="provide_subject">দয়াকরে বিষয় লিখুন</string>
+    <string name="provide_details">দয়াকরে বিস্তারিত লিখুন</string>
     <string name="provide_name">দয়াকরে নাম লিখুন</string>
     <string name="provide_email">দয়াকরে ই-মেইল লিখুন</string>
     <string name="provide_password">দয়াকরে পাসওয়ার্ড লিখুন</string>
