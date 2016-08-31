@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F5F5F5">
     <RelativeLayout
-        android:id="@+id/topViewHelp"
+        android:id="@+id/topViewNewList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/homTop"
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dim10"
-            android:src="@drawable/descripasasss_06" />
+            android:src="@drawable/descrip_03" />
 
         <TextView
             android:id="@+id/catHeadText"
@@ -28,13 +28,13 @@
             android:textColor="@color/whiteMy" />
     </RelativeLayout>
 
-
-    <WebView
-        android:id="@+id/helpWeb"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/catRcyList"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/topViewHelp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/topViewNewList"/>
 
     <ProgressBar
         android:id="@+id/progressCat"

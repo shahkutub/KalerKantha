@@ -8,109 +8,99 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.kalerkantho.Model.Category;
+import com.kalerkantho.Model.CommonNewsItem;
+import com.kalerkantho.Model.OnItemClickListener;
 import com.kalerkantho.Model.OnItemClickListenerNews;
 import com.kalerkantho.R;
-import com.kalerkantho.Utils.AppConstant;
-import com.kalerkantho.holder.AllCommonNewsItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MostReadRecyAdapter extends RecyclerView.Adapter<MostReadRecyAdapter.MyViewHolder> {
+public class CatListRecyAdapter extends RecyclerView.Adapter<CatListRecyAdapter.MyViewHolder> {
     Context context;
+    private List<CommonNewsItem> my_newsList = new ArrayList<CommonNewsItem>();
     private final OnItemClickListenerNews listener;
-    private List<AllCommonNewsItem> latestList = new ArrayList<AllCommonNewsItem>();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView commonImage;
         TextView commonTitle;
         TextView commonDateTime;
         TextView commonCategory;
-        TextView numberingText;
-
-
-
+        View divderView;
 
         public MyViewHolder(View view) {
             super(view);
 
+            divderView = (View) view.findViewById(R.id.divderView);
             commonImage = (ImageView) view.findViewById(R.id.imag_comm);
             commonTitle = (TextView) view.findViewById(R.id.commonTitle);
             commonDateTime = (TextView) view.findViewById(R.id.comDateTime);
             commonCategory = (TextView) view.findViewById(R.id.common_cat);
-            numberingText = (TextView) view.findViewById(R.id.numberingText);
-
         }
 
-        public void bind(final AllCommonNewsItem item, final OnItemClickListenerNews listener,int pos) {
+        public void bind(final CommonNewsItem item, final OnItemClickListenerNews listener) {
 
             final Typeface face_reg = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_reg.ttf");
             final Typeface face_bold = Typeface.createFromAsset(context.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
-            if (!(TextUtils.isEmpty(item.getNews_obj().getImage()))) {
-                Glide.with(context).load(item.getNews_obj().getImage()).placeholder(R.drawable.defaulticon).into(commonImage);
+            if (!(TextUtils.isEmpty(item.getImage()))) {
+                Glide.with(context).load(item.getImage()).placeholder(R.drawable.defaulticon).into(commonImage);
             } else {
                 Glide.with(context).load(R.drawable.defaulticon).placeholder(R.drawable.defaulticon).into(commonImage);
             }
 
-            if (!TextUtils.isEmpty(item.getNews_obj().getTitle())) {
-                commonTitle.setText(item.getNews_obj().getTitle());
+            if (!TextUtils.isEmpty(item.getTitle())) {
+                commonTitle.setText(item.getTitle());
 
             } else {
                 commonTitle.setText("");
             }
 
-            if (!TextUtils.isEmpty(item.getNews_obj().getBanglaDateString())){
-                commonDateTime.setText(item.getNews_obj().getBanglaDateString());
+            if (!TextUtils.isEmpty(item.getBanglaDateString())){
+              commonDateTime.setText(item.getBanglaDateString());
             }else{
-                commonDateTime.setText("");
+               commonDateTime.setText("");
             }
 
-
-            if (!TextUtils.isEmpty(item.getNews_obj().getCategory_name())){
-                commonCategory.setText(item.getNews_obj().getCategory_name());
+            if (!TextUtils.isEmpty(item.getCategory_name())){
+                commonCategory.setText(item.getCategory_name());
             }else{
                 commonCategory.setText("");
-
+                divderView.setVisibility(View.GONE);
             }
-
-
-            numberingText.setVisibility(View.VISIBLE);
-
-            numberingText.setText(""+ AppConstant.getDigitBanglaFromEnglish(""+(pos+1)));
 
             commonTitle.setTypeface(face_bold);
             commonDateTime.setTypeface(face_reg);
             commonCategory.setTypeface(face_reg);
-            numberingText.setTypeface(face_bold);
-
-
         }
     }
-    public MostReadRecyAdapter(Context context, List<AllCommonNewsItem> latestList, OnItemClickListenerNews listener) {
+
+    public CatListRecyAdapter(Context context, List<CommonNewsItem> my_newsList, OnItemClickListenerNews listener) {
         this.context = context;
+        this.my_newsList = my_newsList;
         this.listener = listener;
-        this.latestList = latestList;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_latest_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_common_item, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-         holder.bind(latestList.get(position), listener,position);
-
+        holder.bind(my_newsList.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-        return latestList.size();
+        return my_newsList.size();
     }
+
 }

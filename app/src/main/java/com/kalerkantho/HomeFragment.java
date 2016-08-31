@@ -120,7 +120,6 @@ public class HomeFragment extends Fragment {
 
         }
 
-
         Log.e("URL : ", url);
         progressShow.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
@@ -241,7 +240,7 @@ public class HomeFragment extends Fragment {
 
                                 if (allCommonNewsItem.size() > 0) {
                                     //recyclerview adapter
-                                    mAdapter = new RecyclerAdapter(con, allCommonNewsItem);
+                                    mAdapter = new RecyclerAdapter(getActivity(), allCommonNewsItem);
                                     //set adpater for recyclerview
                                     mRecyclerView.setAdapter(mAdapter);
 
@@ -399,7 +398,7 @@ public class HomeFragment extends Fragment {
 
         if (allCommonNewsItem.size() > 0) {
             //recyclerview adapter
-            mAdapter = new RecyclerAdapter(con, allCommonNewsItem);
+            mAdapter = new RecyclerAdapter(getActivity(),allCommonNewsItem);
             //set adpater for recyclerview
             mRecyclerView.setAdapter(mAdapter);
 

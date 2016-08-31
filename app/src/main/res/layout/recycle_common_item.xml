@@ -13,23 +13,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
        >
 
+       <LinearLayout
+           android:id="@+id/mainHolder"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:background="@color/gray">
     <ImageView
         android:id="@+id/imag_comm"
         android:layout_width="@dimen/default_imagew"
         android:layout_height="@dimen/default_imageh"
+        android:layout_margin="1px"
         android:gravity="center"
         android:src="@drawable/defaulticon"
         android:scaleType="fitXY"
         />
 
-    <LinearLayout
+       </LinearLayout>
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_imageh"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
-        android:layout_toRightOf="@+id/imag_comm"
+        android:layout_toRightOf="@+id/mainHolder"
         android:orientation="vertical">
         <TextView
             android:id="@+id/commonTitle"

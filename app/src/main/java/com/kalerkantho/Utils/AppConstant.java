@@ -20,12 +20,15 @@ public class AppConstant {
     public static final String COLOR_SETTINGS = "#4C436E";
     public static final String COLOR_SHARE = "#0054A5";
     public static final String BTN_COLOR_ORIGIN = "#B166D6";
+
     public static int POSITION = 0;
     public static String GCMID = "gcmid";
     public static String SystemTime = "systemtime";
     public static String CATEGORY_RESPONSE = "category_response";
     public static String HOMERESPONSE = "homeresponse";
     public static List<CommonNewsItem> PHOTOLIST = new ArrayList<CommonNewsItem>();
+    public static String CATEGORYTYPE = "";
+    public static String CATEGORYTITLE = "";
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 
