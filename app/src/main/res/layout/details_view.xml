@@ -45,7 +45,7 @@
                 <ImageView
                     android:id="@+id/mainBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="204dp"
                     android:background="@drawable/white_bg"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
