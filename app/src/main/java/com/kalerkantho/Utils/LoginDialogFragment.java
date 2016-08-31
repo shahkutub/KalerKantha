@@ -99,13 +99,10 @@ private String email,password;
                 } else if (TextUtils.isEmpty(etPaswordLogin.getText().toString())) {
                     AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_password));
                 } else {
-
-                    //--------- Set data of same type of API--------------
                     email = etEmailLogin.getText().toString();
                     password = etPaswordLogin.getText().toString();
-
 					/*
-						-------------------API-2. Normal User Login call-------------------
+						-------------------API-1. Normal User Login call-------------------
 					 */
                     if (PersistentUser.isLogged(con)) {
                         PersistentUser.logOut(con);
