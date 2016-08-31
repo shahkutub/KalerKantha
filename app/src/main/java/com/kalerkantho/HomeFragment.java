@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -39,13 +40,14 @@ import java.util.concurrent.Executors;
 public class HomeFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
     private RecyclerAdapter mAdapter;
     ProgressBar progressShow;
     private boolean isViewShown = false;
     public  List<AllCommonNewsItem> allCommonNewsItem = new ArrayList<AllCommonNewsItem>();
-
     Context con;
+    AllNewsObj allObj;
 
 
     @Nullable
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment {
 
 
     public void initUI() {
+        swipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeRefreshLayout);
         progressShow = (ProgressBar) getView().findViewById(R.id.progressShow);
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview);
 
@@ -74,6 +77,15 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(con);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                requestGetNeslist(AllURL.getHomeNews());
+            }
+        });
 
 
     }
@@ -95,11 +107,21 @@ public class HomeFragment extends Fragment {
 
     private void requestGetNeslist(final String url) {
         if (!NetInfo.isOnline(con)) {
-            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
-            return;
-        }
-        Log.e("URL : ", url);
+           // AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
+            //return;
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    withoutInterNet();
+                }
+            },100);
 
+
+        }
+
+
+        Log.e("URL : ", url);
         progressShow.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
             String response = "";
@@ -119,6 +141,7 @@ public class HomeFragment extends Fragment {
                     public void run() {
 
                         progressShow.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
@@ -133,7 +156,7 @@ public class HomeFragment extends Fragment {
 
                                 PersistData.setStringData(con, AppConstant.HOMERESPONSE,response);
 
-                                AllNewsObj allObj=g.fromJson(new String(response),AllNewsObj.class);
+                                allObj=g.fromJson(new String(response),AllNewsObj.class);
 
 
 
@@ -303,4 +326,85 @@ public class HomeFragment extends Fragment {
 
         return null;
     }*/
+
+
+    public void withoutInterNet(){
+
+        Gson g = new Gson();
+        allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
+
+        allCommonNewsItem.clear();
+
+        int i=0;
+        // for top news and below list
+        for(CommonNewsItem topNews:allObj.getTop_news())
+        {
+            if(i==0)
+            {
+                AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                singleObj.setNewsCategory("topnews");
+                singleObj.setType("fullscreen");
+                singleObj.setNews_obj(topNews);
+                allCommonNewsItem.add(singleObj);
+
+
+            }else
+            {
+                AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                singleObj.setNewsCategory("topnews");
+                singleObj.setType("defaultscreen");
+                singleObj.setNews_obj(topNews);
+                allCommonNewsItem.add(singleObj);
+            }
+            i++;
+        }
+
+        // for bibid row
+        AllCommonNewsItem hListObj=new AllCommonNewsItem();
+        hListObj.setNewsCategory("blueslide");
+        hListObj.setType("horizontal");
+        hListObj.setList_news_obj(allObj.getBlueslide());
+        allCommonNewsItem.add(hListObj);
+
+
+        for(All_Cat_News_Obj allCat:allObj.getAll_cat_news())
+        {
+            // for bibid row
+            AllCommonNewsItem a4=new AllCommonNewsItem();
+            a4.setNewsCategory("allnews");
+            a4.setType("titleshow");
+            a4.setCategory_title(allCat.getCategory_name());
+            a4.setCategory_id(allCat.getCategory_id());
+            allCommonNewsItem.add(a4);
+
+            for(CommonNewsItem cn:allCat.getNews())
+            {
+                AllCommonNewsItem a2=new AllCommonNewsItem();
+                a4.setNewsCategory("allnews");
+                a2.setType("defaultscreen");
+                a2.setNews_obj(cn);
+                allCommonNewsItem.add(a2);
+            }
+        }
+
+
+
+
+        AllCommonNewsItem redObj=new AllCommonNewsItem();
+        redObj.setNewsCategory("bibid");
+        redObj.setType("horizontal");
+        redObj.setList_news_obj(allObj.getRedslider());
+        allCommonNewsItem.add(redObj);
+
+
+        if (allCommonNewsItem.size() > 0) {
+            //recyclerview adapter
+            mAdapter = new RecyclerAdapter(con, allCommonNewsItem);
+            //set adpater for recyclerview
+            mRecyclerView.setAdapter(mAdapter);
+
+        }
+
+
+    }
 }

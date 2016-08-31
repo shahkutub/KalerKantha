@@ -48,8 +48,7 @@ public class MostReadFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
-
-       // intiU();
+        intiU();
     }
 
     private void intiU() {
@@ -81,7 +80,7 @@ public class MostReadFragment extends Fragment {
 
     }
 
-    @Override
+/*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -95,5 +94,5 @@ public class MostReadFragment extends Fragment {
                 }
             },100);
         }
-    }
+    }*/
 }

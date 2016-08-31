@@ -73,8 +73,20 @@ public class Splash extends Activity {
 
 
         if (!NetInfo.isOnline(con)) {
-            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
-            return;
+            //AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
+            //return;
+
+            handler.postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    Intent mainIntent = new Intent(con,MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                }
+            }, SPLASH_DISPLAY_LENGTH);
+
+
+
         }else{
 
             if (millis - PersistData.getLongData(con, AppConstant.SystemTime) > millisOday) {

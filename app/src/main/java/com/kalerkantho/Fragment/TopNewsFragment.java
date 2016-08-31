@@ -47,7 +47,7 @@ public class TopNewsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
-
+        intiU();
 
     }
 
@@ -87,16 +87,20 @@ public class TopNewsFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(con);
         topnewRecList.setLayoutManager(mLayoutManager);
 
+
+
         dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
-        dividerDrawable.clearColorFilter();
+       // dividerDrawable.clearColorFilter();
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
         topnewRecList.addItemDecoration(dividerItemDecoration);
 
+
         tAdapter = new TopNewsRecyAdapter(con,topnews);
         topnewRecList.setAdapter(tAdapter);
+
     }
 
-    @Override
+/*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -111,6 +115,6 @@ public class TopNewsFragment extends Fragment {
                 }
             },100);
         }
-    }
+    }*/
 
 }

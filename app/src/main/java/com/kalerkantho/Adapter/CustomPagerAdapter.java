@@ -1,6 +1,7 @@
 package com.kalerkantho.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class CustomPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.dialog_row, container, false);
 
+        final Typeface face_reg = Typeface.createFromAsset(mContext.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+
         ImageView imageView = (ImageView) itemView.findViewById(R.id.photo);
         TextView titlePhoto = (TextView) itemView.findViewById(R.id.titlePhoto);
         TextView photoNameText = (TextView) itemView.findViewById(R.id.photoNameText);
@@ -63,8 +66,8 @@ public class CustomPagerAdapter extends PagerAdapter {
             photoNameText.setText("");
         }
 
-        Log.e("Caption",""+AppConstant.PHOTOLIST.get(position).getCaption());
-        Log.e("Title",""+AppConstant.PHOTOLIST.get(position).getTitle());
+        titlePhoto.setTypeface(face_reg);
+        photoNameText.setTypeface(face_reg);
 
 
         container.addView(itemView);

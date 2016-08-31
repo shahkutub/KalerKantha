@@ -43,7 +43,7 @@
                <ToggleButton
                    android:id="@+id/notificationTg"
                    android:layout_width="wrap_content"
-                   android:layout_height="@dimen/toggleh"
+                   android:layout_height="wrap_content"
                    android:background="@drawable/check"
                    android:textOn=""
                    android:textOff=""
@@ -102,7 +102,7 @@
                 <ToggleButton
                     android:id="@+id/soundTg"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/toggleh"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/check"
                     android:textOn=""
                     android:textOff=""
@@ -155,7 +155,7 @@
                 <ToggleButton
                     android:id="@+id/vivrateTg"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/toggleh"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/check"
                     android:textOn=""
                     android:textOff=""
