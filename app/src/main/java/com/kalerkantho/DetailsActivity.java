@@ -31,29 +31,30 @@ import java.util.concurrent.Executors;
  */
 public class DetailsActivity extends AppCompatActivity {
     private Context con;
-    private TextView headingTxt,txt_positive_like,txt_negative_like,txt_comment,txtDate,txtCategory,detailsTxt;
-   private  ImageView backImgMain,fvImg,backBtn;
-    private String content_id = "",isFvrtString = "";
+    private TextView headingTxt, txt_positive_like, txt_negative_like, txt_comment, txtDate, txtCategory, detailsTxt;
+    private ImageView backImgMain, fvImg, backBtn;
+    private String content_id = "", isFvrtString = "";
     private ProgressBar progressShow;
     private MyDBHandler db;
     private FvrtModel fm = new FvrtModel();
     private DetailsModel allDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_view);
         con = this;
-        headingTxt = (TextView)findViewById(R.id.headingTxt);
-        txt_positive_like = (TextView)findViewById(R.id.txt_positive_like);
-        txt_negative_like = (TextView)findViewById(R.id.txt_negative_like);
-        txt_comment = (TextView)findViewById(R.id.txt_comment);
-        txtDate = (TextView)findViewById(R.id.dateTv);
-        txtCategory = (TextView)findViewById(R.id.catagoryTv);
-        detailsTxt = (TextView)findViewById(R.id.detailsText);
-        backImgMain = (ImageView)findViewById(R.id.mainBackground);
-        fvImg = (ImageView)findViewById(R.id.favrtBtn);
-        backBtn = (ImageView)findViewById(R.id.backBtn);
-        progressShow = (ProgressBar)findViewById(R.id.progressShow);
+        headingTxt = (TextView) findViewById(R.id.headingTxt);
+        txt_positive_like = (TextView) findViewById(R.id.txt_positive_like);
+        txt_negative_like = (TextView) findViewById(R.id.txt_negative_like);
+        txt_comment = (TextView) findViewById(R.id.txt_comment);
+        txtDate = (TextView) findViewById(R.id.dateTv);
+        txtCategory = (TextView) findViewById(R.id.catagoryTv);
+        detailsTxt = (TextView) findViewById(R.id.detailsText);
+        backImgMain = (ImageView) findViewById(R.id.mainBackground);
+        fvImg = (ImageView) findViewById(R.id.favrtBtn);
+        backBtn = (ImageView) findViewById(R.id.backBtn);
+        progressShow = (ProgressBar) findViewById(R.id.progressShow);
 
         content_id = getIntent().getExtras().getString("content_id");
         isFvrtString = getIntent().getExtras().getString("is_favrt");
@@ -66,16 +67,16 @@ public class DetailsActivity extends AppCompatActivity {
         db = new MyDBHandler(con);
 
         // call url for detals
+        try {
+            if (!content_id.isEmpty()) {
+                if (isFvrtString.equalsIgnoreCase("1")) {
+                    Log.e("fff", "favrt");
 
-        if(!content_id.isEmpty()){
-            if(isFvrtString.equalsIgnoreCase("1") ){
-                Log.e("fff","favrt");
-                try {
                     final Typeface face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
                     final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
                     String response = "";
 
-                    for(FvrtModel fm:db.getAllFvrtModels()) {
+                    for (FvrtModel fm : db.getAllFvrtModels()) {
                         if (content_id.equalsIgnoreCase(fm.getFvrtId())) {
                             response = fm.getFvrtObject();
                             break;
@@ -84,9 +85,9 @@ public class DetailsActivity extends AppCompatActivity {
 
 
                     Gson g = new Gson();
-                    allDetail=g.fromJson(new String(response),DetailsModel.class);
+                    allDetail = g.fromJson(new String(response), DetailsModel.class);
 
-                    if(allDetail != null) {
+                    if (allDetail != null) {
                         headingTxt.setText(allDetail.getNews().getTitle());
                         detailsTxt.setText(Html.fromHtml(allDetail.getNews().getDetails()));
                         Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
@@ -110,16 +111,15 @@ public class DetailsActivity extends AppCompatActivity {
                         txtDate.setTypeface(face_reg);
                         txtCategory.setTypeface(face_reg);
                     }
-                } catch (JsonSyntaxException e) {
-                    e.printStackTrace();
+
+                } else {
+                    Log.e("id details:", content_id);
+                    requestGetNeslist(AllURL.getDetails(content_id, ""));
                 }
             }
-            else{
-                Log.e("id details:", content_id);
-                requestGetNeslist(AllURL.getDetails(content_id, ""));
-            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
         }
-
         fvImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +144,7 @@ public class DetailsActivity extends AppCompatActivity {
                     fm.setFvrtId(content_id);
                     fm.setFvrtObject(favObject);
                     db.addFavrtEntry(fm);
-                    Toast.makeText(con,"Data Added Successfully",Toast.LENGTH_SHORT);
+                    Toast.makeText(con, "Data Added Successfully", Toast.LENGTH_SHORT);
 
                 } else {
                     // isFvrt = false;
@@ -192,22 +192,22 @@ public class DetailsActivity extends AppCompatActivity {
                             Log.e("details response:", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
                                 Gson g = new Gson();
-                                 allDetail=g.fromJson(new String(response),DetailsModel.class);
+                                allDetail = g.fromJson(new String(response), DetailsModel.class);
 
                                 headingTxt.setText(allDetail.getNews().getTitle());
                                 detailsTxt.setText(Html.fromHtml(allDetail.getNews().getDetails()));
                                 //new OpenTextUrl(con).setTextViewHTMLChat(detailsTxt, allDetail.getNews().getDetails());
                                 Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
 
-                                if(allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()){
+                                if (allDetail.getIs_liked().equalsIgnoreCase("true") && !allDetail.getLike_count().isEmpty()) {
                                     txt_positive_like.setText(allDetail.getLike_count());
                                 }
-                                if(allDetail.getIs_disliked().equalsIgnoreCase("true") && !allDetail.getDislike_count().isEmpty()){
+                                if (allDetail.getIs_disliked().equalsIgnoreCase("true") && !allDetail.getDislike_count().isEmpty()) {
                                     txt_negative_like.setText(allDetail.getDislike_count());
                                 }
-                                if(!allDetail.getComments_count().equalsIgnoreCase("0"))
-                                   txt_comment.setText(allDetail.getComments_count());
-                               txtDate.setText(allDetail.getNews().getBanglaDateString()+"  | ");
+                                if (!allDetail.getComments_count().equalsIgnoreCase("0"))
+                                    txt_comment.setText(allDetail.getComments_count());
+                                txtDate.setText(allDetail.getNews().getBanglaDateString() + "  | ");
                                 txtCategory.setText(allDetail.getNews().getCategory_name());
 
                                 headingTxt.setTypeface(face_bold);
@@ -231,5 +231,11 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
 //
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
