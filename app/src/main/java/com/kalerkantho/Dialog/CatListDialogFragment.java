@@ -25,6 +25,7 @@ import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.CatListRecyAdapter;
 import com.kalerkantho.MainActivity;
+import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
@@ -33,6 +34,8 @@ import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllNirbahito;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class CatListDialogFragment extends DialogFragment {
@@ -41,13 +44,14 @@ public class CatListDialogFragment extends DialogFragment {
     private View view;
     private ImageView dissmissCatListBtn;
     private TextView catHeadText;
-    private ProgressBar progressCat;
+    //private ProgressBar progressCat;
     private RecyclerView catRcyList;
     private CatListRecyAdapter catAdapter;
     private String response="";
     private AllNirbahito allCatList;
     private LinearLayoutManager mLayoutManager;
-    private int pagNumber =1;
+    private int pagNumber =1,totalItemCount,pastVisiblesItems,totalpage,visibleItemCount;
+    private List<CommonNewsItem> my_newsListTemp = new ArrayList<CommonNewsItem>();
    // Drawable dividerDrawable;
 
     @Nullable
@@ -72,15 +76,40 @@ public class CatListDialogFragment extends DialogFragment {
 
         catRcyList = (RecyclerView) view.findViewById(R.id.catRcyList);
 
-        progressCat = (ProgressBar) view.findViewById(R.id.progressCat);
+        //progressCat = (ProgressBar) view.findViewById(R.id.progressCat);
         catHeadText = (TextView) view.findViewById(R.id.catHeadText);
 
         mLayoutManager = new LinearLayoutManager(con);
         catRcyList.setLayoutManager(mLayoutManager);
 
-        /*dividerDrawable = ContextCompat.getDrawable(con, R.drawable.lineee);
+
+
+        catRcyList.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findLastVisibleItemPosition();
+                    pagNumber = pagNumber + 1;
+                    if (hasMorePage())
+                    {
+                        if ( ( pastVisiblesItems) >= totalItemCount-AppConstant.scroolBeforeLatItem)
+                        {
+                            getCatList(AllURL.getCatList(AppConstant.CATEGORYTYPE,pagNumber));
+
+                        }
+                    }
+                }
+            }
+        });
+
+        Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-        catRcyList.addItemDecoration(dividerItemDecoration);*/
+        catRcyList.addItemDecoration(dividerItemDecoration);
 
        // catHeadText.setText(getString(R.string.catlist));
         catHeadText.setText(AppConstant.CATEGORYTITLE);
@@ -107,7 +136,7 @@ public class CatListDialogFragment extends DialogFragment {
      }
 
      Log.e("URL : ", url);
-     progressCat.setVisibility(View.VISIBLE);
+     //progressCat.setVisibility(View.VISIBLE);
 
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
 
@@ -126,7 +155,7 @@ public class CatListDialogFragment extends DialogFragment {
                     @Override
                     public void run() {
 
-                        progressCat.setVisibility(View.GONE);
+                      //  progressCat.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
@@ -135,32 +164,48 @@ public class CatListDialogFragment extends DialogFragment {
                                 Gson g = new Gson();
                                 allCatList=g.fromJson(new String(response),AllNirbahito.class);
 
+                                my_newsListTemp.addAll(allCatList.getMy_news());
 
                                 if(allCatList.getStatus().equalsIgnoreCase("1")){
 
-                                     catAdapter = new CatListRecyAdapter(con,allCatList.getMy_news(),null);
-                                     catRcyList.setAdapter(catAdapter);
+                                      catAdapter = new CatListRecyAdapter(con,my_newsListTemp,null);
+                                      catRcyList.setAdapter(catAdapter);
 
-                                    Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
-                                    RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-                                    catRcyList.addItemDecoration(dividerItemDecoration);
-
+                                       //Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
+                                       //RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+                                       //catRcyList.addItemDecoration(dividerItemDecoration);
 
                                 }
                             }
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                            progressCat.setVisibility(View.GONE);
+                            //progressCat.setVisibility(View.GONE);
                         }
                     }
                 });
             }
         });
-
-
     }
 
+    private boolean hasMorePage() {
 
+        if(allCatList.getPaginator()!=null){
+            if (TextUtils.isDigitsOnly(""+allCatList.getPaginator().getPageCount())){
+                totalpage = allCatList.getPaginator().getPageCount();
+            }else{
+                totalpage=1;
+            }
+            int  currentPageCount = Integer.parseInt(allCatList.getPaginator().getPage());
+
+            if (currentPageCount < totalpage) {
+                return true;
+            }
+        }else{
+            return false;
+        }
+
+        return false;
+    }
 
 }
