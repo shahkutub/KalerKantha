@@ -38,6 +38,7 @@ import com.kalerkantho.Model.Category;
 import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AlertMessage;
+import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.BusyDialog;
 import com.kalerkantho.Utils.DividerItemDecoration;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          *Setup the DrawerLayout and NavigationView
          */
-        pushIdAPI(AppConstant.pushID);
+        pushIdAPI(AllURL.pushIDURL());
         final Typeface face_bold = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         final Typeface face_reg = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_reg.ttf");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
