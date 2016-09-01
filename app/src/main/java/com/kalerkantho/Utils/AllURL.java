@@ -37,9 +37,14 @@ public class AllURL {
 		return getcommonURLWithParamAndAction("my_news"+"/"+cat+"/"+pagNumber, temp);
 	}
 
+
 	public static String getMenuList() {
 		final Vector<KeyValue> temp = new Vector();
 		return getcommonURLWithParamAndAction("menu_list", temp);
+	}
+	public static String pushIDURL() {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("push-id-register", temp);
 	}
 
 	public static String registrationURL() {

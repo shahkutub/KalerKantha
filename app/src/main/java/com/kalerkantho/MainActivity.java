@@ -16,12 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
@@ -33,16 +35,26 @@ import com.kalerkantho.Dialog.Registration;
 import com.kalerkantho.Fragment.PhotoFragment;
 import com.kalerkantho.Fragment.SettingFragment;
 import com.kalerkantho.Model.Category;
+import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.MyDb.MyDBHandler;
+import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AppConstant;
+import com.kalerkantho.Utils.BusyDialog;
 import com.kalerkantho.Utils.DividerItemDecoration;
+import com.kalerkantho.Utils.NetInfo;
+import com.kalerkantho.Utils.PersistentUser;
 import com.kalerkantho.holder.AllCategory;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
@@ -70,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     private Context con;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          *Setup the DrawerLayout and NavigationView
          */
-
+        pushIdAPI(AppConstant.pushID);
         final Typeface face_bold = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         final Typeface face_reg = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_reg.ttf");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -580,6 +593,93 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return symbol;
+    }
+
+    protected void pushIdAPI(final String url) {
+        /**
+         * --------------- Check Internet------------
+         */
+        if (!NetInfo.isOnline(con)) {
+            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
+            return;
+        }
+
+        /**
+         * ------Show Busy Dialog------------------
+         */
+//        final BusyDialog busyNow = new BusyDialog(con, true, false);
+//        busyNow.show();
+        /**
+         * ---------Create object of  RequestParams to send value with URL---------------
+         */
+        final RequestParams param = new RequestParams();
+
+        try {
+            param.put("device_type", "android");
+            param.put("push_id", PersistData.getStringData(con, AppConstant.GCMID));
+        } catch (final Exception e1) {
+            e1.printStackTrace();
+        }
+        /**
+         * ---------Create object of  AsyncHttpClient class to heat server ---------------
+         */
+        final AsyncHttpClient client = new AsyncHttpClient();
+        Log.e("Login URL ", ">>" + url);
+        client.post(url, param, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers,
+                                  byte[] response) {
+                //-----------Off Busy Dialog ----------------
+//                if (busyNow != null) {
+//                    busyNow.dismis();
+//                }
+                //-----------------Print Response--------------------
+                Log.e("PushIDResposne ", ">>" + new String(response));
+
+                //------------Data persist using Gson------------------
+                Gson g = new Gson();
+                LoginResponse loginResponse = g.fromJson(new String(response), LoginResponse.class);
+
+                Log.e("Loginstatus", "=" + loginResponse.getStatus());
+
+                if (loginResponse.getStatus().equalsIgnoreCase("1")) {
+                    PersistentUser.setLogin(con);
+                    PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
+                    PersistData.setStringData(con,AppConstant.pushID,loginResponse.getUserdetails().getPush_id());
+                    PersistentUser.setAccessToken(con,loginResponse.getToken());
+                    Log.e("User id", "=" + PersistentUser.getUserID(con));
+
+                } else {
+                    AlertMessage.showMessage(con, getResources().getString(R.string.app_name), loginResponse.getMsg() + "");
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers,
+                                  byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+
+//				Log.e("LoginerrorResponse", new String(errorResponse));
+
+//                if (busyNow != null) {
+//                    busyNow.dismis();
+//                }
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+
+            }
+        });
+
     }
 
 }
