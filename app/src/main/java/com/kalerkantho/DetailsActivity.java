@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistentUser;
@@ -123,7 +122,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 } else {
                     Log.e("id details:", content_id);
-                    requestGetNeslist(AllURL.getDetails(content_id, ""));
+                    requestGetNeslist(AllURL.getDetails(content_id, PersistentUser.getUserID(con)));
                 }
             }
         } catch (JsonSyntaxException e) {
@@ -153,7 +152,7 @@ public class DetailsActivity extends AppCompatActivity {
                     fm.setFvrtId(content_id);
                     fm.setFvrtObject(favObject);
                     db.addFavrtEntry(fm);
-                    Toast.makeText(con, "Data Added Successfully", Toast.LENGTH_SHORT);
+                    //Toast.makeText(con, "Data Added Successfully", Toast.LENGTH_SHORT);
 
                 } else {
                     // isFvrt = false;
@@ -275,7 +274,7 @@ public class DetailsActivity extends AppCompatActivity {
         } else {
             txt_positive_like.setText("(" + 0 + ")");
         }
-        if (!(TextUtils.isEmpty(allDetail.getIs_disliked()))) {
+        if (!(TextUtils.isEmpty(allDetail.getDislike_count()))) {
             txt_negative_like.setText("(" + allDetail.getDislike_count() + ")");
         } else {
             txt_negative_like.setText("(" + 0 + ")");
