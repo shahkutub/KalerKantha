@@ -8,28 +8,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/homTop"
-        android:padding="5dp"
-      >
+        android:padding="@dimen/dim10"
+        >
         <ImageView
-            android:id="@+id/dissmissCatListBtn"
+            android:id="@+id/imgCrossComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/dim10"
-            android:src="@drawable/back_button" />
+            android:src="@drawable/cross_white" />
 
         <TextView
-            android:id="@+id/catHeadText"
-            android:layout_width="match_parent"
+            android:id="@+id/tvCommentc"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/dissmissHelpBtn"
-            android:gravity="center"
-            android:text=""
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgCrossComment"
+            android:text="@string/comment"
             android:textSize="20sp"
             android:textColor="@color/whiteMy" />
+        <TextView
+            android:id="@+id/tvCommentPlz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/descripasasss_03"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/comment_please"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:textColor="@color/homTop" />
+
+
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/catRcyList"
+        android:id="@+id/rvCommentList"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -625,7 +625,7 @@ public class MainActivity extends AppCompatActivity {
          * ---------Create object of  AsyncHttpClient class to heat server ---------------
          */
         final AsyncHttpClient client = new AsyncHttpClient();
-        Log.e("Login URL ", ">>" + url);
+        Log.e("Push URL ", ">>" + url);
         client.post(url, param, new AsyncHttpResponseHandler() {
 
             @Override
