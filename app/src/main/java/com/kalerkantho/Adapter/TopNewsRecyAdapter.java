@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -101,6 +102,19 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
                 firstHolder.categoryTitle.setText("");
             }
 
+            firstHolder.fullview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String id = newsitem.getNews_obj().getId();
+                    Intent i = new Intent(context, DetailsActivity.class);
+                    i.putExtra("content_id",id);
+                    i.putExtra("is_favrt","0");
+                    context.startActivity(i);
+
+                }
+            });
+
             firstHolder.titleFullScreen.setTypeface(face_bold);
             firstHolder.datetiemFullScreen.setTypeface(face_reg);
             firstHolder.categoryTitle.setTypeface(face_reg);
@@ -135,13 +149,26 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
                 commonHolder.divderView.setVisibility(View.GONE);
             }
 
+            commonHolder.commonView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String id = newsitem.getNews_obj().getId();
+                    Intent i = new Intent(context, DetailsActivity.class);
+                    i.putExtra("content_id",id);
+                    i.putExtra("is_favrt","0");
+                    context.startActivity(i);
+
+                }
+            });
+
             commonHolder.commonTitle.setTypeface(face_bold);
             commonHolder.commonDateTime.setTypeface(face_reg);
             commonHolder.commonCategory.setTypeface(face_reg);
 
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+     /*   holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String id = newsitem.getNews_obj().getId();
@@ -150,7 +177,7 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
                 i.putExtra("is_favrt","0");
                 context.startActivity(i);
             }
-        });
+        });*/
 
     }
 
@@ -170,6 +197,7 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
         TextView titleFullScreen;
         TextView datetiemFullScreen;
         TextView categoryTitle;
+        LinearLayout fullview;
 
         public DataOne(View v) {
             super(v);
@@ -177,6 +205,7 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
             titleFullScreen = (TextView)v.findViewById(R.id.tvTitleComonnews);
             datetiemFullScreen = (TextView) v.findViewById(R.id.tvDatetime);
             categoryTitle = (TextView) v.findViewById(R.id.cat_type);
+            fullview = (LinearLayout) v.findViewById(R.id.fullview);
         }
     }
 
@@ -185,6 +214,7 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
         TextView commonTitle;
         TextView commonDateTime;
         TextView commonCategory;
+        LinearLayout commonView;
         View divderView;
         public DataTwo(View v) {
             super(v);
@@ -193,6 +223,7 @@ public class TopNewsRecyAdapter extends RecyclerView.Adapter<TopNewsRecyAdapter.
             commonTitle = (TextView) v.findViewById(R.id.commonTitle);
             commonDateTime = (TextView) v.findViewById(R.id.comDateTime);
             commonCategory = (TextView) v.findViewById(R.id.common_cat);
+            commonView = (LinearLayout) v.findViewById(R.id.commonView);
         }
 
     }
