@@ -92,19 +92,19 @@ private Typeface face_reg,face_bold;
                 dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogMenu.show(getActivity().getFragmentManager(), "");
 
-//                if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))){
-//                    loginDialoag(con);
-////                    AlertMessage.showMessage(con,getResources().getString(R.string.status),getResources().getString(R.string.login_first));
-//                }else {
-//                    if (TextUtils.isEmpty(subjectEditText.getText().toString())){
-//                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_subject));
-//                    }else if (TextUtils.isEmpty(detailsEditText.getText().toString())){
-//                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_details));
-//                    } else {
-//                        submitFeedbackAPI(AllURL.submitFeedbackURL());
-//                    }
-//
-//                }
+                if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))){
+                    loginDialoag(con);
+//                    AlertMessage.showMessage(con,getResources().getString(R.string.status),getResources().getString(R.string.login_first));
+                }else {
+                    if (TextUtils.isEmpty(subjectEditText.getText().toString())){
+                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_subject));
+                    }else if (TextUtils.isEmpty(detailsEditText.getText().toString())){
+                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_details));
+                    } else {
+                        submitFeedbackAPI(AllURL.submitFeedbackURL());
+                    }
+
+                }
             }
         });
 

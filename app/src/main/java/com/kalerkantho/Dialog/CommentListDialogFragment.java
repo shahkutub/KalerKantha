@@ -52,7 +52,7 @@ public class CommentListDialogFragment extends DialogFragment {
     private View view;
     private ImageView imgCrossComment;
     private TextView tvCommentc,tvCommentPlz;
-    //private ProgressBar progressCat;
+    private ProgressBar progressCat;
     private RecyclerView rvCommentList;
     private CommentListAdapter catAdapter;
     private String response="";
@@ -82,9 +82,9 @@ public class CommentListDialogFragment extends DialogFragment {
         final Typeface face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         imgCrossComment = (ImageView) view.findViewById(R.id.imgCrossComment);
-
+        progressCat = (ProgressBar) view.findViewById(R.id.progressCat);
         rvCommentList = (RecyclerView) view.findViewById(R.id.rvCommentList);
-
+        mLayoutManager = new LinearLayoutManager(con);
         tvCommentPlz = (TextView) view.findViewById(R.id.tvCommentPlz);
         tvCommentc = (TextView) view.findViewById(R.id.tvCommentc);
 
@@ -92,8 +92,17 @@ public class CommentListDialogFragment extends DialogFragment {
         tvCommentPlz.setTypeface(face_reg);
         tvCommentc.setTypeface(face_reg);
 
+        tvCommentPlz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommentDialog dialogMenu = new CommentDialog();
+                dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Translucent_NoTitleBar);
+                dialogMenu.show(getActivity().getFragmentManager(), "");
+            }
+        });
 
 
+        rvCommentList.setLayoutManager(new LinearLayoutManager(con));
         rvCommentList.addOnScrollListener(new RecyclerView.OnScrollListener()
         {
             @Override
@@ -146,7 +155,7 @@ public class CommentListDialogFragment extends DialogFragment {
         }
 
         Log.e("URL : ", url);
-        //progressCat.setVisibility(View.VISIBLE);
+        progressCat.setVisibility(View.VISIBLE);
 
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
 
@@ -165,7 +174,7 @@ public class CommentListDialogFragment extends DialogFragment {
                     @Override
                     public void run() {
 
-                        //  progressCat.setVisibility(View.GONE);
+                          progressCat.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
@@ -174,10 +183,11 @@ public class CommentListDialogFragment extends DialogFragment {
                                 Gson g = new Gson();
                                 allCatList=g.fromJson(new String(response),CommentListResponse.class);
 
-                                my_newsListTemp.addAll(allCatList.getComments());
 
+                                my_newsListTemp.addAll(allCatList.getComments());
+                                Log.e("Commentsize", ">>" +my_newsListTemp.size());
                                 if(allCatList.getStatus().equalsIgnoreCase("1")){
-                                    rvCommentList.setLayoutManager(new LinearLayoutManager(con));
+
                                     catAdapter = new CommentListAdapter(con,my_newsListTemp,null);
                                     rvCommentList.setAdapter(catAdapter);
 
@@ -190,7 +200,7 @@ public class CommentListDialogFragment extends DialogFragment {
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                            //progressCat.setVisibility(View.GONE);
+                            progressCat.setVisibility(View.GONE);
                         }
                     }
                 });

@@ -60,13 +60,15 @@
     <string name="tram1">প্রাইভেসি অ্যান্ড ট্রাম </string>
     <string name="tram2">ব্যবহারকারির পলিসি</string>
     <string name="help">সাহায্য</string>
-
     <string name="motamotyour">আপনার মতামত জানান</string>
+    <string name="your_comment">আপনার মন্তব্য জানান</string>
     <string name="subject">বিষয়</string>
     <string name="detailss">বিস্তারিত লিখুন</string>
     <string name="motamot">মতামত</string>
     <string name="comment">মন্তব্য </string>
     <string name="comment_please">মন্তব্য করুন </string>
+    <string name="write_comment">মন্তব্য লিখুন ... </string>
+    <string name="write_comment_pleas">দয়াকরে মন্তব্য লিখুন</string>
 
     <string name="thanks">আপনার মূল্যবান মতামতের জন্য ধন্যবাদ!!!</string>
     <string name="catlist">ক্যাটাগরি তালিকা</string>

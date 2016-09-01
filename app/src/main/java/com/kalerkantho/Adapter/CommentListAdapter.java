@@ -66,11 +66,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             tvNameCom.setTypeface(face_reg);
             tvDateCom.setTypeface(face_reg);
 
-
-
-
-
-
             if (!TextUtils.isEmpty(item.getFull_name())) {
                 tvNameCom.setText(item.getFull_name());
 

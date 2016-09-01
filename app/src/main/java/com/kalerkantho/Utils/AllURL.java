@@ -88,9 +88,9 @@ public class AllURL {
 
 	public static String commentListUrl(String news_id,String user_id,int pagNumber) {
 		final Vector<KeyValue> temp = new Vector();
-		temp.add(new KeyValue("news_id",news_id));
-		temp.add(new KeyValue("user_id",user_id));
-		return getcommonURLWithParamAndAction("comment-on-news"+"/"+pagNumber, temp);
+//		temp.add(new KeyValue("news_id",news_id));
+//		temp.add(new KeyValue("user_id",user_id));
+		return getcommonURLWithParamAndAction("comment-on-news"+"/"+news_id+"/"+pagNumber+"/"+user_id, temp);
 	}
 
 	public static String submitFeedbackURL() {
