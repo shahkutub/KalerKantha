@@ -96,4 +96,10 @@ public class AllURL {
 		return getcommonURLWithParamAndAction("help", temp);
 	}
 
+
+	public static String getLikeDislike(String userId,String newsId,String likeDislike,String dislikelike) {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("like-dislike"+"/"+userId+"/"+newsId+"/"+likeDislike+"/"+dislikelike, temp);
+	}
+
 }
