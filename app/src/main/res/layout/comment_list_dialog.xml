@@ -13,6 +13,7 @@
         <ImageView
             android:id="@+id/imgCrossComment"
             android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:padding="@dimen/dim10"
             android:src="@drawable/cross_white" />
@@ -24,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imgCrossComment"
             android:text="@string/comment"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/whiteMy" />
         <TextView
             android:id="@+id/tvCommentPlz"
@@ -34,8 +35,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="@string/comment_please"
-            android:textSize="20sp"
-            android:padding="5dp"
+            android:textSize="16sp"
+            android:padding="8dp"
             android:textColor="@color/homTop" />
 
 
