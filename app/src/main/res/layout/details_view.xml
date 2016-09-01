@@ -128,6 +128,7 @@
                             android:gravity="center_vertical">
 
                             <ImageView
+                                android:id="@+id/commentBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -153,6 +154,7 @@
                             android:gravity="center_vertical">
 
                             <ImageView
+                                android:id="@+id/defaultShareBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -170,6 +172,7 @@
                             android:gravity="center_vertical">
 
                             <ImageView
+                                android:id="@+id/sharePlusBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"

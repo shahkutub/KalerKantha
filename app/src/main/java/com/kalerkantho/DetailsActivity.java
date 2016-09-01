@@ -1,8 +1,15 @@
 package com.kalerkantho;
 
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
@@ -14,20 +21,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
-import com.aapbd.utils.storage.PersistData;
 import com.aapbd.utils.storage.PersistentUser;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.kalerkantho.Dialog.CommentListDialogFragment;
+import com.kalerkantho.Dialog.FollowDialogFragment;
 import com.kalerkantho.Model.DetailsModel;
 import com.kalerkantho.Model.FvrtModel;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
-import com.kalerkantho.Utils.AppConstant;
+import com.kalerkantho.Utils.BusyDialog;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllCommonResponse;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.concurrent.Executors;
 
 /**
@@ -42,9 +55,10 @@ public class DetailsActivity extends AppCompatActivity {
     private MyDBHandler db;
     private FvrtModel fm = new FvrtModel();
     private DetailsModel allDetail;
-    private ImageView positive_like, dislikeBtn;
+    private ImageView positive_like, dislikeBtn,sharePlusBtn,defaultShareBtn,commentBtn;
     private AllCommonResponse allCommonResponse;
     Typeface face_reg,face_bold;
+    BusyDialog busyDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +79,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         positive_like = (ImageView) findViewById(R.id.positive_like);
         dislikeBtn = (ImageView) findViewById(R.id.dislikeBtn);
+        sharePlusBtn = (ImageView) findViewById(R.id.sharePlusBtn);
+        defaultShareBtn = (ImageView) findViewById(R.id.defaultShareBtn);
+        commentBtn = (ImageView) findViewById(R.id.commentBtn);
 
         content_id = getIntent().getExtras().getString("content_id");
         isFvrtString = getIntent().getExtras().getString("is_favrt");
@@ -202,10 +219,43 @@ public class DetailsActivity extends AppCompatActivity {
                 }
 
 
-
-
                 setDislikeLike(AllURL.getLikeDislike(PersistentUser.getUserID(con), allDetail.getNews().getId(), like, dislike));
 
+
+            }
+        });
+
+
+        sharePlusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                FollowDialogFragment dialogFollow= new FollowDialogFragment();
+                dialogFollow.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Translucent_NoTitleBar);
+                dialogFollow.show(DetailsActivity.this.getFragmentManager(), "");
+
+
+            }
+        });
+
+        defaultShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+             Picasso.with(con).load(allDetail.getNews().getImage()).memoryPolicy(MemoryPolicy.NO_CACHE).into(target);
+
+
+            }
+        });
+
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CommentListDialogFragment dialogFragment = new CommentListDialogFragment();
+                dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogFragment.show(DetailsActivity.this.getFragmentManager(), "");
 
             }
         });
@@ -370,31 +420,7 @@ public class DetailsActivity extends AppCompatActivity {
                                     allDetail.setLike_count("" + current_likecount);
                                     allDetail.setIs_liked("FALSE");
                                     setAllData();
-
                                 }
-
-
-                         /*       if ((allCommonResponse.getMsg().equalsIgnoreCase("Successful")) && (allDetail.getIs_disliked().equalsIgnoreCase("FALSE"))&& (clickType.equalsIgnoreCase("dislike"))) {
-
-                                    int current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
-                                    current_dislikCount = current_dislikCount + 1;
-                                    allDetail.setIs_disliked("" + current_dislikCount);
-                                    allDetail.setIs_disliked("TRUE");
-                                    setAllData();
-                                }else {
-
-                                    int current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
-                                    current_dislikCount = current_dislikCount - 1;
-                                    allDetail.setIs_disliked("" + current_dislikCount);
-                                    allDetail.setIs_disliked("FALSE");
-                                    setAllData();
-
-                                }*/
-
-
-
-
-
                             }
 
                         } catch (final Exception e) {
@@ -448,8 +474,6 @@ public class DetailsActivity extends AppCompatActivity {
                                 allCommonResponse = g.fromJson(new String(response), AllCommonResponse.class);
 
 
-
-
                          if ((allCommonResponse.getMsg().equalsIgnoreCase("Successful")) && (allDetail.getIs_disliked().equalsIgnoreCase("FALSE"))) {
 
                                     int current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
@@ -457,7 +481,6 @@ public class DetailsActivity extends AppCompatActivity {
                                     allDetail.setDislike_count("" + current_dislikCount);
                                     allDetail.setIs_disliked("TRUE");
                                     setAllData();
-
                                 }else {
 
                                     int current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
@@ -465,23 +488,74 @@ public class DetailsActivity extends AppCompatActivity {
                                     allDetail.setDislike_count("" + current_dislikCount);
                                     allDetail.setIs_disliked("FALSE");
                                     setAllData();
-
                                 }
-
-
                             }
 
                         } catch (final Exception e) {
                             e.printStackTrace();
                             progressShow.setVisibility(View.GONE);
                         }
-
-
                     }
                 });
             }
         });
     }
+
+    public void defaultShare(Context context,Uri uri){
+        String firstText=getResources().getString(R.string.pretex_details);
+        String bodyText =  allDetail.getNews().getDetails();
+        String finalStr = firstText+""+bodyText;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_TEXT, finalStr);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        context.startActivity(Intent.createChooser(intent, "Share Image"));
+    }
+
+    private Target target = new Target() {
+
+
+        @Override
+        public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    File file = new File(Environment.getExternalStorageDirectory().getPath() + "/picture.jpg");
+                    try {
+                        file.createNewFile();
+                        FileOutputStream ostream = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
+                        busyDialog.dismis();
+                        String path = MediaStore.Images.Media.insertImage(con.getContentResolver(), bitmap, "Title", null);
+
+                        defaultShare(con, Uri.parse(path));
+
+                        ostream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }).start();
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+            busyDialog.dismis();
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+            if (placeHolderDrawable != null) {
+            }
+            busyDialog = new BusyDialog(con, false, "");
+            busyDialog.show();
+        }
+    };
+
+
 
     @Override
     public void onBackPressed() {
