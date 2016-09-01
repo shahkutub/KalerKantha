@@ -30,6 +30,7 @@ public class AppConstant {
     public static String CATEGORYTYPE = "";
     public static String CATEGORYTITLE = "";
     public static int scroolBeforeLatItem =2;
+    public static String TITLE= "";
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 

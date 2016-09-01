@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">কালের কন্ঠ</string>
+    <string name="pretex_details">I saw this on the Kalerkontho App and thought you should see it:\n</string>
+
     <string name="action_settings">Settings</string>
     <string name="home">হোম</string>
     <string name="no">না </string>
@@ -72,6 +74,7 @@
     <string name="catlist">ক্যাটাগরি তালিকা</string>
 
 
+    <string name="follow">ফলো</string>
 
 
 

@@ -65,6 +65,7 @@ public class AllNewsRecyAdapter extends RecyclerView.Adapter<AllNewsRecyAdapter.
                 AppConstant.CATEGORYTITLE= onlineList.get(position).getName();
 
                 Log.e("Category Type",""+ AppConstant.CATEGORYTYPE );
+
                 CatListDialogFragment dialogCatList= new CatListDialogFragment();
                 dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogCatList.show(context.getFragmentManager(), "");

@@ -34,10 +34,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class FollowDialogFragment extends DialogFragment {
-
     private Context con;
     private View view;
-
+    private TextView followHeadText;
+    private ImageView facShareBtn,twitShareBtn,googlePlusBtn,dialogCloseBtn;
 
     @Nullable
     @Override
@@ -57,9 +57,58 @@ public class FollowDialogFragment extends DialogFragment {
     private void initUi() {
 
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
-        //dissmissCatListBtn = (ImageView) view.findViewById(R.id.dissmissCatListBtn);
+        followHeadText = (TextView) view.findViewById(R.id.followHeadText);
+        facShareBtn = (ImageView) view.findViewById(R.id.facShareBtn);
+        twitShareBtn = (ImageView) view.findViewById(R.id.twitShareBtn);
+        googlePlusBtn = (ImageView) view.findViewById(R.id.googlePlusBtn);
+        dialogCloseBtn = (ImageView) view.findViewById(R.id.dialogCloseBtn);
+
+        followHeadText.setTypeface(face_bold);
+
+        dialogCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
+
+        facShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
+                AppConstant.TITLE = "Facebook";
+                ShareDialogFragment dialogHelp= new ShareDialogFragment();
+                dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogHelp.show(getActivity().getFragmentManager(), "");
+
+
+            }
+        });
+
+        twitShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AppConstant.TITLE = "Twitter";
+                ShareDialogFragment dialogHelp= new ShareDialogFragment();
+                dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogHelp.show(getActivity().getFragmentManager(), "");
+
+            }
+        });
+
+        googlePlusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AppConstant.TITLE = "Google+";
+                ShareDialogFragment dialogHelp= new ShareDialogFragment();
+                dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogHelp.show(getActivity().getFragmentManager(), "");
+
+            }
+        });
 
     }
 
