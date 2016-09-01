@@ -3,35 +3,16 @@ package com.kalerkantho.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.aapbd.utils.network.AAPBDHttpClient;
-import com.google.gson.Gson;
-import com.kalerkantho.Adapter.CatListRecyAdapter;
-import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
-import com.kalerkantho.Utils.AlertMessage;
-import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
-import com.kalerkantho.Utils.DividerItemDecoration;
-import com.kalerkantho.Utils.NetInfo;
-import com.kalerkantho.holder.AllNirbahito;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
 
 public class FollowDialogFragment extends DialogFragment {
     private Context con;
@@ -91,7 +72,7 @@ public class FollowDialogFragment extends DialogFragment {
             public void onClick(View v) {
 
                 AppConstant.TITLE = "Twitter";
-                ShareDialogFragment dialogHelp= new ShareDialogFragment();
+                TwitterDialogFragment dialogHelp= new TwitterDialogFragment();
                 dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogHelp.show(getActivity().getFragmentManager(), "");
 
@@ -103,7 +84,7 @@ public class FollowDialogFragment extends DialogFragment {
             public void onClick(View v) {
 
                 AppConstant.TITLE = "Google+";
-                ShareDialogFragment dialogHelp= new ShareDialogFragment();
+                GoogleDialogFragment dialogHelp= new GoogleDialogFragment();
                 dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogHelp.show(getActivity().getFragmentManager(), "");
 
