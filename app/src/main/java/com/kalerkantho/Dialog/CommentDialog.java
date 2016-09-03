@@ -101,7 +101,7 @@ public class CommentDialog extends DialogFragment {
         TextView tvDescription2 = (TextView) dialogLogin.findViewById(R.id.tvDescription2);
         TextView tvLeftCommund = (TextView) dialogLogin.findViewById(R.id.tvLeftCommund);
         TextView tvRightCommund = (TextView) dialogLogin.findViewById(R.id.tvRightCommund);
-
+        tvDescription2.setText(getResources().getString(R.string.login_first_comment));
         //==================Font set==========================
 
         tvTitel2.setTypeface(face_reg);

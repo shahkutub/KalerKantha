@@ -84,7 +84,7 @@ public class CommentListDialogFragment extends DialogFragment {
         imgCrossComment = (ImageView) view.findViewById(R.id.imgCrossComment);
         progressCat = (ProgressBar) view.findViewById(R.id.progressCat);
         rvCommentList = (RecyclerView) view.findViewById(R.id.rvCommentList);
-        mLayoutManager = new LinearLayoutManager(con);
+
         tvCommentPlz = (TextView) view.findViewById(R.id.tvCommentPlz);
         tvCommentc = (TextView) view.findViewById(R.id.tvCommentc);
 
@@ -101,8 +101,9 @@ public class CommentListDialogFragment extends DialogFragment {
             }
         });
 
+        mLayoutManager = new LinearLayoutManager(con);
+        rvCommentList.setLayoutManager(mLayoutManager);
 
-        rvCommentList.setLayoutManager(new LinearLayoutManager(con));
         rvCommentList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
