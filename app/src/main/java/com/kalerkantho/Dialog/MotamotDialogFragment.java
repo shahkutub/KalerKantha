@@ -87,7 +87,7 @@ public class MotamotDialogFragment extends DialogFragment {
         motatmotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
                 if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))) {
                     loginDialoag(con);
                 } else {

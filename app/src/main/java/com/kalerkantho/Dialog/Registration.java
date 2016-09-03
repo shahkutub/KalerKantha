@@ -180,6 +180,10 @@ private String full_name,email,password,device_type,push_id,registrationtype;
 //                    PersistData.setStringData(con, AppConstant.token,
 //                            loginResponse.getToken());
                     Log.e("token", "=" + PersistData.getStringData(con, AppConstant.token));
+//                    if (AppConstant.loginDialogFragment!=null) {
+//                        AppConstant.loginDialogFragment.dismiss();
+//                    }
+                    LoginDialogFragment.instancedialogFragment().dismiss();
                     getDialog().dismiss();
 
                     //---------Go Tab Activity-----------------------

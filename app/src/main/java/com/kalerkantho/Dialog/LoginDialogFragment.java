@@ -44,6 +44,11 @@ private String email,password;
     private EditText etEmailLogin, etPaswordLogin;
     private LoginResponse loginResponse;
 
+    public static LoginDialogFragment loginDialogFragment;
+    public static LoginDialogFragment instancedialogFragment(){
+        return loginDialogFragment;
+    }
+
 
     @Nullable
     @Override
@@ -51,6 +56,7 @@ private String email,password;
         view = inflater.inflate(R.layout.login_dialog, container, true);
         con = getActivity();
         initUi();
+        loginDialogFragment=this;
         return view;
     }
 
