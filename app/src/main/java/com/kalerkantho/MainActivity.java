@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
@@ -31,16 +30,15 @@ import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
 import com.kalerkantho.Dialog.MotamotDialogFragment;
-import com.kalerkantho.Dialog.Registration;
 import com.kalerkantho.Fragment.PhotoFragment;
 import com.kalerkantho.Fragment.SettingFragment;
+import com.kalerkantho.Gcm.FirebaseIDService;
 import com.kalerkantho.Model.Category;
 import com.kalerkantho.Model.LoginResponse;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
-import com.kalerkantho.Utils.BusyDialog;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.Utils.PersistentUser;
@@ -56,6 +54,7 @@ import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
@@ -89,11 +88,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         con = this;
+
+        Intent intent=new Intent(con,FirebaseIDService.class);
+        startService(intent);
+
+
         db = new MyDBHandler(getApplicationContext());
         /**
          *Setup the DrawerLayout and NavigationView
          */
-        pushIdAPI(AllURL.pushIDURL());
+
+        if(!(TextUtils.isEmpty(PersistentUser.getUserID(con))))
+        {
+            if(!(android.text.TextUtils.isEmpty(PersistData.getStringData(con,AppConstant.GCMID)))) {
+                pushIdAPI(AllURL.pushIDURL());
+            }
+        }
+
         final Typeface face_bold = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         final Typeface face_reg = Typeface.createFromAsset(getApplication().getAssets(), "fonts/SolaimanLipi_reg.ttf");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -617,7 +628,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             param.put("device_type", "android");
-            param.put("push_id", PersistData.getStringData(con, AppConstant.GCMID));
+            param.put("push_id", PersistData.getStringData(con,AppConstant.GCMID));
         } catch (final Exception e1) {
             e1.printStackTrace();
         }
@@ -640,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
 //                    busyNow.dismis();
 //                }
                 //-----------------Print Response--------------------
-                Log.e("PushIDResposne ", ">>" + new String(response));
+                Log.e("PushIDResposne ", ">>nnn" + new String(response));
 
                 //------------Data persist using Gson------------------
                 Gson g = new Gson();

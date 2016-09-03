@@ -64,6 +64,8 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_view);
         con = this;
+        db = new MyDBHandler(con);
+
         headingTxt = (TextView) findViewById(R.id.headingTxt);
         txt_positive_like = (TextView) findViewById(R.id.txt_positive_like);
         txt_negative_like = (TextView) findViewById(R.id.txt_negative_like);
@@ -88,6 +90,14 @@ public class DetailsActivity extends AppCompatActivity {
          face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
          face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
+        if(db.isFavorite(content_id))
+        {
+            fvImg.setImageResource(R.drawable.fav_on);
+        }else
+        {
+            fvImg.setImageResource(R.drawable.fav_white);
+        }
+
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +105,7 @@ public class DetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        db = new MyDBHandler(con);
+
 
         // call url for detals
         try {

@@ -233,6 +233,30 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
+
+    public boolean isFavorite(final String newsId) {
+
+        boolean isFavorite=false;
+
+        ArrayList<FvrtModel> contactList = new ArrayList<FvrtModel>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_FAVORITE + " where " + MyDBHandler.FAV_ID +
+         "='" + newsId+ "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.getCount()>0) {
+            isFavorite=true;
+
+        }
+        db.close();
+        // return contact list
+        return isFavorite;
+    }
+
+
     // remove single entry
     public boolean removeSingleFavENtry(String fvId) {
         boolean deleteSuccessful = false;
