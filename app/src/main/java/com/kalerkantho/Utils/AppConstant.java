@@ -13,7 +13,7 @@ public class AppConstant {
     public static String id="id";
     public static String pushID="pushID";
     public static String token="token";
-    public static LoginDialogFragment loginDialogFragment;
+    public static LoginDialogFragment loginDialogFragment= new LoginDialogFragment();
 
     public static final String COLOR_DEFAULT_MAIN = "#A551D0";
     public static final String COLOR_DEFAULT_SECONDARY = "#FFFFFF";
