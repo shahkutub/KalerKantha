@@ -51,14 +51,14 @@ public class CommentListDialogFragment extends DialogFragment {
     private Context con;
     private View view;
     private ImageView imgCrossComment;
-    private TextView tvCommentc,tvCommentPlz;
+    private TextView tvCommentc, tvCommentPlz;
     private ProgressBar progressCat;
     private RecyclerView rvCommentList;
     private CommentListAdapter catAdapter;
-    private String response="";
+    private String response = "";
     private CommentListResponse allCatList;
     private LinearLayoutManager mLayoutManager;
-    private int pagNumber =1,totalItemCount,pastVisiblesItems,totalpage,visibleItemCount;
+    private int pagNumber = 1, totalItemCount, pastVisiblesItems, totalpage, visibleItemCount;
     private List<CommentInfo> my_newsListTemp = new ArrayList<CommentInfo>();
     // Drawable dividerDrawable;
 
@@ -103,22 +103,18 @@ public class CommentListDialogFragment extends DialogFragment {
 
 
         rvCommentList.setLayoutManager(new LinearLayoutManager(con));
-        rvCommentList.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        rvCommentList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findLastVisibleItemPosition();
                     pagNumber = pagNumber + 1;
-                    if (hasMorePage())
-                    {
-                        if ( ( pastVisiblesItems) >= totalItemCount- AppConstant.scroolBeforeLatItem)
-                        {
-                            getCommentList(AllURL.commentListUrl("394470","11",pagNumber));
+                    if (hasMorePage()) {
+                        if ((pastVisiblesItems) >= totalItemCount - AppConstant.scroolBeforeLatItem) {
+                            getCommentList(AllURL.commentListUrl("394470", "11", pagNumber));
 
                         }
                     }
@@ -141,7 +137,7 @@ public class CommentListDialogFragment extends DialogFragment {
             }
         });
 
-        getCommentList(AllURL.commentListUrl("394470","11",pagNumber));
+        getCommentList(AllURL.commentListUrl("394470", "11", pagNumber));
 
     }
 
@@ -174,21 +170,21 @@ public class CommentListDialogFragment extends DialogFragment {
                     @Override
                     public void run() {
 
-                          progressCat.setVisibility(View.GONE);
+                        progressCat.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
 
                                 Gson g = new Gson();
-                                allCatList=g.fromJson(new String(response),CommentListResponse.class);
+                                allCatList = g.fromJson(new String(response), CommentListResponse.class);
 
 
                                 my_newsListTemp.addAll(allCatList.getComments());
-                                Log.e("Commentsize", ">>" +my_newsListTemp.size());
-                                if(allCatList.getStatus().equalsIgnoreCase("1")){
+                                Log.e("Commentsize", ">>" + my_newsListTemp.size());
+                                if (allCatList.getStatus().equalsIgnoreCase("1")) {
 
-                                    catAdapter = new CommentListAdapter(con,my_newsListTemp,null);
+                                    catAdapter = new CommentListAdapter(con, my_newsListTemp, null);
                                     rvCommentList.setAdapter(catAdapter);
 
                                     //Drawable dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);

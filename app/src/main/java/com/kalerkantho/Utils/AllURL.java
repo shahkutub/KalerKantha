@@ -98,6 +98,11 @@ public class AllURL {
 		return getcommonURLWithParamAndAction("submit-feedback", temp);
 	}
 
+	public static String commentURL() {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("comment", temp);
+	}
+
 	public static String getHelp() {
 		final Vector<KeyValue> temp = new Vector<KeyValue>();
 		return getcommonURLWithParamAndAction("help", temp);
