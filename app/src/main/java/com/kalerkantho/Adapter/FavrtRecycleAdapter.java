@@ -66,7 +66,7 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
                 heading.setText(item.getNews().getTitle());
                 category.setText(item.getNews().getCategory_name());
                 dateTime.setText(item.getNews().getBanglaDateString());
-                fvrtBtn.setBackgroundResource(R.drawable.fav_on);
+                fvrtBtn.setBackgroundResource(R.drawable.fav_off);
 
                 heading.setTypeface(face_bold);
                 category.setTypeface(face_reg);
@@ -92,7 +92,7 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
                             fm.setFvrtId(item.getNews().getId());
                             fm.setFvrtObject(favObject);
                             db.addFavrtEntry(fm);
-                            fvrtBtn.setBackgroundResource(R.drawable.fav_on);
+                            fvrtBtn.setBackgroundResource(R.drawable.fav_off);
                            /* fm.setFvrtId(content_id);
                             Gson gson = new Gson();
                             String favObject = gson.toJson(allDetail);
@@ -103,7 +103,7 @@ public class FavrtRecycleAdapter  extends RecyclerView.Adapter<FavrtRecycleAdapt
 //
                         } else {
                             // isFvrt = false;
-                            fvrtBtn.setBackgroundResource(R.drawable.fav_off);
+                            fvrtBtn.setBackgroundResource(R.drawable.fav_on);
                            db.removeSingleFavENtry(item.getNews().getId());
                         }
 

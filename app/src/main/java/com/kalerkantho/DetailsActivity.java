@@ -48,7 +48,7 @@ import java.util.concurrent.Executors;
 public class DetailsActivity extends AppCompatActivity {
     private Context con;
     private TextView headingTxt, txt_positive_like, txt_negative_like, txt_comment, txtDate, txtCategory, detailsTxt;
-    private ImageView backImgMain, fvImg, backBtn;
+    private ImageView backImgMain, fvImg, backBtn,shareBtn;
     private String content_id = "", isFvrtString = "";
     private ProgressBar progressShow;
     private MyDBHandler db;
@@ -75,6 +75,8 @@ public class DetailsActivity extends AppCompatActivity {
         detailsTxt = (TextView) findViewById(R.id.detailsText);
         backImgMain = (ImageView) findViewById(R.id.mainBackground);
         fvImg = (ImageView) findViewById(R.id.favrtBtn);
+        shareBtn = (ImageView) findViewById(R.id.shareBtn);
+
         backBtn = (ImageView) findViewById(R.id.backBtn);
         progressShow = (ProgressBar) findViewById(R.id.progressShow);
 
@@ -92,7 +94,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         if(db.isFavorite(content_id))
         {
-            fvImg.setImageResource(R.drawable.fav_on);
+            fvImg.setImageResource(R.drawable.fav_white_fill);
         }else
         {
             fvImg.setImageResource(R.drawable.fav_white);
@@ -162,10 +164,12 @@ public class DetailsActivity extends AppCompatActivity {
                     fm.setFvrtId(content_id);
                     fm.setFvrtObject(favObject);
                     db.addFavrtEntry(fm);
+                    fvImg.setImageResource(R.drawable.fav_white_fill);
                     //Toast.makeText(con, "Data Added Successfully", Toast.LENGTH_SHORT);
 
                 } else {
                     // isFvrt = false;
+                    fvImg.setImageResource(R.drawable.fav_white);
 
                     db.removeSingleFavENtry(content_id);
                 }
@@ -248,6 +252,16 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Picasso.with(con).load(allDetail.getNews().getImage()).memoryPolicy(MemoryPolicy.NO_CACHE).into(target);
+
+
+            }
+        });
+
         defaultShareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -299,7 +313,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (allDetail.getIs_liked().equalsIgnoreCase("FALSE")) {
 
-            positive_like.setImageResource(R.drawable.negative_like);
+            positive_like.setImageResource(R.drawable.positive_like_white);
 
         } else {
 
@@ -311,7 +325,7 @@ public class DetailsActivity extends AppCompatActivity {
             dislikeBtn.setImageResource(R.drawable.negative_like);
         } else {
 
-            dislikeBtn.setImageResource(R.drawable.positive_like);
+            dislikeBtn.setImageResource(R.drawable.negative_like_blue);
         }
 
 

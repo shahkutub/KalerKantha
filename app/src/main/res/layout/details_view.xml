@@ -47,8 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="204dp"
                     android:background="@drawable/white_bg"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
 
 
                 </ImageView>
@@ -62,8 +62,8 @@
                         android:id="@+id/img_action"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:background="#80000000"
                         android:orientation="horizontal">
 
@@ -82,7 +82,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="5dp"
                                 android:padding="3dp"
-                                android:src="@drawable/positive_like" />
+                                android:src="@drawable/positive_like_white" />
 
                             <TextView
                                 android:id="@+id/txt_positive_like"
@@ -109,7 +109,7 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="5dp"
                                 android:padding="3dp"
-                                android:src="@drawable/positive_like" />
+                                android:src="@drawable/negative_like" />
 
                             <TextView
                                 android:id="@+id/txt_negative_like"
