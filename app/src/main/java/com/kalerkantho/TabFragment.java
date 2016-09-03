@@ -1,7 +1,6 @@
 package com.kalerkantho;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,11 +18,12 @@ import com.kalerkantho.Fragment.PrintVFragment;
 import com.kalerkantho.Fragment.SelectedNewsFragment;
 import com.kalerkantho.Fragment.SubjectLikeFragment;
 import com.kalerkantho.Fragment.TopNewsFragment;
+import com.kalerkantho.Utils.CustomTabLayout;
 
 
 public class TabFragment extends Fragment {
 
-    public static TabLayout tabLayout;
+    public static CustomTabLayout tabLayout;
     public static ViewPager viewPager;
    public static int int_items = 9;
     private int fragmentPos=0;
@@ -34,8 +34,13 @@ public class TabFragment extends Fragment {
          *Inflate tab_layout and setup Views.
          */
              View x =  inflater.inflate(R.layout.tab_layout,null);
-             tabLayout = (TabLayout) x.findViewById(R.id.tabs);
+             tabLayout = (CustomTabLayout) x.findViewById(R.id.tabs);
              viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+
+       // final Typeface face_reg = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SolaimanLipi_reg.ttf");
+
+
+
 
 
         Bundle bundle = this.getArguments();

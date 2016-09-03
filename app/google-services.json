@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "257395124016",
+    "firebase_url": "https://kalerkantho-test.firebaseio.com",
+    "project_id": "kalerkantho-test",
+    "storage_bucket": "kalerkantho-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257395124016:android:da99572521d081f6",
+        "android_client_info": {
+          "package_name": "com.kalerkantho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257395124016-lpg40d26elpi8mdsim02rnnsf836olhp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAquEnjgmTkkKskpR2XQnQdgwqwxCOeXxA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

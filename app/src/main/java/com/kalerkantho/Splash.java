@@ -3,7 +3,6 @@ package com.kalerkantho;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -16,17 +15,14 @@ import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
-import com.kalerkantho.Utils.AlertMessage;
+import com.kalerkantho.Gcm.FirebaseIDService;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllCategory;
 
-import java.io.IOException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Splash extends Activity {
 
@@ -39,14 +35,14 @@ public class Splash extends Activity {
 
 
     GPSTracker gps;
-    String SENDER_ID = "257395124016";
-    GoogleCloudMessaging gcm;
+    //String SENDER_ID = "257395124016";
+    //GoogleCloudMessaging gcm;
     String regId="",msg="",response_menu="";
     static final String TAG = "GCM_CHECK";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
-    private long millis, millisOday;
+    private long millis;
 
 
     @Override
@@ -55,21 +51,24 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
         con=this;
 
+       Intent intent=new Intent(con,FirebaseIDService.class);
+        startService(intent);
+
 
         millis = System.currentTimeMillis();
-        millisOday = TimeUnit.DAYS.toMillis(1);
+        //millisOday = TimeUnit.DAYS.toMillis(1);
 
 
         progressShow = (ProgressBar) findViewById(R.id.progressSplash);
 
 
-        if (checkPlayServices()) {
-            gcm = GoogleCloudMessaging.getInstance(con);
-            Log.e("gcmId", ":" + PersistData.getStringData(con, AppConstant.GCMID));
-            if (PersistData.getStringData(con, AppConstant.GCMID).length() == 0) {
-                new RegisterBackground().execute();
-            }
-        }
+//        if (checkPlayServices()) {
+//            gcm = GoogleCloudMessaging.getInstance(con);
+//            Log.e("gcmId", ":" + PersistData.getStringData(con, AppConstant.GCMID));
+//            if (PersistData.getStringData(con, AppConstant.GCMID).length() == 0) {
+//                new RegisterBackground().execute();
+//            }
+//        }
 
 
         if (!NetInfo.isOnline(con)) {
@@ -89,11 +88,8 @@ public class Splash extends Activity {
 
         }else{
 
-            if (millis - PersistData.getLongData(con, AppConstant.SystemTime) > millisOday) {
-
-                getMenuInfo(AllURL.getMenuList());
-
-            }else{
+            if((PersistData.getLongData(con, AppConstant.SystemTime)+(24*60*60*1000))>millis)
+            {
                 handler.postDelayed(new Runnable(){
                     @Override
                     public void run() {
@@ -102,34 +98,42 @@ public class Splash extends Activity {
                         finish();
                     }
                 }, SPLASH_DISPLAY_LENGTH);
+
+            }else
+            {
+
+                PersistData.setLongData(con,AppConstant.SystemTime,millis);
+
+                getMenuInfo(AllURL.getMenuList());
             }
+
         }
     }
 
-    class RegisterBackground extends AsyncTask<String, String, String> {
-        @Override
-        protected String doInBackground(String... arg0) {
-
-            try {
-                if (gcm == null) {
-                    gcm = GoogleCloudMessaging.getInstance(con);
-                }
-                regId = gcm.register(SENDER_ID);
-                PersistData.setStringData(con, AppConstant.GCMID, regId);
-                msg = "Dvice registered, registration ID=" + regId;
-                Log.e("Google Registration ID", "---------" + msg);
-
-            } catch (final IOException ex) {
-                msg = "Error :" + ex.getMessage();
-            }
-            return msg;
-        }
-
-        @Override
-        protected void onPostExecute(String msg) {
-
-        }
-    }
+//    class RegisterBackground extends AsyncTask<String, String, String> {
+//        @Override
+//        protected String doInBackground(String... arg0) {
+//
+//            try {
+//                if (gcm == null) {
+//                    gcm = GoogleCloudMessaging.getInstance(con);
+//                }
+//                regId = gcm.register(SENDER_ID);
+//                PersistData.setStringData(con, AppConstant.GCMID, regId);
+//                msg = "Dvice registered, registration ID=" + regId;
+//                Log.e("Google Registration ID", "---------" + msg);
+//
+//            } catch (final IOException ex) {
+//                msg = "Error :" + ex.getMessage();
+//            }
+//            return msg;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String msg) {
+//
+//        }
+//    }
 
     private boolean checkPlayServices() {
         final int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
