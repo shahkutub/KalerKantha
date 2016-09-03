@@ -63,6 +63,9 @@ public class CustomTabLayout extends TabLayout {
                 AppCompatTextView view = (AppCompatTextView) ((ViewGroup) slidingTabStrip.getChildAt(i)).getChildAt(1);
                 view.setTypeface(typeface, Typeface.NORMAL);
             }
+
+            viewPager.setCurrentItem(AppConstant.currentItem);
+
         }
     }
 }

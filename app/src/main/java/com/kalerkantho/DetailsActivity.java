@@ -24,6 +24,7 @@ import com.aapbd.utils.storage.PersistentUser;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.kalerkantho.Dialog.CatListDialogFragment;
 import com.kalerkantho.Dialog.CommentListDialogFragment;
 import com.kalerkantho.Dialog.FollowDialogFragment;
 import com.kalerkantho.Model.DetailsModel;
@@ -31,6 +32,7 @@ import com.kalerkantho.Model.FvrtModel;
 import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
+import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.BusyDialog;
 import com.kalerkantho.Utils.NetInfo;
 import com.kalerkantho.holder.AllCommonResponse;
@@ -48,15 +50,15 @@ import java.util.concurrent.Executors;
 public class DetailsActivity extends AppCompatActivity {
     private Context con;
     private TextView headingTxt, txt_positive_like, txt_negative_like, txt_comment, txtDate, txtCategory, detailsTxt;
-    private ImageView backImgMain, fvImg, backBtn,shareBtn;
+    private ImageView backImgMain, fvImg, backBtn, shareBtn;
     private String content_id = "", isFvrtString = "";
     private ProgressBar progressShow;
     private MyDBHandler db;
     private FvrtModel fm = new FvrtModel();
     private DetailsModel allDetail;
-    private ImageView positive_like, dislikeBtn,sharePlusBtn,defaultShareBtn,commentBtn;
+    private ImageView positive_like, dislikeBtn, sharePlusBtn, defaultShareBtn, commentBtn;
     private AllCommonResponse allCommonResponse;
-    Typeface face_reg,face_bold;
+    Typeface face_reg, face_bold;
     BusyDialog busyDialog;
 
     @Override
@@ -89,14 +91,12 @@ public class DetailsActivity extends AppCompatActivity {
         content_id = getIntent().getExtras().getString("content_id");
         isFvrtString = getIntent().getExtras().getString("is_favrt");
 
-         face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
-         face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
+        face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+        face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
-        if(db.isFavorite(content_id))
-        {
+        if (db.isFavorite(content_id)) {
             fvImg.setImageResource(R.drawable.fav_white_fill);
-        }else
-        {
+        } else {
             fvImg.setImageResource(R.drawable.fav_white);
         }
 
@@ -104,7 +104,7 @@ public class DetailsActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                DetailsActivity.this.finish();
             }
         });
 
@@ -115,7 +115,7 @@ public class DetailsActivity extends AppCompatActivity {
                 if (isFvrtString.equalsIgnoreCase("1")) {
                     Log.e("fff", "favrt");
 
-                 String response = "";
+                    String response = "";
 
                     for (FvrtModel fm : db.getAllFvrtModels()) {
                         if (content_id.equalsIgnoreCase(fm.getFvrtId())) {
@@ -129,7 +129,7 @@ public class DetailsActivity extends AppCompatActivity {
                     allDetail = g.fromJson(new String(response), DetailsModel.class);
 
                     if (allDetail != null) {
-                        setAllData();
+                        setAllData(true);
                     }
 
                 } else {
@@ -183,22 +183,18 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String dislike="0",like="0";
+                String dislike = "0", like = "0";
 
-                if(allDetail.getIs_disliked().equalsIgnoreCase("TRUE"))
-                {
-                    dislike="1";
-                }else
-                {
-                    dislike="0";
+                if (allDetail.getIs_disliked().equalsIgnoreCase("TRUE")) {
+                    dislike = "1";
+                } else {
+                    dislike = "0";
                 }
 
-                if(allDetail.getIs_liked().equalsIgnoreCase("TRUE"))
-                {
-                    like="0";
-                }else
-                {
-                    like="1";
+                if (allDetail.getIs_liked().equalsIgnoreCase("TRUE")) {
+                    like = "0";
+                } else {
+                    like = "1";
                 }
 
 
@@ -213,22 +209,18 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String dislike="0",like="0";
+                String dislike = "0", like = "0";
 
-                if(allDetail.getIs_disliked().equalsIgnoreCase("TRUE"))
-                {
-                    dislike="0";
-                }else
-                {
-                    dislike="1";
+                if (allDetail.getIs_disliked().equalsIgnoreCase("TRUE")) {
+                    dislike = "0";
+                } else {
+                    dislike = "1";
                 }
 
-                if(allDetail.getIs_liked().equalsIgnoreCase("TRUE"))
-                {
-                    like="1";
-                }else
-                {
-                    like="0";
+                if (allDetail.getIs_liked().equalsIgnoreCase("TRUE")) {
+                    like = "1";
+                } else {
+                    like = "0";
                 }
 
 
@@ -244,7 +236,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                FollowDialogFragment dialogFollow= new FollowDialogFragment();
+                FollowDialogFragment dialogFollow = new FollowDialogFragment();
                 dialogFollow.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Translucent_NoTitleBar);
                 dialogFollow.show(DetailsActivity.this.getFragmentManager(), "");
 
@@ -266,7 +258,7 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-             Picasso.with(con).load(allDetail.getNews().getImage()).memoryPolicy(MemoryPolicy.NO_CACHE).into(target);
+                Picasso.with(con).load(allDetail.getNews().getImage()).memoryPolicy(MemoryPolicy.NO_CACHE).into(target);
 
 
             }
@@ -275,6 +267,8 @@ public class DetailsActivity extends AppCompatActivity {
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AppConstant.newsID = content_id;
 
                 CommentListDialogFragment dialogFragment = new CommentListDialogFragment();
                 dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
@@ -287,10 +281,17 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
 
-    private void setAllData() {
+    private void setAllData(boolean imageload) {
+
         headingTxt.setText(allDetail.getNews().getTitle());
         detailsTxt.setText(Html.fromHtml(allDetail.getNews().getDetails()));
-        Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
+
+
+        if(imageload)
+        {
+            Glide.with(con).load(allDetail.getNews().getImage()).placeholder(R.drawable.fullscreen).into(backImgMain);
+        }
+
 
 
         if (!(TextUtils.isEmpty(allDetail.getLike_count()))) {
@@ -331,6 +332,22 @@ public class DetailsActivity extends AppCompatActivity {
 
         txtDate.setText(allDetail.getNews().getBanglaDateString() + "  | ");
         txtCategory.setText(allDetail.getNews().getCategory_name());
+        txtCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AppConstant.CATEGORYTYPE = allDetail.getNews().getCategory();
+                AppConstant.CATEGORYTITLE= allDetail.getNews().getCategory_name();
+
+                Log.e("Category Type",""+ AppConstant.CATEGORYTYPE );
+
+                CatListDialogFragment dialogCatList= new CatListDialogFragment();
+                dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogCatList.show(getFragmentManager(), "");
+
+            }
+        });
+
 
         headingTxt.setTypeface(face_bold);
         detailsTxt.setTypeface(face_reg);
@@ -377,7 +394,7 @@ public class DetailsActivity extends AppCompatActivity {
                                 Gson g = new Gson();
                                 allDetail = g.fromJson(new String(response), DetailsModel.class);
 
-                                setAllData();
+                                setAllData(true);
                             }
 
                         } catch (final Exception e) {
@@ -431,18 +448,28 @@ public class DetailsActivity extends AppCompatActivity {
 
                                 if ((allCommonResponse.getMsg().equalsIgnoreCase("Successful")) && (allDetail.getIs_liked().equalsIgnoreCase("FALSE"))) {
 
-                                    int current_likecount = Integer.parseInt(allDetail.getLike_count());
+                                    int current_likecount = 0;
+                                    if (!(TextUtils.isEmpty(allDetail.getLike_count()))) {
+                                        current_likecount = Integer.parseInt(allDetail.getLike_count());
+                                    }
+
                                     current_likecount = current_likecount + 1;
                                     allDetail.setLike_count("" + current_likecount);
                                     allDetail.setIs_liked("TRUE");
-                                    setAllData();
-                                }else {
+                                    setAllData(false);
+                                } else {
 
-                                    int current_likecount = Integer.parseInt(allDetail.getLike_count());
+                                    int current_likecount = 0;
+
+                                    if (!(TextUtils.isEmpty(allDetail.getLike_count()))) {
+                                        current_likecount = Integer.parseInt(allDetail.getLike_count());
+                                    }
+
+
                                     current_likecount = current_likecount - 1;
                                     allDetail.setLike_count("" + current_likecount);
                                     allDetail.setIs_liked("FALSE");
-                                    setAllData();
+                                    setAllData(false);
                                 }
                             }
 
@@ -457,8 +484,6 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     private void setDislikeLike(final String url) {
@@ -497,20 +522,28 @@ public class DetailsActivity extends AppCompatActivity {
                                 allCommonResponse = g.fromJson(new String(response), AllCommonResponse.class);
 
 
-                         if ((allCommonResponse.getMsg().equalsIgnoreCase("Successful")) && (allDetail.getIs_disliked().equalsIgnoreCase("FALSE"))) {
+                                if ((allCommonResponse.getMsg().equalsIgnoreCase("Successful")) && (allDetail.getIs_disliked().equalsIgnoreCase("FALSE"))) {
 
-                                    int current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
+                                    int current_dislikCount = 0;
+                                    if (!(TextUtils.isEmpty(allDetail.getDislike_count()))) {
+                                        current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
+                                    }
+
+
                                     current_dislikCount = current_dislikCount + 1;
                                     allDetail.setDislike_count("" + current_dislikCount);
                                     allDetail.setIs_disliked("TRUE");
-                                    setAllData();
-                                }else {
+                                    setAllData(false);
+                                } else {
 
-                                    int current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
+                                    int current_dislikCount = 0;
+                                    if (!(TextUtils.isEmpty(allDetail.getDislike_count()))) {
+                                        current_dislikCount = Integer.parseInt(allDetail.getDislike_count());
+                                    }
                                     current_dislikCount = current_dislikCount - 1;
                                     allDetail.setDislike_count("" + current_dislikCount);
                                     allDetail.setIs_disliked("FALSE");
-                                    setAllData();
+                                    setAllData(false);
                                 }
                             }
 
@@ -524,16 +557,16 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    public void defaultShare(Context context,Uri uri){
-        String firstText=getResources().getString(R.string.pretex_details);
-        String bodyText =  allDetail.getNews().getDetails();
-        bodyText= bodyText.replaceAll("<p>","\n");
-        bodyText= bodyText.replaceAll("</p>","\n");
-        String finalStr = firstText+""+bodyText;
+    public void defaultShare(Context context, Uri uri) {
+        String firstText = getResources().getString(R.string.pretex_details);
+        String bodyText = allDetail.getNews().getDetails();
+        bodyText = bodyText.replaceAll("<p>", "\n");
+        bodyText = bodyText.replaceAll("</p>", "\n");
+        String finalStr = firstText + "" + bodyText;
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/jpeg");
-        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name)+": "+allDetail.getNews().getTitle());
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name) + ": " + allDetail.getNews().getTitle());
         intent.putExtra(Intent.EXTRA_TEXT, finalStr);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         context.startActivity(Intent.createChooser(intent, "Share Image"));
@@ -582,10 +615,11 @@ public class DetailsActivity extends AppCompatActivity {
     };
 
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        DetailsActivity.this.finish();
     }
+
+
 }

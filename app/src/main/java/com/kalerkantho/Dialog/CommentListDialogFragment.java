@@ -2,7 +2,6 @@ package com.kalerkantho.Dialog;
 
 import android.app.DialogFragment;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,29 +14,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
+import com.aapbd.utils.storage.PersistentUser;
 import com.google.gson.Gson;
-import com.kalerkantho.Adapter.CatListRecyAdapter;
 import com.kalerkantho.Adapter.CommentListAdapter;
 import com.kalerkantho.Model.CommentInfo;
 import com.kalerkantho.Model.CommentListResponse;
-import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.NetInfo;
-import com.kalerkantho.holder.AllNirbahito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +107,7 @@ public class CommentListDialogFragment extends DialogFragment {
                     pagNumber = pagNumber + 1;
                     if (hasMorePage()) {
                         if ((pastVisiblesItems) >= totalItemCount - AppConstant.scroolBeforeLatItem) {
-                            getCommentList(AllURL.commentListUrl("394470", "11", pagNumber));
+                            getCommentList(AllURL.commentListUrl(AppConstant.newsID, PersistentUser.getUserID(con), pagNumber));
 
                         }
                     }
@@ -138,7 +130,7 @@ public class CommentListDialogFragment extends DialogFragment {
             }
         });
 
-        getCommentList(AllURL.commentListUrl("394470", "11", pagNumber));
+        getCommentList(AllURL.commentListUrl(AppConstant.newsID, PersistentUser.getUserID(con), pagNumber));
 
     }
 

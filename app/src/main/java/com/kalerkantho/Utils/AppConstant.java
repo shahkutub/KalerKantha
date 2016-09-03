@@ -63,6 +63,7 @@ public class AppConstant {
         return builder.toString();
     }
 
-
+    public static int currentItem =0;
+    public static String newsID ="";
 
 }

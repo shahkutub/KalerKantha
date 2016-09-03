@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,10 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
@@ -44,22 +43,22 @@ import java.util.concurrent.Executors;
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class NirbaChitoCategoryFragment extends Fragment{
-private Context con;
+public class NirbaChitoCategoryFragment extends Fragment {
+    private Context con;
     private ImageView selectBtniv;
-    private TextView tvLike,tvTitle1,tvTitle2,startBtn;
+    private TextView tvLike, tvTitle1, tvTitle2, startBtn;
     private LinearLayout emptyFv;
     private MyDBHandler db;
     private RecyclerView recFvoList;
-   // private ProgressBar progressNirbachito;
+    // private ProgressBar progressNirbachito;
 
     private MyFvRecyAdapterList myAdapter;
     Drawable dividerDrawable;
     private LinearLayoutManager myFvLayoutManager;
 
     private AllNirbahito allnirbahito;
-    private String allCategoryID="";
-    private int pageNumber =1 ,visibleItemCount=0,totalItemCount,pastVisiblesItems,totalpage;
+    private String allCategoryID = "";
+    private int pageNumber = 1, visibleItemCount = 0, totalItemCount, pastVisiblesItems, totalpage;
 
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -69,7 +68,7 @@ private Context con;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.nirbachitofragment,null);
+        return inflater.inflate(R.layout.nirbachitofragment, null);
     }
 
     @Override
@@ -78,7 +77,29 @@ private Context con;
         con = getActivity();
         db = new MyDBHandler(con);
 
-        initU();
+        Log.e("allCategvvoryID",">>");
+       // initU();
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser){
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    initU();
+                }
+            },100);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
 
     }
@@ -92,7 +113,7 @@ private Context con;
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         selectBtniv = (ImageView) getView().findViewById(R.id.selectBtniv);
-       // progressNirbachito = (ProgressBar) getView().findViewById(R.id.progressNirbachito);
+        // progressNirbachito = (ProgressBar) getView().findViewById(R.id.progressNirbachito);
         emptyFv = (LinearLayout) getView().findViewById(R.id.emptyFv);
         tvLike = (TextView) getView().findViewById(R.id.tvLike);
         tvTitle1 = (TextView) getView().findViewById(R.id.tvTitle1);
@@ -105,22 +126,18 @@ private Context con;
         recFvoList.setLayoutManager(myFvLayoutManager);
 
 
-        recFvoList.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        recFvoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
                 {
-                     visibleItemCount = myFvLayoutManager.getChildCount();
-                     totalItemCount = myFvLayoutManager.getItemCount();
-                     pastVisiblesItems = myFvLayoutManager.findLastVisibleItemPosition();
-                     pageNumber = pageNumber + 1;
-                    if (hasMorePage())
-                    {
-                        if ( ( pastVisiblesItems) >= totalItemCount-AppConstant.scroolBeforeLatItem)
-                        {
-                            getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
+                    visibleItemCount = myFvLayoutManager.getChildCount();
+                    totalItemCount = myFvLayoutManager.getItemCount();
+                    pastVisiblesItems = myFvLayoutManager.findLastVisibleItemPosition();
+                    pageNumber = pageNumber + 1;
+                    if (hasMorePage()) {
+                        if ((pastVisiblesItems) >= totalItemCount - AppConstant.scroolBeforeLatItem) {
+                            getNirbachitolist(AllURL.getNirbachitoList(allCategoryID, pageNumber));
 
                         }
                     }
@@ -139,27 +156,29 @@ private Context con;
         startBtn.setTypeface(face_reg);
 
 
-        for(Category category:db.getCatList())
-        {
-            allCategoryID+=category.getId()+"+";
+        for (Category category : db.getCatList()) {
+            allCategoryID += category.getId() + "+";
         }
 
 
-        if(allCategoryID.length()>0)
-        {
-            allCategoryID=allCategoryID.substring(0,allCategoryID.length()-1);
+        if (allCategoryID.length() > 0) {
+            allCategoryID = allCategoryID.substring(0, allCategoryID.length() - 1);
         }
 
-        if (allCategoryID.length()>0){
-                getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
-      }else{
+        Log.e("allCategoryID",">>"+allCategoryID);
 
-       }
+        if (allCategoryID.length() > 0) {
+            getNirbachitolist(AllURL.getNirbachitoList(allCategoryID, pageNumber));
+        } else {
+
+            recFvoList.setVisibility(View.GONE);
+            emptyFv.setVisibility(View.VISIBLE);
+        }
 
         selectBtniv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 7);
                 fragment.setArguments(bundle);
@@ -173,7 +192,7 @@ private Context con;
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 7);
                 fragment.setArguments(bundle);
@@ -203,8 +222,6 @@ private Context con;
     }*/
 
 
-
-
     private void getNirbachitolist(final String url) {
         if (!NetInfo.isOnline(con)) {
             AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
@@ -212,7 +229,7 @@ private Context con;
         }
         Log.e("URL : ", url);
 
-      //  progressNirbachito.setVisibility(View.VISIBLE);
+        //  progressNirbachito.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
             String response = "";
 
@@ -230,27 +247,27 @@ private Context con;
                     @Override
                     public void run() {
 
-                       // progressNirbachito.setVisibility(View.GONE);
+                        // progressNirbachito.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
                             if (!TextUtils.isEmpty(new String(response))) {
                                 Gson g = new Gson();
-                                allnirbahito=g.fromJson(new String(response),AllNirbahito.class);
+                                allnirbahito = g.fromJson(new String(response), AllNirbahito.class);
 
                                 if (allnirbahito.getStatus().equalsIgnoreCase("1")) {
 
                                     my_newsListTemp.addAll(allnirbahito.getMy_news());
 
-                                    if (my_newsListTemp.size()>0){
+                                    if (my_newsListTemp.size() > 0) {
 
                                         recFvoList.setVisibility(View.VISIBLE);
                                         emptyFv.setVisibility(View.GONE);
-                                        myAdapter =new MyFvRecyAdapterList(con,my_newsListTemp,null);
+                                        myAdapter = new MyFvRecyAdapterList(con, my_newsListTemp, null);
                                         recFvoList.setAdapter(myAdapter);
                                         myAdapter.notifyDataSetChanged();
 
-                                    }else{
+                                    } else {
 
                                         recFvoList.setVisibility(View.GONE);
                                         emptyFv.setVisibility(View.VISIBLE);
@@ -261,7 +278,7 @@ private Context con;
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                           // progressNirbachito.setVisibility(View.GONE);
+                            // progressNirbachito.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -270,18 +287,18 @@ private Context con;
     }
 
     private boolean hasMorePage() {
-        if(allnirbahito.getPaginator()!=null){
-            if (TextUtils.isDigitsOnly(""+allnirbahito.getPaginator().getPageCount())){
+        if (allnirbahito.getPaginator() != null) {
+            if (TextUtils.isDigitsOnly("" + allnirbahito.getPaginator().getPageCount())) {
                 totalpage = allnirbahito.getPaginator().getPageCount();
-            }else{
-                totalpage=1;
+            } else {
+                totalpage = 1;
             }
-            int  currentPageCount = Integer.parseInt(allnirbahito.getPaginator().getPage());
+            int currentPageCount = Integer.parseInt(allnirbahito.getPaginator().getPage());
 
             if (currentPageCount < totalpage) {
                 return true;
             }
-        }else{
+        } else {
             return false;
         }
 
