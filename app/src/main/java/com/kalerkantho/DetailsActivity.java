@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistentUser;
@@ -123,7 +122,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 } else {
                     Log.e("id details:", content_id);
-                    requestGetNeslist(AllURL.getDetails(content_id, ""));
+                    requestGetNeslist(AllURL.getDetails(content_id, PersistentUser.getUserID(con)));
                 }
             }
         } catch (JsonSyntaxException e) {
@@ -153,7 +152,7 @@ public class DetailsActivity extends AppCompatActivity {
                     fm.setFvrtId(content_id);
                     fm.setFvrtObject(favObject);
                     db.addFavrtEntry(fm);
-                    Toast.makeText(con, "Data Added Successfully", Toast.LENGTH_SHORT);
+                    //Toast.makeText(con, "Data Added Successfully", Toast.LENGTH_SHORT);
 
                 } else {
                     // isFvrt = false;
@@ -275,7 +274,7 @@ public class DetailsActivity extends AppCompatActivity {
         } else {
             txt_positive_like.setText("(" + 0 + ")");
         }
-        if (!(TextUtils.isEmpty(allDetail.getIs_disliked()))) {
+        if (!(TextUtils.isEmpty(allDetail.getDislike_count()))) {
             txt_negative_like.setText("(" + allDetail.getDislike_count() + ")");
         } else {
             txt_negative_like.setText("(" + 0 + ")");
@@ -504,9 +503,13 @@ public class DetailsActivity extends AppCompatActivity {
     public void defaultShare(Context context,Uri uri){
         String firstText=getResources().getString(R.string.pretex_details);
         String bodyText =  allDetail.getNews().getDetails();
+        bodyText= bodyText.replaceAll("<p>","\n");
+        bodyText= bodyText.replaceAll("</p>","\n");
         String finalStr = firstText+""+bodyText;
+
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name)+": "+allDetail.getNews().getTitle());
         intent.putExtra(Intent.EXTRA_TEXT, finalStr);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         context.startActivity(Intent.createChooser(intent, "Share Image"));
@@ -529,7 +532,6 @@ public class DetailsActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
                         busyDialog.dismis();
                         String path = MediaStore.Images.Media.insertImage(con.getContentResolver(), bitmap, "Title", null);
-
                         defaultShare(con, Uri.parse(path));
 
                         ostream.close();

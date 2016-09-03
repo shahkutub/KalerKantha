@@ -2,7 +2,6 @@ package com.kalerkantho.Adapter;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.Dialog.CatListDialogFragment;
-import com.kalerkantho.Dialog.ConditionDialogFragment;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.holder.AllCommonNewsItem;
@@ -156,6 +155,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             firstHolder.datetiemFullScreen.setTypeface(face_reg);
             firstHolder.categoryTitle.setTypeface(face_reg);
 
+            firstHolder.fullview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.e("DDD"," here  "+id);
+                    id = newsitem.getNews_obj().getId();
+                    Intent i = new Intent(mContext, DetailsActivity.class);
+                    i.putExtra("content_id",id);
+                    i.putExtra("is_favrt","0");
+                    mContext.startActivity(i);
+
+                }
+            });
+
         }else if(holder.getItemViewType() == dataTwo){
             DataTwo commonHolder = (DataTwo)holder;
 
@@ -195,6 +208,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
                     CatListDialogFragment dialogCatList= new CatListDialogFragment();
                     dialogCatList.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                     dialogCatList.show(mContext.getFragmentManager(), "");
+                }
+            });
+
+
+            commonHolder.commonView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.e("DDD"," here  "+id);
+                    id = newsitem.getNews_obj().getId();
+                    Intent i = new Intent(mContext, DetailsActivity.class);
+                    i.putExtra("content_id",id);
+                    i.putExtra("is_favrt","0");
+                    mContext.startActivity(i);
+
+
                 }
             });
 
@@ -246,18 +275,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             hAdapter.notifyDataSetChanged();
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("DDD"," here  "+id);
-                id = newsitem.getNews_obj().getId();
-                Intent i = new Intent(mContext, DetailsActivity.class);
-                i.putExtra("content_id",id);
-                i.putExtra("is_favrt","0");
-                mContext.startActivity(i);
 
-            }
-        });
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//
+//            }
+//        });
     }
 
     @Override
@@ -277,6 +304,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         TextView titleFullScreen;
         TextView datetiemFullScreen;
         TextView categoryTitle;
+        LinearLayout fullview;
+
 
         public DataOne(View v) {
             super(v);
@@ -284,6 +313,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             titleFullScreen = (TextView)v.findViewById(R.id.tvTitleComonnews);
             datetiemFullScreen = (TextView) v.findViewById(R.id.tvDatetime);
             categoryTitle = (TextView) v.findViewById(R.id.cat_type);
+            fullview=(LinearLayout)v.findViewById(R.id.fullview);
         }
     }
 
@@ -292,6 +322,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         TextView commonTitle;
         TextView commonDateTime;
         TextView commonCategory;
+        LinearLayout commonView;
         View divderView;
 
         public DataTwo(View v) {
@@ -301,6 +332,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             commonTitle = (TextView) v.findViewById(R.id.commonTitle);
             commonDateTime = (TextView) v.findViewById(R.id.comDateTime);
             commonCategory = (TextView) v.findViewById(R.id.common_cat);
+            commonView = (LinearLayout) v.findViewById(R.id.commonView);
         }
     }
 

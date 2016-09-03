@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,11 +26,13 @@ public class HorizontalRecyAdapter extends RecyclerView.Adapter<HorizontalRecyAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageHorizontal;
         TextView titleHorizontal;
+        LinearLayout horixontalView;
 
         public MyViewHolder(View view) {
             super(view);
             titleHorizontal = (TextView) view.findViewById(R.id.otersnews_title);
             imageHorizontal = (ImageView) view.findViewById(R.id.others_news_icon);
+            horixontalView = (LinearLayout) view.findViewById(R.id.horixontalView);
         }
     }
     public HorizontalRecyAdapter(Context context,List<CommonNewsItem> hlist) {
@@ -64,9 +67,10 @@ public class HorizontalRecyAdapter extends RecyclerView.Adapter<HorizontalRecyAd
 
         holder.titleHorizontal.setTypeface(face_reg);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.horixontalView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 String id = hlist.get(position).getId();
                 Intent i = new Intent(context, DetailsActivity.class);
                 i.putExtra("content_id",id);
