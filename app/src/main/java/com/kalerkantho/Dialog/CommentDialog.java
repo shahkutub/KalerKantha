@@ -1,7 +1,11 @@
 package com.kalerkantho.Dialog;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,9 +39,11 @@ import cz.msebera.android.httpclient.Header;
 public class CommentDialog extends DialogFragment {
     private Context con;
     private View view;
-    private TextView tvCommentSubmit;
+    private TextView tvCommentSubmit, commentThanks;
     private EditText etComment;
     private ImageView imgBackComm;
+    private Typeface face_reg, face_bold;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,9 +54,17 @@ public class CommentDialog extends DialogFragment {
     }
 
     private void initUi() {
-        imgBackComm= (ImageView) view.findViewById(R.id.imgBackComm);
-        tvCommentSubmit=(TextView) view.findViewById(R.id.tvCommentSubmit);
-        etComment=(EditText) view.findViewById(R.id.etComment);
+        TextView commentTitle = (TextView) view.findViewById(R.id.commentTitle);
+        face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
+        face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
+        imgBackComm = (ImageView) view.findViewById(R.id.imgBackComm);
+        tvCommentSubmit = (TextView) view.findViewById(R.id.tvCommentSubmit);
+        commentThanks = (TextView) view.findViewById(R.id.commentThanks);
+        etComment = (EditText) view.findViewById(R.id.etComment);
+
+        commentTitle.setTypeface(face_reg);
+        tvCommentSubmit.setTypeface(face_reg);
+        etComment.setTypeface(face_reg);
         imgBackComm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,17 +74,65 @@ public class CommentDialog extends DialogFragment {
         tvCommentSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(etComment.getText().toString())){
-                    AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.write_comment_pleas));
+
+                if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))) {
+                    loginDialoag(con);
                 } else {
-                    submitFeedbackAPI(AllURL.submitFeedbackURL());
+                    if (TextUtils.isEmpty(etComment.getText().toString())) {
+                        AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.write_comment_pleas));
+                    } else {
+                        submitCommentAPI(AllURL.commentURL());
+                    }
+
                 }
 
             }
         });
     }
 
-    protected void submitFeedbackAPI(final String url) {
+    private void loginDialoag(final Context con) {
+        final Dialog dialogLogin = new Dialog(con);
+        dialogLogin.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogLogin.setContentView(R.layout.dialog_login);
+        dialogLogin.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialogLogin.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView tvTitel2 = (TextView) dialogLogin.findViewById(R.id.tvTitel2);
+        TextView tvDescription2 = (TextView) dialogLogin.findViewById(R.id.tvDescription2);
+        TextView tvLeftCommund = (TextView) dialogLogin.findViewById(R.id.tvLeftCommund);
+        TextView tvRightCommund = (TextView) dialogLogin.findViewById(R.id.tvRightCommund);
+        tvDescription2.setText(getResources().getString(R.string.login_first_comment));
+        //==================Font set==========================
+
+        tvTitel2.setTypeface(face_reg);
+        tvLeftCommund.setTypeface(face_bold);
+        tvRightCommund.setTypeface(face_bold);
+        tvDescription2.setTypeface(face_reg);
+
+
+        tvLeftCommund.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                LoginDialogFragment dialogMenu = new LoginDialogFragment();
+                dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogMenu.show(getActivity().getFragmentManager(), "");
+                dialogLogin.dismiss();
+            }
+        });
+
+        tvRightCommund.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialogLogin.dismiss();
+            }
+        });
+
+        dialogLogin.show();
+    }
+
+    protected void submitCommentAPI(final String url) {
         /**
          * --------------- Check Internet------------
          */
@@ -89,6 +152,7 @@ public class CommentDialog extends DialogFragment {
         final RequestParams param = new RequestParams();
 
         try {
+            param.put("news_id", "394470");
             param.put("user_id", PersistentUser.getUserID(con));
             param.put("comment_text", etComment.getText().toString());
         } catch (final Exception e1) {
@@ -113,7 +177,7 @@ public class CommentDialog extends DialogFragment {
                     busyNow.dismis();
                 }
                 //-----------------Print Response--------------------
-                Log.e("SubmitFeedback ", ">>" + new String(response));
+                Log.e("commentResponse ", ">>" + new String(response));
 
                 //------------Data persist using Gson------------------
                 Gson g = new Gson();
@@ -121,9 +185,10 @@ public class CommentDialog extends DialogFragment {
 
 
                 if (feedbackResponse.getStatus().equalsIgnoreCase("1")) {
-                            Toast.makeText(con,feedbackResponse.getMsg(), Toast.LENGTH_LONG).show();
+                    commentThanks.setVisibility(View.VISIBLE);
+//                            Toast.makeText(con,getResources().getString(R.string.comment_succes), Toast.LENGTH_LONG).show();
                     etComment.setText("");
-                    getDialog().dismiss();
+//                    getDialog().dismiss();
 
                 } else {
                     AlertMessage.showMessage(con, "Feedback", feedbackResponse.getMsg());

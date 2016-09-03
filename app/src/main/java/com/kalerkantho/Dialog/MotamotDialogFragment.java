@@ -42,14 +42,14 @@ import cz.msebera.android.httpclient.Header;
 
 public class MotamotDialogFragment extends DialogFragment {
     private Context con;
-    private TextView motamotTitle,motatmotBtn,motamotThanks;
-    private EditText subjectEditText,detailsEditText;
-private Typeface face_reg,face_bold;
+    private TextView motamotTitle, motatmotBtn, motamotThanks;
+    private EditText subjectEditText, detailsEditText;
+    private Typeface face_reg, face_bold;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.motamot,null);
+        return inflater.inflate(R.layout.motamot, null);
     }
 
     @Override
@@ -60,9 +60,9 @@ private Typeface face_reg,face_bold;
     }
 
     private void intiU() {
-        ImageView imgBackComment=(ImageView) getView().findViewById(R.id.imgBackComment);
+        ImageView imgBackComment = (ImageView) getView().findViewById(R.id.imgBackComment);
         face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
-          face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
+        face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
 
         motamotTitle = (TextView) getView().findViewById(R.id.motamotTitle);
         subjectEditText = (EditText) getView().findViewById(R.id.subjectEditText);
@@ -88,17 +88,12 @@ private Typeface face_reg,face_bold;
             @Override
             public void onClick(View v) {
 
-                CommentListDialogFragment dialogMenu = new CommentListDialogFragment();
-                dialogMenu.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
-                dialogMenu.show(getActivity().getFragmentManager(), "");
-
-                if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))){
+                if (TextUtils.isEmpty(PersistentUser.getUserEmail(con))) {
                     loginDialoag(con);
-//                    AlertMessage.showMessage(con,getResources().getString(R.string.status),getResources().getString(R.string.login_first));
-                }else {
-                    if (TextUtils.isEmpty(subjectEditText.getText().toString())){
+                } else {
+                    if (TextUtils.isEmpty(subjectEditText.getText().toString())) {
                         AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_subject));
-                    }else if (TextUtils.isEmpty(detailsEditText.getText().toString())){
+                    } else if (TextUtils.isEmpty(detailsEditText.getText().toString())) {
                         AlertMessage.showMessage(con, getString(R.string.app_name), getResources().getString(R.string.provide_details));
                     } else {
                         submitFeedbackAPI(AllURL.submitFeedbackURL());
@@ -110,7 +105,7 @@ private Typeface face_reg,face_bold;
 
     }
 
-    private   void loginDialoag(final Context con) {
+    private void loginDialoag(final Context con) {
         final Dialog dialogLogin = new Dialog(con);
         dialogLogin.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogLogin.setContentView(R.layout.dialog_login);

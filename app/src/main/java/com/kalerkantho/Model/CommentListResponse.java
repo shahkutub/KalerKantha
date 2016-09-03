@@ -1,6 +1,13 @@
 package com.kalerkantho.Model;
 
+import android.text.TextUtils;
+
+import com.kalerkantho.Utils.AppConstant;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,4 +42,5 @@ public class CommentListResponse {
     public void setComments(List<CommentInfo> comments) {
         this.comments = comments;
     }
+
 }

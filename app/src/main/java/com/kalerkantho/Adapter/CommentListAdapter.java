@@ -79,8 +79,8 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                 tvCommentDetails.setText("");
             }
 
-            if (!TextUtils.isEmpty(item.getCreated_at())){
-                tvDateCom.setText(item.getCreated_at());
+            if (!TextUtils.isEmpty(item.getBanglaDateString())){
+                tvDateCom.setText(item.getBanglaDateString());
             }else{
                 tvDateCom.setText("");
             }

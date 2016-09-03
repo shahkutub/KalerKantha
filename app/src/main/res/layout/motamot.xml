@@ -33,6 +33,7 @@
             android:textSize="20sp" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/imgMenuComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

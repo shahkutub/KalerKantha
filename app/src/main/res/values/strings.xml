@@ -34,6 +34,7 @@
     <string name="enter">প্রবেশ করুন</string>
     <string name="login">লগইন</string>
     <string name="login_first">মতামত দিতে লগইন করুন </string>
+    <string name="login_first_comment">মন্তব্য দিতে লগইন করুন </string>
     <string name="provide_subject">দয়াকরে বিষয় লিখুন</string>
     <string name="provide_details">দয়াকরে বিস্তারিত লিখুন</string>
     <string name="provide_name">দয়াকরে নাম লিখুন</string>
@@ -69,7 +70,7 @@
     <string name="comment_please">মন্তব্য করুন </string>
     <string name="write_comment">মন্তব্য লিখুন ... </string>
     <string name="write_comment_pleas">দয়াকরে মন্তব্য লিখুন</string>
-
+    <string name="comment_succes">আপনার মূল্যবান মন্তব্যের জন্য ধন্যবাদ !!!</string>
     <string name="thanks">আপনার মূল্যবান মতামতের জন্য ধন্যবাদ!!!</string>
     <string name="catlist">ক্যাটাগরি তালিকা</string>
 
