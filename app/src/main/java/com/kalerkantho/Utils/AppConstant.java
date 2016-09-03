@@ -1,6 +1,7 @@
 package com.kalerkantho.Utils;
 
 
+import com.kalerkantho.Dialog.LoginDialogFragment;
 import com.kalerkantho.Model.CommonNewsItem;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class AppConstant {
     public static String id="id";
     public static String pushID="pushID";
     public static String token="token";
+    public static LoginDialogFragment loginDialogFragment;
 
     public static final String COLOR_DEFAULT_MAIN = "#A551D0";
     public static final String COLOR_DEFAULT_SECONDARY = "#FFFFFF";
