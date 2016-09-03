@@ -87,7 +87,7 @@ private String email,password;
         tvRegistrationLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDialog().dismiss();
+//                getDialog().dismiss();
                 Registration registration= new Registration();
                 registration.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 registration.show(getActivity().getFragmentManager(), "");
