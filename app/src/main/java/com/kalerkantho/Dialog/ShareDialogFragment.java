@@ -56,7 +56,6 @@ public class ShareDialogFragment extends DialogFragment {
 
         conditonHeadText.setText(AppConstant.TITLE);
         conditonHeadText.setTypeface(face_bold);
-
         dissmissHelpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,20 +86,7 @@ public class ShareDialogFragment extends DialogFragment {
         helpWeb.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         helpWeb.setScrollbarFadingEnabled(true);
 
-
-
-
-
-
-
-
-
         helpWeb.loadUrl(url);
-
-
-
-
-
 
         helpWeb.setWebViewClient(new WebViewClient() {
 

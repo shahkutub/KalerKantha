@@ -98,10 +98,19 @@ public class MainActivity extends AppCompatActivity {
          *Setup the DrawerLayout and NavigationView
          */
 
-        if(!(TextUtils.isEmpty(PersistentUser.getUserID(con))))
+        if(TextUtils.isEmpty(PersistentUser.getUserID(con)))
         {
-            if(!(android.text.TextUtils.isEmpty(PersistData.getStringData(con,AppConstant.GCMID)))) {
-                pushIdAPI(AllURL.pushIDURL());
+            pushIdAPI(AllURL.pushIDURL());
+        }else
+        {
+            if(!(PersistData.getStringData(con,AppConstant.GCMID).equalsIgnoreCase("1234567890")))
+            {
+                if(!(PersistData.getBooleanData(con,AppConstant.oneTimeCall)))
+                {
+                    pushIdAPI(AllURL.pushIDURL());
+                    PersistData.setBooleanData(con,AppConstant.oneTimeCall,true);
+                }
+
             }
         }
 
@@ -624,6 +633,8 @@ public class MainActivity extends AppCompatActivity {
         /**
          * ---------Create object of  RequestParams to send value with URL---------------
          */
+
+        Log.e("Push id ", ">>" + PersistData.getStringData(con,AppConstant.GCMID));
         final RequestParams param = new RequestParams();
 
         try {
@@ -662,7 +673,7 @@ public class MainActivity extends AppCompatActivity {
                 if (loginResponse.getStatus().equalsIgnoreCase("1")) {
                     PersistentUser.setLogin(con);
                     PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
-                    PersistData.setStringData(con,AppConstant.pushID,loginResponse.getUserdetails().getPush_id());
+                    PersistData.setStringData(con,AppConstant.GCMID,loginResponse.getUserdetails().getPush_id());
                     PersistentUser.setAccessToken(con,loginResponse.getToken());
                     Log.e("User id", "=" + PersistentUser.getUserID(con));
 

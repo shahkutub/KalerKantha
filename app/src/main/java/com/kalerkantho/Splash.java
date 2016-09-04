@@ -51,6 +51,11 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
         con=this;
 
+        if(TextUtils.isEmpty(PersistData.getStringData(con,AppConstant.GCMID)))
+        {
+            PersistData.setStringData(con,AppConstant.GCMID,"1234567890");
+        }
+
        Intent intent=new Intent(con,FirebaseIDService.class);
         startService(intent);
 

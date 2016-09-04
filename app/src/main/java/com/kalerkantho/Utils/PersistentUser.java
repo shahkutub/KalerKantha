@@ -27,7 +27,7 @@ public class PersistentUser {
 
 	public static String getUserID(final Context ctx) {
 		return ctx.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE)
-				.getString(USERID, "0");
+				.getString(USERID, "");
 	}
 
 	/*

@@ -7,6 +7,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.kalerkantho.Utils.AppConstant;
 
+import cz.msebera.android.httpclient.util.TextUtils;
+
 /**
  * Created by wlaptop on 9/3/2016.
  */
@@ -34,6 +36,10 @@ public class FirebaseIDService extends FirebaseInstanceIdService {
     private void sendRegistrationToServer(String token) {
         // Add custom implementation, as needed.
 
-        PersistData.setStringData(getApplicationContext(), AppConstant.GCMID,token);
+        if(!(TextUtils.isEmpty(token)))
+        {
+            PersistData.setStringData(getApplicationContext(), AppConstant.GCMID,token);
+        }
+
     }
 }
