@@ -59,6 +59,7 @@ public class FollowDialogFragment extends DialogFragment {
 
 
                 AppConstant.TITLE = "Facebook";
+                AppConstant.URL = "https://www.facebook.com/kalerkantho";
                 ShareDialogFragment dialogHelp= new ShareDialogFragment();
                 dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogHelp.show(getActivity().getFragmentManager(), "");
@@ -72,7 +73,8 @@ public class FollowDialogFragment extends DialogFragment {
             public void onClick(View v) {
 
                 AppConstant.TITLE = "Twitter";
-                TwitterDialogFragment dialogHelp= new TwitterDialogFragment();
+                AppConstant.URL ="https://twitter.com/KalerKanthoNews";
+                ShareDialogFragment dialogHelp= new ShareDialogFragment();
                 dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogHelp.show(getActivity().getFragmentManager(), "");
 
@@ -84,7 +86,8 @@ public class FollowDialogFragment extends DialogFragment {
             public void onClick(View v) {
 
                 AppConstant.TITLE = "Google+";
-                GoogleDialogFragment dialogHelp= new GoogleDialogFragment();
+                AppConstant.URL ="https://plus.google.com/+Kalerkantho";
+                ShareDialogFragment dialogHelp= new ShareDialogFragment();
                 dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogHelp.show(getActivity().getFragmentManager(), "");
 

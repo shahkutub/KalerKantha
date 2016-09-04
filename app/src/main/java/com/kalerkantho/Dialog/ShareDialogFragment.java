@@ -65,7 +65,7 @@ public class ShareDialogFragment extends DialogFragment {
         });
 
 
-        getWebView("https://www.facebook.com/kalerkantho");
+        getWebView(AppConstant.URL);
     }
 
     public void getWebView(String url) {
@@ -81,11 +81,26 @@ public class ShareDialogFragment extends DialogFragment {
         helpWeb.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         helpWeb.getSettings().setUserAgentString("silly_that_i_have_to_do_this");
         helpWeb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        helpWeb.getSettings().setDomStorageEnabled(true);
         helpWeb.getSettings().setLoadWithOverviewMode(true);
         helpWeb.getSettings().setUseWideViewPort(true);
         helpWeb.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         helpWeb.setScrollbarFadingEnabled(true);
+
+
+
+
+
+
+
+
+
         helpWeb.loadUrl(url);
+
+
+
+
+
 
         helpWeb.setWebViewClient(new WebViewClient() {
 
