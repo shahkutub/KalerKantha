@@ -1,40 +1,29 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/navigation_item_2"
-        android:icon="@drawable/composea"
-        android:title="Compose"></item>
+        android:id="@+id/refreshItem"
+        app:itemBackground="@color/white"
+        app:itemTextColor="@color/gray"
+        app:showAsAction="never"
+        android:title="রিফ্রেশ সাইট"></item>
     <item
-        android:icon="@drawable/inbox"
-        android:title="Inbox"></item>
+        android:id="@+id/settinItem"
+        app:itemBackground="@color/white"
+        app:itemTextColor="@color/gray"
+        app:showAsAction="never"
+        android:title="সেটিং"></item>
     <item
-        android:icon="@drawable/senta"
-        android:title="Sent"></item>
+        android:id="@+id/helpItem"
+        app:itemBackground="@color/white"
+        app:itemTextColor="@color/gray"
+        app:showAsAction="never"
+        android:title="হেল্প"></item>
     <item
-        android:icon="@drawable/draft"
-        android:title="Drafts"></item>
-
-
-    <item android:title="Others">
-        <menu>
-            <item
-                android:icon="@drawable/spam"
-                android:title="Spam" />
-            <item
-                android:icon="@drawable/bin"
-                android:title="Bin" />
-        </menu>
-    </item>
-
-    <group android:id="@+id/shitss">
-
-        <item
-            android:icon="@drawable/settings"
-            android:title="Settings"></item>
-        <item
-            android:icon="@drawable/help"
-            android:title="Help"></item>
-    </group>
-
+        android:id="@+id/feedBackItem"
+        app:itemBackground="@color/white"
+        app:itemTextColor="@color/gray"
+        app:showAsAction="never"
+        android:title="ফীডব্যাক পাঠাও"></item>
 
 </menu>

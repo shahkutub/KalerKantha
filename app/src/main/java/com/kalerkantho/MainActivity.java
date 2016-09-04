@@ -1,9 +1,11 @@
 package com.kalerkantho;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,20 +17,29 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aapbd.utils.storage.PersistData;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
+import com.kalerkantho.Dialog.HelpDialogFragment;
 import com.kalerkantho.Dialog.MotamotDialogFragment;
 import com.kalerkantho.Fragment.PhotoFragment;
 import com.kalerkantho.Fragment.SettingFragment;
@@ -46,6 +57,7 @@ import com.kalerkantho.holder.AllCategory;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nineoldandroids.animation.Animator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     AllCategory allCategory;
 
     private RelativeLayout printBtn,shokolBtn,nirbachitoBtn;
+    private LinearLayout menuListView;
     private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion,tvDate;
     private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
     private TextView favorite,photogalery,setting,motamot;
@@ -137,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         printBtn = (RelativeLayout) findViewById(R.id.printBtn);
         shokolBtn = (RelativeLayout) findViewById(R.id.shokolBtn);
         nirbachitoBtn = (RelativeLayout) findViewById(R.id.nirbachitoBtn);
+        menuListView = (LinearLayout) findViewById(R.id.menuListView);
 
         nirbachitoSongbad = (TextView) findViewById(R.id.nirbachitoSongbad);
         shokolShogbad = (TextView) findViewById(R.id.shokolShogbad);
@@ -528,11 +542,14 @@ public class MainActivity extends AppCompatActivity {
          * Setup Drawer Toggle of the Toolbar
          */
 
-
-         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setupToolbar();
+        /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
          mDrawerLayout.setDrawerListener(mDrawerToggle);
-         mDrawerToggle.syncState();
+         mDrawerToggle.syncState();*/
+
+
+
 
 
         // set here nav icon if want to change
@@ -703,6 +720,123 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
+    private void setupToolbar(){
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+
+
+      //  ImageView menuItem = (ImageView) findViewById(R.id.setting_icon);
+
+       // toolbar.showOverflowMenu();
+        //setSupportActionBar(toolbar);
+//        menuItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (menuListView.getVisibility() == View.GONE){
+//                    menuListView.setVisibility(View.VISIBLE);
+//                }else {
+//                    menuListView.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+
+
+
+    }
+
+  @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+       getMenuInflater().inflate(R.menu.drawer, menu);
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refreshItem:
+
+                final Dialog dialog = new Dialog(con);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.alartdialog);
+                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                LinearLayout mainDialog = (LinearLayout) dialog.findViewById(R.id.mainDialog);
+                ImageView dismissDialog = (ImageView) dialog.findViewById(R.id.dismissDialog);
+
+                dialog.show();
+                dismissDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                YoYo.with(Techniques.SlideInDown).duration(700).interpolate(new AccelerateInterpolator()).withListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+                               //Toast.makeText(SplashActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        }).playOn(mainDialog);
+
+
+
+
+                return true;
+                case R.id.settinItem:
+                SettingFragment fragment= new SettingFragment();
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+                return true;
+
+            case R.id.helpItem:
+
+                HelpDialogFragment dialogHelp= new HelpDialogFragment();
+                dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogHelp.show(MainActivity.this.getFragmentManager(), "");
+
+                return true;
+
+            case R.id.feedBackItem:
+                MotamotDialogFragment dialoMotamot= new MotamotDialogFragment();
+                dialoMotamot.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialoMotamot.show(MainActivity.this.getFragmentManager(), "");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }

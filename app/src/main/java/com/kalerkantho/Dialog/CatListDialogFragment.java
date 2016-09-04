@@ -89,7 +89,7 @@ public class CatListDialogFragment extends DialogFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy)
             {
-                if(dy > 0) //check for scroll down
+                if(dy > 0) //slide_up for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
