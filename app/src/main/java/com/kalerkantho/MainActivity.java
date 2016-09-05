@@ -472,8 +472,9 @@ public class MainActivity extends AppCompatActivity {
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();*/
 
-                Intent i = new Intent(con,FavrtActivity.class);
-               startActivity(i);
+                 Intent i = new Intent(con,FavrtActivity.class);
+                 startActivity(i);
+                 mDrawerLayout.closeDrawers();
             }
         });
 
