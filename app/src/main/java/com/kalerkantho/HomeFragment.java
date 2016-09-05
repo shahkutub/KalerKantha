@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     public  List<AllCommonNewsItem> allCommonNewsItem = new ArrayList<AllCommonNewsItem>();
     Context con;
     AllNewsObj allObj;
+    private boolean bgflag = false;
 
 
     @Nullable
@@ -82,7 +83,7 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                bgflag = true;
                 requestGetNeslist(AllURL.getHomeNews());
             }
         });
@@ -121,7 +122,11 @@ public class HomeFragment extends Fragment {
         }
 
         Log.e("URL : ", url);
-        progressShow.setVisibility(View.VISIBLE);
+
+        if (!bgflag){
+            progressShow.setVisibility(View.VISIBLE);
+        }
+
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
             String response = "";
 
@@ -138,8 +143,10 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void run() {
+                        
 
                         progressShow.setVisibility(View.GONE);
+
                         swipeRefreshLayout.setRefreshing(false);
 
                         try {
