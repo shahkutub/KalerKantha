@@ -3,25 +3,23 @@ package com.kalerkantho.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
-import com.kalerkantho.Adapter.LatestRecyAdapter;
+import com.google.gson.JsonSyntaxException;
 import com.kalerkantho.Adapter.MostReadRecyAdapter;
 import com.kalerkantho.Model.CommonNewsItem;
 import com.kalerkantho.R;
 import com.kalerkantho.Utils.AppConstant;
-import com.kalerkantho.Utils.DividerItemDecoration;
 import com.kalerkantho.Utils.GridSpacingItemDecoration;
 import com.kalerkantho.holder.AllCommonNewsItem;
 import com.kalerkantho.holder.AllNewsObj;
@@ -52,32 +50,35 @@ public class MostReadFragment extends Fragment {
     }
 
     private void intiU() {
-
         Gson g = new Gson();
-        allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
+        try {
+            if (!(TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.HOMERESPONSE)))){
+                allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
 
-        mostRead.clear();
+                mostRead.clear();
 
-        for(CommonNewsItem topNews:allObj.getMost_read())
-        {
-                 AllCommonNewsItem singleObj=new AllCommonNewsItem();
-                 singleObj.setType("fullscreen");
-                 singleObj.setNews_obj(topNews);
-                 mostRead.add(singleObj);
+                for(CommonNewsItem topNews:allObj.getMost_read())
+                {
+                    AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                    singleObj.setType("fullscreen");
+                    singleObj.setNews_obj(topNews);
+                    mostRead.add(singleObj);
 
+                }
+
+                mostReadNewRecList= (RecyclerView) getView().findViewById(R.id.mostReadNewRecList);
+                mostReadNewRecList.setLayoutManager(new GridLayoutManager(con, 2));
+                GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
+                mostReadNewRecList.addItemDecoration(itemDecoration);
+
+                mAdapter = new MostReadRecyAdapter(con,mostRead,null);
+                mostReadNewRecList.setAdapter(mAdapter);
             }
 
 
-        mostReadNewRecList= (RecyclerView) getView().findViewById(R.id.mostReadNewRecList);
-
-        mostReadNewRecList.setLayoutManager(new GridLayoutManager(con, 2));
-        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(con, R.dimen.space);
-        mostReadNewRecList.addItemDecoration(itemDecoration);
-
-
-        mAdapter = new MostReadRecyAdapter(con,mostRead,null);
-        mostReadNewRecList.setAdapter(mAdapter);
-
+        }catch (JsonSyntaxException e){
+            e.printStackTrace();
+        }
     }
 
 /*    @Override
