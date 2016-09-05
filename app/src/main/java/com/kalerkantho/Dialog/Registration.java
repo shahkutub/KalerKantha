@@ -120,7 +120,7 @@ private String full_name,email,password,device_type,push_id,registrationtype;
     }
 
     protected void normalUserSignUp(final String url) {
-        //--- for net check-----
+        //--- for net slide_up-----
         if (!NetInfo.isOnline(con)) {
             AlertMessage.showMessage(con, getResources().getString(R.string.app_name), "No internet!");
             return;

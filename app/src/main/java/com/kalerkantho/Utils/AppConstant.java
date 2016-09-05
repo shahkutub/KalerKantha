@@ -11,7 +11,7 @@ public class AppConstant {
     public static final String[] FACEBOOK_PERMISSION = {"email", "user_about_me", "read_stream", "user_photos", "public_profile" };
     public static String COLOR_MAIN = "#A551D0";
     public static String id="id";
-    public static String pushID="pushID";
+    //public static String pushID="pushID";
     public static String token="token";
     public static LoginDialogFragment loginDialogFragment= new LoginDialogFragment();
 
@@ -33,6 +33,8 @@ public class AppConstant {
     public static String CATEGORYTITLE = "";
     public static int scroolBeforeLatItem =2;
     public static String TITLE= "";
+    public static String URL = "";
+    //public static String FRAGMENTPOSITON ="fragmentposition";
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 
@@ -65,5 +67,6 @@ public class AppConstant {
 
     public static int currentItem =0;
     public static String newsID ="";
+    public static String oneTimeCall = "oneTimeCall";
 
 }

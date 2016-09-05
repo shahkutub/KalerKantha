@@ -81,6 +81,7 @@ public class ConditionDialogFragment extends DialogFragment {
         helpWeb.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         helpWeb.getSettings().setUserAgentString("silly_that_i_have_to_do_this");
         helpWeb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        helpWeb.getSettings().setDomStorageEnabled(true);
         helpWeb.getSettings().setLoadWithOverviewMode(true);
         helpWeb.getSettings().setUseWideViewPort(true);
         helpWeb.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);

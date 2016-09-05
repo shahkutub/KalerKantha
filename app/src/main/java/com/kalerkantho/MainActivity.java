@@ -15,12 +15,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +32,7 @@ import com.google.gson.Gson;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
+import com.kalerkantho.Dialog.HelpDialogFragment;
 import com.kalerkantho.Dialog.MotamotDialogFragment;
 import com.kalerkantho.Fragment.PhotoFragment;
 import com.kalerkantho.Fragment.SettingFragment;
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     AllCategory allCategory;
 
     private RelativeLayout printBtn,shokolBtn,nirbachitoBtn;
+    private LinearLayout menuListView;
     private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion,tvDate;
     private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
     private TextView favorite,photogalery,setting,motamot;
@@ -98,10 +103,19 @@ public class MainActivity extends AppCompatActivity {
          *Setup the DrawerLayout and NavigationView
          */
 
-        if(!(TextUtils.isEmpty(PersistentUser.getUserID(con))))
+        if(TextUtils.isEmpty(PersistentUser.getUserID(con)))
         {
-            if(!(android.text.TextUtils.isEmpty(PersistData.getStringData(con,AppConstant.GCMID)))) {
-                pushIdAPI(AllURL.pushIDURL());
+            pushIdAPI(AllURL.pushIDURL());
+        }else
+        {
+            if(!(PersistData.getStringData(con,AppConstant.GCMID).equalsIgnoreCase("1234567890")))
+            {
+                if(!(PersistData.getBooleanData(con,AppConstant.oneTimeCall)))
+                {
+                    pushIdAPI(AllURL.pushIDURL());
+                    PersistData.setBooleanData(con,AppConstant.oneTimeCall,true);
+                }
+
             }
         }
 
@@ -128,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         printBtn = (RelativeLayout) findViewById(R.id.printBtn);
         shokolBtn = (RelativeLayout) findViewById(R.id.shokolBtn);
         nirbachitoBtn = (RelativeLayout) findViewById(R.id.nirbachitoBtn);
+        menuListView = (LinearLayout) findViewById(R.id.menuListView);
 
         nirbachitoSongbad = (TextView) findViewById(R.id.nirbachitoSongbad);
         shokolShogbad = (TextView) findViewById(R.id.shokolShogbad);
@@ -181,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putInt("pos", 0);
+       // AppConstant.FRAGMENTPOSITON = 0;
         fragment.setArguments(bundle);
 
         mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -210,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 0);
+                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -225,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 1);
+               // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,1);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -237,13 +255,16 @@ public class MainActivity extends AppCompatActivity {
         shorboMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 2);
+                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,2);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();
+
             }
         });
 
@@ -254,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 3);
+                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,3);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -306,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 4);
+               // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,4);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -356,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment= new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 6);
+                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,6);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -519,11 +543,14 @@ public class MainActivity extends AppCompatActivity {
          * Setup Drawer Toggle of the Toolbar
          */
 
-
-         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setupToolbar();
+        /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
          mDrawerLayout.setDrawerListener(mDrawerToggle);
-         mDrawerToggle.syncState();
+         mDrawerToggle.syncState();*/
+
+
+
 
 
         // set here nav icon if want to change
@@ -624,6 +651,8 @@ public class MainActivity extends AppCompatActivity {
         /**
          * ---------Create object of  RequestParams to send value with URL---------------
          */
+
+        Log.e("Push id ", ">>" + PersistData.getStringData(con,AppConstant.GCMID));
         final RequestParams param = new RequestParams();
 
         try {
@@ -662,7 +691,7 @@ public class MainActivity extends AppCompatActivity {
                 if (loginResponse.getStatus().equalsIgnoreCase("1")) {
                     PersistentUser.setLogin(con);
                     PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
-                    PersistData.setStringData(con,AppConstant.pushID,loginResponse.getUserdetails().getPush_id());
+                    PersistData.setStringData(con,AppConstant.GCMID,loginResponse.getUserdetails().getPush_id());
                     PersistentUser.setAccessToken(con,loginResponse.getToken());
                     Log.e("User id", "=" + PersistentUser.getUserID(con));
 
@@ -692,6 +721,178 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
+    private void setupToolbar(){
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerToggle.syncState();
+
+
+      //  ImageView menuItem = (ImageView) findViewById(R.id.setting_icon);
+
+        toolbar.showOverflowMenu();
+        setSupportActionBar(toolbar);
+
+//        menuItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (menuListView.getVisibility() == View.GONE){
+//                    menuListView.setVisibility(View.VISIBLE);
+//                }else {
+//                    menuListView.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+
+
+
+    }
+
+  @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+       getMenuInflater().inflate(R.menu.drawer, menu);
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refreshItem:
+
+               /* if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==0){
+
+                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment= new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 0);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==1){
+                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment= new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 1);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+
+                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==2){
+                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment= new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 2);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==3){
+                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment= new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 3);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==4){
+
+                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment= new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 4);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+                }*/
+
+           /* final Dialog dialog = new Dialog(con);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.alartdialog);
+                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                LinearLayout mainDialog = (LinearLayout) dialog.findViewById(R.id.mainDialog);
+                ImageView dismissDialog = (ImageView) dialog.findViewById(R.id.dismissDialog);
+
+                dialog.show();
+                dismissDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                YoYo.with(Techniques.SlideInDown).duration(700).interpolate(new AccelerateInterpolator()).withListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+                               //Toast.makeText(SplashActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        }).playOn(mainDialog);*/
+
+
+                return true;
+
+                case R.id.settinItem:
+                SettingFragment fragment= new SettingFragment();
+                mFragmentTransaction = mFragmentManager.beginTransaction();
+                mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                mDrawerLayout.closeDrawers();
+
+                return true;
+
+            case R.id.helpItem:
+
+                HelpDialogFragment dialogHelp= new HelpDialogFragment();
+                dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialogHelp.show(MainActivity.this.getFragmentManager(), "");
+
+                return true;
+
+            case R.id.feedBackItem:
+                MotamotDialogFragment dialoMotamot= new MotamotDialogFragment();
+                dialoMotamot.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
+                dialoMotamot.show(MainActivity.this.getFragmentManager(), "");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 }

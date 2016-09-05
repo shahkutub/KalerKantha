@@ -152,7 +152,7 @@ public class MotamotDialogFragment extends DialogFragment {
 //     */
 //    public void submitFeedbackAPI(final Context con) {
 //        /**
-//         * ---------------check internet first------------
+//         * ---------------slide_up internet first------------
 //         */
 //        if (!NetInfo.isOnline(con)) {
 //            AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");

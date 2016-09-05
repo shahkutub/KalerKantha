@@ -27,7 +27,7 @@ import android.net.NetworkInfo;
 public final class NetInfo {
 
 	/*
-	 * check internet info
+	 * slide_up internet info
 	 */
 
 	public static boolean isOnline(final Context ctx) {
