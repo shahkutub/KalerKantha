@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
+import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.MyFvRecyAdapterList;
 import com.kalerkantho.Model.Category;
@@ -89,6 +90,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,6);
                     initU();
                 }
             },100);

@@ -3,6 +3,7 @@ package com.kalerkantho.Fragment;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -52,7 +53,6 @@ public class AllnewsFragment extends Fragment {
 
     private void intiU() {
 
-
         try {
             Gson g = new Gson();
             if (!(TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.CATEGORY_RESPONSE)))){
@@ -78,8 +78,26 @@ public class AllnewsFragment extends Fragment {
                 allNewsList.setAdapter(mAdapter);
             }
 
+
+
         }catch (JsonSyntaxException e){
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser){
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,8);
+                }
+            },100);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.kalerkantho.Fragment;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -81,6 +82,21 @@ public class PrintVFragment extends Fragment {
             }
         }catch (JsonSyntaxException e){
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser){
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,5);
+                }
+            },100);
         }
     }
 }

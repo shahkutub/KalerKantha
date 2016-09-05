@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
     private boolean bgflag = false;
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class HomeFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,0);
                     requestGetNeslist(AllURL.getHomeNews());
                 }
             },100);
@@ -143,7 +145,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void run() {
-                        
+
 
                         progressShow.setVisibility(View.GONE);
 
