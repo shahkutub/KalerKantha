@@ -729,29 +729,16 @@ public class MainActivity extends AppCompatActivity {
     private void setupToolbar(){
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
 
         mDrawerToggle.syncState();
-
-
-      //  ImageView menuItem = (ImageView) findViewById(R.id.setting_icon);
-
-        toolbar.showOverflowMenu();
-        setSupportActionBar(toolbar);
-
-//        menuItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (menuListView.getVisibility() == View.GONE){
-//                    menuListView.setVisibility(View.VISIBLE);
-//                }else {
-//                    menuListView.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-
-
 
     }
 
