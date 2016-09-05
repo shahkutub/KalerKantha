@@ -1,5 +1,6 @@
 package com.kalerkantho;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.kalerkantho.Fragment.AllnewsFragment;
 import com.kalerkantho.Fragment.LatestNewsFragment;
@@ -27,6 +29,8 @@ public class TabFragment extends Fragment {
     public static ViewPager viewPager;
    public static int int_items = 9;
     private int fragmentPos=0;
+    private String tabTitles[] = new String[] { "হোম", "শীর্ষ সংবাদ", "সর্বশেষ সংবাদ", "সর্বাধিক দর্শন", "নির্বাচিত সংবাদ", "প্রিন্ট ভার্সন", "নির্বাচিত ক্যাটাগরি","বিষয় পছন্দ করুন","সকল সংবাদ"};
+    private MyAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +52,9 @@ public class TabFragment extends Fragment {
             fragmentPos = bundle.getInt("pos", 0);
         }
 
-            viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        adapter=new MyAdapter(getChildFragmentManager());
+
+            viewPager.setAdapter(adapter);
             setPageItem(fragmentPos);
 
 
@@ -79,9 +85,21 @@ public class TabFragment extends Fragment {
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
+
                     tabLayout.setupWithViewPager(viewPager);
+                // Iterate over all tabs and set the custom view
+                for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    tab.setCustomView(adapter.getTabView(i));
+                }
                    }
         });
+
+//        // Iterate over all tabs and set the custom view
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            tab.setCustomView(adapter.getTabView(i));
+//        }
 
 
 
@@ -99,7 +117,6 @@ public class TabFragment extends Fragment {
 
     class MyAdapter extends FragmentPagerAdapter {
 
-        private String tabTitles[] = new String[] { "হোম", "শীর্ষ সংবাদ", "সর্বশেষ সংবাদ", "সর্বাধিক দর্শন", "নির্বাচিত সংবাদ", "প্রিন্ট ভার্সন", "নির্বাচিত ক্যাটাগরি","বিষয় পছন্দ করুন","সকল সংবাদ"};
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
@@ -168,6 +185,18 @@ public class TabFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
                 return tabTitles[position];
         }
+
+        public View getTabView(int position) {
+            // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
+            View v = LayoutInflater.from(getActivity()).inflate(R.layout.tab_title_layout, null);
+            TextView tv = (TextView) v.findViewById(R.id.tableTitle);
+            final Typeface face_reg = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SolaimanLipi_reg.ttf");
+            tv.setTypeface(face_reg);
+            tv.setText(tabTitles[position]);
+
+            return v;
+        }
     }
+
 
 }

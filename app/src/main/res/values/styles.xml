@@ -25,7 +25,13 @@
     </style>
 
 
-
-
+    <style name="Toolbar" parent="Base.ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/gray</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="Toolbar_Popup" parent="Base.ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/gray</item>
+        <item name="android:background">@color/white</item>
+    </style>
 
 </resources>
