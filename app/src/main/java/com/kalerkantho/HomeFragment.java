@@ -24,7 +24,6 @@ import com.google.gson.Gson;
 import com.kalerkantho.Adapter.RecyclerAdapter;
 import com.kalerkantho.Model.All_Cat_News_Obj;
 import com.kalerkantho.Model.CommonNewsItem;
-import com.kalerkantho.Utils.AlertMessage;
 import com.kalerkantho.Utils.AllURL;
 import com.kalerkantho.Utils.AppConstant;
 import com.kalerkantho.Utils.DividerItemDecoration;
@@ -330,6 +329,7 @@ public class HomeFragment extends Fragment {
     public void withoutInterNet(){
 
         Gson g = new Gson();
+        
         allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
 
         allCommonNewsItem.clear();

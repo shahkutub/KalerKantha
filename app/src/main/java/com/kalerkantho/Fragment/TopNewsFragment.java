@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,48 +55,45 @@ public class TopNewsFragment extends Fragment {
 
         try {
             Gson g = new Gson();
-            if (PersistData.getStringData(con, AppConstant.HOMERESPONSE)!=null){
+            if (!(TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.HOMERESPONSE)))){
 
                 allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
+
+                topnews.clear();
+
+                int i=0;
+                if(allObj !=null && allObj.getTop_news().size()>0)
+                    for(CommonNewsItem topNews:allObj.getTop_news())
+                    {
+                        if(i==0)
+                        {
+                            AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                            singleObj.setType("fullscreen");
+                            singleObj.setNews_obj(topNews);
+                            topnews.add(singleObj);
+
+                        }else
+                        {
+                            AllCommonNewsItem singleObj=new AllCommonNewsItem();
+                            singleObj.setType("defaultscreen");
+                            singleObj.setNews_obj(topNews);
+                            topnews.add(singleObj);
+                        }
+                        i++;
+                    }
+
+                topnewRecList= (RecyclerView) getView().findViewById(R.id.topnewRecList);
+                mLayoutManager = new LinearLayoutManager(con);
+                topnewRecList.setLayoutManager(mLayoutManager);
+                dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
+                RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+                topnewRecList.addItemDecoration(dividerItemDecoration);
+
+                tAdapter = new TopNewsRecyAdapter(con,topnews);
+                topnewRecList.setAdapter(tAdapter);
+
             }
 
-
-            topnews.clear();
-
-            int i=0;
-            if(allObj !=null && allObj.getTop_news().size()>0)
-        for(CommonNewsItem topNews:allObj.getTop_news())
-        {
-            if(i==0)
-            {
-                AllCommonNewsItem singleObj=new AllCommonNewsItem();
-                singleObj.setType("fullscreen");
-                singleObj.setNews_obj(topNews);
-                topnews.add(singleObj);
-
-            }else
-            {
-                AllCommonNewsItem singleObj=new AllCommonNewsItem();
-                singleObj.setType("defaultscreen");
-                singleObj.setNews_obj(topNews);
-                topnews.add(singleObj);
-            }
-            i++;
-        }
-
-            topnewRecList= (RecyclerView) getView().findViewById(R.id.topnewRecList);
-            mLayoutManager = new LinearLayoutManager(con);
-            topnewRecList.setLayoutManager(mLayoutManager);
-
-
-            dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
-            // dividerDrawable.clearColorFilter();
-            RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-            topnewRecList.addItemDecoration(dividerItemDecoration);
-
-
-            tAdapter = new TopNewsRecyAdapter(con,topnews);
-            topnewRecList.setAdapter(tAdapter);
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }

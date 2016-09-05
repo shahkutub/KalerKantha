@@ -45,26 +45,26 @@
                 <ImageView
                     android:id="@+id/mainBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="204dp"
+                    android:layout_height="@dimen/fullscreen_image_height"
                     android:background="@drawable/white_bg"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp">
-
-
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitXY">
                 </ImageView>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
+                    android:layout_below="@+id/mainBackground"
+                    android:layout_alignLeft="@+id/mainBackground"
+                    android:background="#80000000"
+                    android:layout_alignRight="@+id/mainBackground"
+                   >
 
                     <LinearLayout
                         android:id="@+id/img_action"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:background="#80000000"
                         android:orientation="horizontal">
 
                         <LinearLayout

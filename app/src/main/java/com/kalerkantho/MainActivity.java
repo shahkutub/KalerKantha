@@ -881,5 +881,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+  /*  @Override
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+        mDrawerToggle.syncState();
+    }*/
 }
