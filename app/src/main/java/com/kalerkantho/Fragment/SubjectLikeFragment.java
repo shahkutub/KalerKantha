@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -160,7 +161,7 @@ public class SubjectLikeFragment extends Fragment {
         }
     }
 
-  /*  @Override
+  @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -169,9 +170,10 @@ public class SubjectLikeFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    intiU();
+
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,7);
                 }
             },100);
         }
-    }*/
+    }
 }

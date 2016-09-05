@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,0);
                     requestGetNeslist(AllURL.getHomeNews());
                 }
             },100);

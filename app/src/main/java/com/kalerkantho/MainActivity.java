@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putInt("pos", 0);
-        // AppConstant.FRAGMENTPOSITON = 0;
+        PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
         fragment.setArguments(bundle);
 
         mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 0);
-                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
+                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 1);
-                // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,1);
+                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,1);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 2);
-                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,2);
+                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,2);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 3);
-                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,3);
+                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,3);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -343,10 +343,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment = new TabFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("pos", 4);
-                // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,4);
+                 TabFragment fragment = new TabFragment();
+                 Bundle bundle = new Bundle();
+                 bundle.putInt("pos", 4);
+                 PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,4);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -381,6 +381,8 @@ public class MainActivity extends AppCompatActivity {
                                     shokolShonbadListView.setImageResource(R.drawable.back_show);
                                 }
 
+
+
                                 mAdapter2 = new Menu2RecyAdapter(MainActivity.this, onlineList);
                                 shokolshogbadList.setAdapter(mAdapter2);
                                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
@@ -409,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 6);
-                //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,6);
+                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,6);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -857,7 +859,9 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                     mDrawerLayout.closeDrawers();
 
+
                 }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==1){
+
                     Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
                     TabFragment fragment= new TabFragment();
                     Bundle bundle = new Bundle();
@@ -868,7 +872,9 @@ public class MainActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
 
 
+
                 }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==2){
+
                     Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
                     TabFragment fragment= new TabFragment();
                     Bundle bundle = new Bundle();
@@ -888,6 +894,7 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                     mDrawerLayout.closeDrawers();
 
+
                 }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==4){
 
                     Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
@@ -899,7 +906,56 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                     mDrawerLayout.closeDrawers();
 
-                }
+
+                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==5){
+
+                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                  TabFragment fragment= new TabFragment();
+                  Bundle bundle = new Bundle();
+                  bundle.putInt("pos", 5);
+                  fragment.setArguments(bundle);
+                  mFragmentTransaction = mFragmentManager.beginTransaction();
+                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                  mDrawerLayout.closeDrawers();
+
+
+              }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==6){
+
+                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                  TabFragment fragment= new TabFragment();
+                  Bundle bundle = new Bundle();
+                  bundle.putInt("pos", 6);
+                  fragment.setArguments(bundle);
+                  mFragmentTransaction = mFragmentManager.beginTransaction();
+                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                  mDrawerLayout.closeDrawers();
+
+
+              }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==7){
+
+                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                  TabFragment fragment= new TabFragment();
+                  Bundle bundle = new Bundle();
+                  bundle.putInt("pos", 7);
+                  fragment.setArguments(bundle);
+                  mFragmentTransaction = mFragmentManager.beginTransaction();
+                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                  mDrawerLayout.closeDrawers();
+
+
+              }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==8){
+
+                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
+                  TabFragment fragment= new TabFragment();
+                  Bundle bundle = new Bundle();
+                  bundle.putInt("pos", 8);
+                  fragment.setArguments(bundle);
+                  mFragmentTransaction = mFragmentManager.beginTransaction();
+                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                  mDrawerLayout.closeDrawers();
+
+
+              }
 
            /* final Dialog dialog = new Dialog(con);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

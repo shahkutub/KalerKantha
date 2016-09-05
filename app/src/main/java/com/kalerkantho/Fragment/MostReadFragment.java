@@ -3,6 +3,7 @@ package com.kalerkantho.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -81,7 +82,7 @@ public class MostReadFragment extends Fragment {
         }
     }
 
-/*    @Override
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
@@ -90,10 +91,10 @@ public class MostReadFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,3);
 
-                    intiU();
                 }
             },100);
         }
-    }*/
+    }
 }

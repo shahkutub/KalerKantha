@@ -52,6 +52,8 @@ public class TabFragment extends Fragment {
             fragmentPos = bundle.getInt("pos", 0);
         }
 
+        //PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,fragmentPos);
+
         adapter=new MyAdapter(getChildFragmentManager());
 
             viewPager.setAdapter(adapter);
@@ -143,6 +145,7 @@ public class TabFragment extends Fragment {
                   return new TopNewsFragment();
 
               case 2 :
+
 
                   return new LatestNewsFragment();
 
