@@ -9,7 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.FavrtRecycleAdapter;
@@ -33,7 +33,7 @@ public class FavrtActivity extends AppCompatActivity {
     private AllNewsObj allObj;
     private List<DetailsModel> allDetailsList = new ArrayList<DetailsModel>();
     private MyDBHandler db;
-    private ImageView backBtn;
+    private LinearLayout backFavBtn;
 //
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,9 +44,9 @@ public class FavrtActivity extends AppCompatActivity {
         db = new MyDBHandler(con);
         //intiU();
         favList = (RecyclerView)findViewById(R.id.favrtList);
-        backBtn = (ImageView)findViewById(R.id.backBtn);
+        backFavBtn = (LinearLayout) findViewById(R.id.backFavBtn);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        backFavBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

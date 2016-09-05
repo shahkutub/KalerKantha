@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
 import com.kalerkantho.Adapter.Menu3RecyAdapter;
 import com.kalerkantho.Adapter.MenuRecyAdapter;
@@ -287,36 +288,47 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                try {
+
+                    if (allCategory!=null){
+                        if (allCategory.getCategory_list().size()>0){
+                            if (listViewMenu.getVisibility() == View.GONE){
+                                listViewMenu.setVisibility(View.VISIBLE);
 
 
-               if (listViewMenu.getVisibility() == View.GONE){
-                   listViewMenu.setVisibility(View.VISIBLE);
+                                printList.clear();
+
+                                for (int i=0;i<allCategory.getCategory_list().size();i++){
+                                    if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("print")){
+
+                                        printList.add(allCategory.getCategory_list().get(i));
+                                    }
+                                }
+
+                                if(printList.size()>0){
+
+                                    showPrintListView.setImageResource(R.drawable.back_show);
+                                }
+
+                                mAdapter = new MenuRecyAdapter(MainActivity.this, printList,null);
+                                listViewMenu.setAdapter(mAdapter);
+                                RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+                                listViewMenu.addItemDecoration(dividerItemDecoration);
+
+                            }else{
+                                showPrintListView.setImageResource(R.drawable.back_gone);
+                                listViewMenu.setVisibility(View.GONE);
+                            }
+                        }
+
+                    }
 
 
-                   printList.clear();
 
-                   for (int i=0;i<allCategory.getCategory_list().size();i++){
-                       if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("print")){
 
-                           printList.add(allCategory.getCategory_list().get(i));
-                       }
-                   }
+                }catch (JsonIOException e){
 
-                   if(printList.size()>0){
-
-                       showPrintListView.setImageResource(R.drawable.back_show);
-                   }
-
-                   mAdapter = new MenuRecyAdapter(MainActivity.this, printList,null);
-                   listViewMenu.setAdapter(mAdapter);
-                   RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-                   listViewMenu.addItemDecoration(dividerItemDecoration);
-
-               }else{
-                   showPrintListView.setImageResource(R.drawable.back_gone);
-                   listViewMenu.setVisibility(View.GONE);
-               }
-
+                }
 
             }
         });
@@ -341,33 +353,45 @@ public class MainActivity extends AppCompatActivity {
         shokolBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (shokolshogbadList.getVisibility() == View.GONE){
 
-                    shokolshogbadList.setVisibility(View.VISIBLE);
-                    onlineList.clear();
+                try {
+                    if (allCategory!=null){
+                        if(allCategory.getCategory_list().size()>0){
+                            if (shokolshogbadList.getVisibility() == View.GONE){
 
-                    for (int i=0;i<allCategory.getCategory_list().size();i++){
+                                shokolshogbadList.setVisibility(View.VISIBLE);
+                                onlineList.clear();
 
-                        if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("online")){
+                                for (int i=0;i<allCategory.getCategory_list().size();i++){
 
-                            onlineList.add(allCategory.getCategory_list().get(i));
+                                    if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("online")){
+
+                                        onlineList.add(allCategory.getCategory_list().get(i));
+                                    }
+                                }
+
+                                if(onlineList.size()>0){
+
+                                    shokolShonbadListView.setImageResource(R.drawable.back_show);
+                                }
+
+                                mAdapter2 = new Menu2RecyAdapter(MainActivity.this, onlineList);
+                                shokolshogbadList.setAdapter(mAdapter2);
+                                RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+                                shokolshogbadList.addItemDecoration(dividerItemDecoration);
+
+                            }else{
+                                shokolShonbadListView.setImageResource(R.drawable.back_gone);
+                                shokolshogbadList.setVisibility(View.GONE);
+                            }
                         }
+
                     }
 
-                    if(onlineList.size()>0){
-
-                        shokolShonbadListView.setImageResource(R.drawable.back_show);
-                    }
-
-                    mAdapter2 = new Menu2RecyAdapter(MainActivity.this, onlineList);
-                    shokolshogbadList.setAdapter(mAdapter2);
-                    RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-                    shokolshogbadList.addItemDecoration(dividerItemDecoration);
-
-                }else{
-                    shokolShonbadListView.setImageResource(R.drawable.back_gone);
-                    shokolshogbadList.setVisibility(View.GONE);
+                }catch (JsonIOException e){
+                    e.printStackTrace();
                 }
+
             }
         });
 
@@ -393,6 +417,7 @@ public class MainActivity extends AppCompatActivity {
         nirbacitoMenuView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (nirbachitoList.getVisibility() == View.GONE){
 
 
@@ -413,6 +438,13 @@ public class MainActivity extends AppCompatActivity {
                     nirbacitoMenuView.setImageResource(R.drawable.back_gone);
                     nirbachitoList.setVisibility(View.GONE);
                 }
+
+
+
+
+
+
+
             }
         });
 
@@ -440,8 +472,9 @@ public class MainActivity extends AppCompatActivity {
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();*/
 
-                Intent i = new Intent(con,FavrtActivity.class);
-               startActivity(i);
+                 Intent i = new Intent(con,FavrtActivity.class);
+                 startActivity(i);
+                 mDrawerLayout.closeDrawers();
             }
         });
 

@@ -47,16 +47,10 @@ public class AllnewsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         con = getActivity();
-
         intiU();
     }
 
     private void intiU() {
-
-
-        allNewsList = (RecyclerView) getView().findViewById(R.id.allNewsList);
-        mLayoutManager = new LinearLayoutManager(con);
-        allNewsList.setLayoutManager(mLayoutManager);
 
 
         try {
@@ -66,6 +60,10 @@ public class AllnewsFragment extends Fragment {
                 allCategory = g.fromJson(PersistData.getStringData(con, AppConstant.CATEGORY_RESPONSE),AllCategory.class);
                 if (onlineList!=null)
                     onlineList.clear();
+
+                allNewsList = (RecyclerView) getView().findViewById(R.id.allNewsList);
+                mLayoutManager = new LinearLayoutManager(con);
+                allNewsList.setLayoutManager(mLayoutManager);
 
                 dividerDrawable = ContextCompat.getDrawable(con, R.drawable.lineee);
                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
