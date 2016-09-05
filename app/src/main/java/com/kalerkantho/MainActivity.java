@@ -417,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
         nirbacitoMenuView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 if (nirbachitoList.getVisibility() == View.GONE){
 
 
