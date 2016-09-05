@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
     private boolean bgflag = false;
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -143,7 +144,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void run() {
-                        
+
 
                         progressShow.setVisibility(View.GONE);
 

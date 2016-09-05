@@ -95,11 +95,11 @@ public class TabFragment extends Fragment {
                    }
         });
 
-//        // Iterate over all tabs and set the custom view
-//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//            TabLayout.Tab tab = tabLayout.getTabAt(i);
-//            tab.setCustomView(adapter.getTabView(i));
-//        }
+        // Iterate over all tabs and set the custom view
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));
+        }
 
 
 

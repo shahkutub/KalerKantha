@@ -52,7 +52,6 @@ public class AllnewsFragment extends Fragment {
 
     private void intiU() {
 
-
         try {
             Gson g = new Gson();
             if (!(TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.CATEGORY_RESPONSE)))){
@@ -77,6 +76,8 @@ public class AllnewsFragment extends Fragment {
                 mAdapter = new AllNewsRecyAdapter(con, onlineList);
                 allNewsList.setAdapter(mAdapter);
             }
+
+
 
         }catch (JsonSyntaxException e){
             e.printStackTrace();

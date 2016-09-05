@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -18,16 +19,21 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aapbd.utils.storage.PersistData;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kalerkantho.Adapter.Menu2RecyAdapter;
@@ -67,26 +73,32 @@ public class MainActivity extends AppCompatActivity {
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
-    RecyclerView listViewMenu,shokolshogbadList,nirbachitoList;
+    RecyclerView listViewMenu, shokolshogbadList, nirbachitoList;
     private MenuRecyAdapter mAdapter;
     private Menu2RecyAdapter mAdapter2;
     private Menu3RecyAdapter mAdapter3;
     Drawable dividerDrawable;
-    List<Category> printList= new ArrayList<Category>();
-    List<Category> onlineList= new ArrayList<Category>();
+    List<Category> printList = new ArrayList<Category>();
+    List<Category> onlineList = new ArrayList<Category>();
+    private List<String> optionMenuList = new ArrayList<String>();
     private MyDBHandler db;
-    private LinearLayoutManager mLayoutManager,mmLayoutManager,mmmLayoutManager;
+    private LinearLayoutManager mLayoutManager, mmLayoutManager, mmmLayoutManager;
 
-    private ImageView showPrintListView,shokolShonbadListView,nirbacitoMenuView;
+    private ImageView showPrintListView, shokolShonbadListView, nirbacitoMenuView;
     AllCategory allCategory;
 
-    private RelativeLayout printBtn,shokolBtn,nirbachitoBtn;
+    private RelativeLayout printBtn, shokolBtn, nirbachitoBtn;
     private LinearLayout menuListView;
-    private TextView homeMenu,shirshoMenu,shorboMenu,shorbaMenu,printVersion,tvDate;
-    private  TextView nirbachitoSongbad,shokolShogbad,nirbachitoCategory;
-    private TextView favorite,photogalery,setting,motamot;
+    private TextView homeMenu, shirshoMenu, shorboMenu, shorbaMenu, printVersion, tvDate;
+    private TextView nirbachitoSongbad, shokolShogbad, nirbachitoCategory;
+    private TextView favorite, photogalery, setting, motamot;
+    private CustomAdapter customMenuAdapter;
     private Context con;
-
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client2;
 
 
     @Override
@@ -95,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         con = this;
 
-        Intent intent=new Intent(con,FirebaseIDService.class);
+        Intent intent = new Intent(con, FirebaseIDService.class);
         startService(intent);
 
 
@@ -104,17 +116,13 @@ public class MainActivity extends AppCompatActivity {
          *Setup the DrawerLayout and NavigationView
          */
 
-        if(TextUtils.isEmpty(PersistentUser.getUserID(con)))
-        {
+        if (TextUtils.isEmpty(PersistentUser.getUserID(con))) {
             pushIdAPI(AllURL.pushIDURL());
-        }else
-        {
-            if(!(PersistData.getStringData(con,AppConstant.GCMID).equalsIgnoreCase("1234567890")))
-            {
-                if(!(PersistData.getBooleanData(con,AppConstant.oneTimeCall)))
-                {
+        } else {
+            if (!(PersistData.getStringData(con, AppConstant.GCMID).equalsIgnoreCase("1234567890"))) {
+                if (!(PersistData.getBooleanData(con, AppConstant.oneTimeCall))) {
                     pushIdAPI(AllURL.pushIDURL());
-                    PersistData.setBooleanData(con,AppConstant.oneTimeCall,true);
+                    PersistData.setBooleanData(con, AppConstant.oneTimeCall, true);
                 }
 
             }
@@ -128,13 +136,13 @@ public class MainActivity extends AppCompatActivity {
 
         mNavigationView = (NavigationView) findViewById(R.id.shitstuff);
         listViewMenu = (RecyclerView) findViewById(R.id.listViewMenu);
-        shokolshogbadList= (RecyclerView) findViewById(R.id.shokolshogbadList);
+        shokolshogbadList = (RecyclerView) findViewById(R.id.shokolshogbadList);
         nirbachitoList = (RecyclerView) findViewById(R.id.nirbachitoList);
 
         showPrintListView = (ImageView) findViewById(R.id.showPrintListView);
         shokolShonbadListView = (ImageView) findViewById(R.id.shokolShonbadListView);
         nirbacitoMenuView = (ImageView) findViewById(R.id.nirbacitoMenuView);
-        tvDate= (TextView) findViewById(R.id.tvDate);
+        tvDate = (TextView) findViewById(R.id.tvDate);
         homeMenu = (TextView) findViewById(R.id.homeMenu);
         shirshoMenu = (TextView) findViewById(R.id.shirshoMenu);
         shorboMenu = (TextView) findViewById(R.id.shorboMenu);
@@ -183,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 + ":" + c.get(Calendar.MINUTE);
         tvDate.setText(sDate);
 
-        tvDate.setText(getBanglaDay(dayOfTheWeek)+" "+AppConstant.getDigitBanglaFromEnglish(String.valueOf(c.get(Calendar.DAY_OF_MONTH)))+" "+getBanglaMonth(String.valueOf(c.get(Calendar.MONTH)))+AppConstant.getDigitBanglaFromEnglish(String.valueOf(c.get(Calendar.YEAR))));
+        tvDate.setText(getBanglaDay(dayOfTheWeek) + " " + AppConstant.getDigitBanglaFromEnglish(String.valueOf(c.get(Calendar.DAY_OF_MONTH))) + " " + getBanglaMonth(String.valueOf(c.get(Calendar.MONTH))) + AppConstant.getDigitBanglaFromEnglish(String.valueOf(c.get(Calendar.YEAR))));
 
         /**
          * Lets inflate the very first fragment
@@ -193,11 +201,11 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
 
-        TabFragment fragment= new TabFragment();
+        TabFragment fragment = new TabFragment();
 
         Bundle bundle = new Bundle();
         bundle.putInt("pos", 0);
-       // AppConstant.FRAGMENTPOSITON = 0;
+        // AppConstant.FRAGMENTPOSITON = 0;
         fragment.setArguments(bundle);
 
         mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -213,18 +221,18 @@ public class MainActivity extends AppCompatActivity {
         shokolshogbadList.setLayoutManager(mmLayoutManager);
         nirbachitoList.setLayoutManager(mmmLayoutManager);
 
-        dividerDrawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.lineee);
+        dividerDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.lineee);
 
 
         Gson g = new Gson();
-        allCategory = g.fromJson(PersistData.getStringData(getApplicationContext(), AppConstant.CATEGORY_RESPONSE),AllCategory.class);
+        allCategory = g.fromJson(PersistData.getStringData(getApplicationContext(), AppConstant.CATEGORY_RESPONSE), AllCategory.class);
 
 
         homeMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 0);
                 //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
@@ -240,10 +248,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 1);
-               // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,1);
+                // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,1);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -257,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 2);
                 //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,2);
@@ -273,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 3);
                 //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,3);
@@ -290,32 +298,32 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    if (allCategory!=null){
-                        if (allCategory.getCategory_list().size()>0){
-                            if (listViewMenu.getVisibility() == View.GONE){
+                    if (allCategory != null) {
+                        if (allCategory.getCategory_list().size() > 0) {
+                            if (listViewMenu.getVisibility() == View.GONE) {
                                 listViewMenu.setVisibility(View.VISIBLE);
 
 
                                 printList.clear();
 
-                                for (int i=0;i<allCategory.getCategory_list().size();i++){
-                                    if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("print")){
+                                for (int i = 0; i < allCategory.getCategory_list().size(); i++) {
+                                    if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("print")) {
 
                                         printList.add(allCategory.getCategory_list().get(i));
                                     }
                                 }
 
-                                if(printList.size()>0){
+                                if (printList.size() > 0) {
 
                                     showPrintListView.setImageResource(R.drawable.back_show);
                                 }
 
-                                mAdapter = new MenuRecyAdapter(MainActivity.this, printList,null);
+                                mAdapter = new MenuRecyAdapter(MainActivity.this, printList, null);
                                 listViewMenu.setAdapter(mAdapter);
                                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                                 listViewMenu.addItemDecoration(dividerItemDecoration);
 
-                            }else{
+                            } else {
                                 showPrintListView.setImageResource(R.drawable.back_gone);
                                 listViewMenu.setVisibility(View.GONE);
                             }
@@ -324,9 +332,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-
-
-                }catch (JsonIOException e){
+                } catch (JsonIOException e) {
 
                 }
 
@@ -337,10 +343,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 4);
-               // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,4);
+                // PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,4);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -355,22 +361,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    if (allCategory!=null){
-                        if(allCategory.getCategory_list().size()>0){
-                            if (shokolshogbadList.getVisibility() == View.GONE){
+                    if (allCategory != null) {
+                        if (allCategory.getCategory_list().size() > 0) {
+                            if (shokolshogbadList.getVisibility() == View.GONE) {
 
                                 shokolshogbadList.setVisibility(View.VISIBLE);
                                 onlineList.clear();
 
-                                for (int i=0;i<allCategory.getCategory_list().size();i++){
+                                for (int i = 0; i < allCategory.getCategory_list().size(); i++) {
 
-                                    if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("online")){
+                                    if (allCategory.getCategory_list().get(i).getM_type().equalsIgnoreCase("online")) {
 
                                         onlineList.add(allCategory.getCategory_list().get(i));
                                     }
                                 }
 
-                                if(onlineList.size()>0){
+                                if (onlineList.size() > 0) {
 
                                     shokolShonbadListView.setImageResource(R.drawable.back_show);
                                 }
@@ -380,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
                                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                                 shokolshogbadList.addItemDecoration(dividerItemDecoration);
 
-                            }else{
+                            } else {
                                 shokolShonbadListView.setImageResource(R.drawable.back_gone);
                                 shokolshogbadList.setVisibility(View.GONE);
                             }
@@ -388,7 +394,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-                }catch (JsonIOException e){
+                } catch (JsonIOException e) {
                     e.printStackTrace();
                 }
 
@@ -400,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TabFragment fragment= new TabFragment();
+                TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 6);
                 //PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,6);
@@ -418,43 +424,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (nirbachitoList.getVisibility() == View.GONE){
+                if (nirbachitoList.getVisibility() == View.GONE) {
 
 
-                    if(db.getCatList().size()>0){
+                    if (db.getCatList().size() > 0) {
                         nirbacitoMenuView.setImageResource(R.drawable.back_show);
                     }
 
                     nirbachitoList.setVisibility(View.VISIBLE);
-                    mAdapter3 = new Menu3RecyAdapter(MainActivity.this,null);
+                    mAdapter3 = new Menu3RecyAdapter(MainActivity.this, null);
                     nirbachitoList.setAdapter(mAdapter3);
                     mAdapter3.notifyDataSetChanged();
                     RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                     nirbachitoList.addItemDecoration(dividerItemDecoration);
 
 
-
-                }else{
+                } else {
                     nirbacitoMenuView.setImageResource(R.drawable.back_gone);
                     nirbachitoList.setVisibility(View.GONE);
                 }
-
-
-
-
-
 
 
             }
         });
 
 
-
         photogalery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                PhotoFragment fragment= new PhotoFragment();
+                PhotoFragment fragment = new PhotoFragment();
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();
@@ -472,19 +471,17 @@ public class MainActivity extends AppCompatActivity {
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();*/
 
-                 Intent i = new Intent(con,FavrtActivity.class);
-                 startActivity(i);
-                 mDrawerLayout.closeDrawers();
+                Intent i = new Intent(con, FavrtActivity.class);
+                startActivity(i);
+                mDrawerLayout.closeDrawers();
             }
         });
-
-
 
 
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingFragment fragment= new SettingFragment();
+                SettingFragment fragment = new SettingFragment();
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();
@@ -496,15 +493,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                MotamotDialogFragment motamotDialogFragment= new MotamotDialogFragment();
+                MotamotDialogFragment motamotDialogFragment = new MotamotDialogFragment();
                 motamotDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 motamotDialogFragment.show(getFragmentManager(), "");
                 mDrawerLayout.closeDrawers();
 
             }
         });
-
-
 
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -576,6 +571,11 @@ public class MainActivity extends AppCompatActivity {
          * Setup Drawer Toggle of the Toolbar
          */
 
+
+        optionMenuList.add(0, getResources().getString(R.string.refresh));
+        optionMenuList.add(1, getResources().getString(R.string.setting));
+        optionMenuList.add(2, getResources().getString(R.string.helps));
+        optionMenuList.add(3, getResources().getString(R.string.feedback));
         setupToolbar();
         /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
@@ -583,85 +583,85 @@ public class MainActivity extends AppCompatActivity {
          mDrawerToggle.syncState();*/
 
 
-
-
-
         // set here nav icon if want to change
-      //  toolbar.setNavigationIcon(R.id.nav_icon);
+        //  toolbar.setNavigationIcon(R.id.nav_icon);
 
 
-
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-    static public String getBanglaDay(String day){
+
+    static public String getBanglaDay(String day) {
 
         String symbol = null;
         switch (day.toLowerCase()) {
             case "saturday":
-                symbol="শনিবার";
+                symbol = "শনিবার";
                 break;
             case "sunday":
-                symbol="রবিবার";
+                symbol = "রবিবার";
 //				symbol="₽";
                 break;
             case "monday":
-                symbol="সোমবার";
+                symbol = "সোমবার";
                 break;
             case "tuesday":
-                symbol="মঙ্গলবার";
+                symbol = "মঙ্গলবার";
                 break;
             case "wednesday":
-                symbol="বুধবার";
+                symbol = "বুধবার";
                 break;
             case "thursday":
-                symbol="বৃহস্পতিবার";
+                symbol = "বৃহস্পতিবার";
                 break;
             case "friday":
-                symbol="শুক্রবার";
+                symbol = "শুক্রবার";
                 break;
         }
         return symbol;
     }
 
-     public String getBanglaMonth(String englishMonth){
+    public String getBanglaMonth(String englishMonth) {
 
         String symbol = null;
         switch (englishMonth.toLowerCase()) {
             case "0":
-                symbol="জানুয়ারি ";
+                symbol = "জানুয়ারি ";
                 break;
             case "1":
-                symbol="ফেব্রূয়ারি ";
+                symbol = "ফেব্রূয়ারি ";
 //				symbol="₽";
                 break;
             case "2":
-                symbol="মার্চ ";
+                symbol = "মার্চ ";
                 break;
             case "3":
-                symbol="এপ্রিল ";
+                symbol = "এপ্রিল ";
                 break;
             case "4":
-                symbol="মে ";
+                symbol = "মে ";
                 break;
             case "5":
-                symbol="জুন ";
+                symbol = "জুন ";
                 break;
             case "6":
-                symbol="জুলাই ";
+                symbol = "জুলাই ";
                 break;
             case "7":
-                symbol="আগস্ট ";
+                symbol = "আগস্ট ";
                 break;
             case "8":
-                symbol="সেপ্টেম্বর";
+                symbol = "সেপ্টেম্বর";
                 break;
             case "9":
-                symbol="অক্টোবর ";
+                symbol = "অক্টোবর ";
                 break;
             case "10":
-                symbol="নভেম্বর";
+                symbol = "নভেম্বর";
                 break;
             case "11":
-                symbol="ডিসেম্বর";
+                symbol = "ডিসেম্বর";
                 break;
         }
         return symbol;
@@ -685,12 +685,12 @@ public class MainActivity extends AppCompatActivity {
          * ---------Create object of  RequestParams to send value with URL---------------
          */
 
-        Log.e("Push id ", ">>" + PersistData.getStringData(con,AppConstant.GCMID));
+        Log.e("Push id ", ">>" + PersistData.getStringData(con, AppConstant.GCMID));
         final RequestParams param = new RequestParams();
 
         try {
             param.put("device_type", "android");
-            param.put("push_id", PersistData.getStringData(con,AppConstant.GCMID));
+            param.put("push_id", PersistData.getStringData(con, AppConstant.GCMID));
         } catch (final Exception e1) {
             e1.printStackTrace();
         }
@@ -723,9 +723,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (loginResponse.getStatus().equalsIgnoreCase("1")) {
                     PersistentUser.setLogin(con);
-                    PersistentUser.setUserID(con,loginResponse.getUserdetails().getId());
-                    PersistData.setStringData(con,AppConstant.GCMID,loginResponse.getUserdetails().getPush_id());
-                    PersistentUser.setAccessToken(con,loginResponse.getToken());
+                    PersistentUser.setUserID(con, loginResponse.getUserdetails().getId());
+                    PersistData.setStringData(con, AppConstant.GCMID, loginResponse.getUserdetails().getPush_id());
+                    PersistentUser.setAccessToken(con, loginResponse.getToken());
                     Log.e("User id", "=" + PersistentUser.getUserID(con));
 
                 } else {
@@ -736,8 +736,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers,
-                                  byte[] errorResponse, Throwable e) {
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
 
 //				Log.e("LoginerrorResponse", new String(errorResponse));
@@ -755,11 +754,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
-    private void setupToolbar(){
+    private void setupToolbar() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -767,18 +765,77 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-
         mDrawerToggle.syncState();
+
+
+        // ImageView displayMenu = (ImageView) findViewById(R.id.sideMenuBtn);
+
+//
+//
+//        displayMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LayoutInflater inflater = LayoutInflater.from(con);
+//                View view = inflater.inflate(R.layout.menmain, null);
+//                ListView listView = (ListView) view.findViewById(R.id.popupList);
+//                listView.setDivider(null);
+//                Log.e("Click","this");
+//
+//                customMenuAdapter = new CustomAdapter(con,optionMenuList);
+//                listView.setAdapter(customMenuAdapter);
+//
+//                PopupWindow mPopupWindow = new PopupWindow(con, null, R.attr.popupMenuStyle);
+//                mPopupWindow.setFocusable(true); // otherwise on android 4.1.x the onItemClickListener won't work.
+//                mPopupWindow.setContentView(view);
+//                mPopupWindow.setOutsideTouchable(true);
+//
+//                int height = 0;
+//                int width = 0;
+//                float density = con.getResources().getDisplayMetrics().density;
+//                int minWidth = Math.round(196 * density); // min width 196dip, from abc_popup_menu_item_layout.xml
+//                int cellHeight = con.getResources().getDimensionPixelOffset(R.dimen.option_height);
+//                int dividerHeight = con.getResources().getDimensionPixelOffset(R.dimen.divider_height);
+//                final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//                final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//                for (int i = 0; i < mAdapter.getCount(); i++) {
+//                    Object item = mAdapter.getItem(i);
+//                    if (item != null) {
+//                        View childView = mAdapter.getView(i, null, listView);
+//                        childView.measure(widthMeasureSpec, heightMeasureSpec);
+//                        height += cellHeight;
+//                        width = Math.max(width, childView.getMeasuredWidth());
+//                    } else {
+//                        height += dividerHeight; // divider
+//                    }
+//                }
+//                width = Math.max(minWidth, width);
+//                Drawable background = mPopupWindow.getBackground(); // 9-pitch images
+//                if (background != null) {
+//                    Rect padding = new Rect();
+//                    background.getPadding(padding);
+//                    height += padding.top + padding.bottom;
+//                    width += padding.left + padding.right;
+//                }
+//                mPopupWindow.setWidth(width);
+//                mPopupWindow.setHeight(height);
+//                mPopupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
+//
+//
+//            }
+//        });
+
 
     }
 
-  @Override
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-       getMenuInflater().inflate(R.menu.drawer, menu);
+        getMenuInflater().inflate(R.menu.drawer, menu);
 
         return true;
 
@@ -789,7 +846,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.refreshItem:
 
-               /* if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==0){
+              if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==0){
 
                     Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
                     TabFragment fragment= new TabFragment();
@@ -842,7 +899,7 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                     mDrawerLayout.closeDrawers();
 
-                }*/
+                }
 
            /* final Dialog dialog = new Dialog(con);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -887,8 +944,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
 
-                case R.id.settinItem:
-                SettingFragment fragment= new SettingFragment();
+            case R.id.settinItem:
+                SettingFragment fragment = new SettingFragment();
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                 mDrawerLayout.closeDrawers();
@@ -897,14 +954,14 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.helpItem:
 
-                HelpDialogFragment dialogHelp= new HelpDialogFragment();
+                HelpDialogFragment dialogHelp = new HelpDialogFragment();
                 dialogHelp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialogHelp.show(MainActivity.this.getFragmentManager(), "");
 
                 return true;
 
             case R.id.feedBackItem:
-                MotamotDialogFragment dialoMotamot= new MotamotDialogFragment();
+                MotamotDialogFragment dialoMotamot = new MotamotDialogFragment();
                 dialoMotamot.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar);
                 dialoMotamot.show(MainActivity.this.getFragmentManager(), "");
                 return true;
@@ -914,9 +971,78 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.kalerkantho/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client2, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.kalerkantho/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client2, viewAction);
+        client2.disconnect();
+    }
+
   /*  @Override
     public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
         mDrawerToggle.syncState();
     }*/
+
+
+    class CustomAdapter extends ArrayAdapter<String> {
+        Context context;
+        private List<String> optionMenuList = new ArrayList<String>();
+
+        CustomAdapter(Context context, List<String> optionMenuList) {
+            super(context, R.layout.single_row, optionMenuList);
+            this.context = context;
+            this.optionMenuList = optionMenuList;
+
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+
+            if (v == null) {
+                final LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.single_row, null);
+            }
+
+            TextView menName = (TextView) v.findViewById(R.id.headlist);
+            menName.setText(optionMenuList.get(position));
+
+            return v;
+        }
+
+    }
 }
