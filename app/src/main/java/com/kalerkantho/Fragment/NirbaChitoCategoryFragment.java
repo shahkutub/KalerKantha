@@ -50,7 +50,6 @@ public class NirbaChitoCategoryFragment extends Fragment {
     private LinearLayout emptyFv;
     private MyDBHandler db;
     private RecyclerView recFvoList;
-    // private ProgressBar progressNirbachito;
 
     private MyFvRecyAdapterList myAdapter;
     Drawable dividerDrawable;
@@ -63,7 +62,6 @@ public class NirbaChitoCategoryFragment extends Fragment {
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
     private List<CommonNewsItem> my_newsListTemp = new ArrayList<CommonNewsItem>();
-
 
     @Nullable
     @Override

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import com.aapbd.utils.network.AAPBDHttpClient;
 import com.aapbd.utils.storage.PersistData;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.kalerkantho.Adapter.RecyclerAdapter;
 import com.kalerkantho.Model.All_Cat_News_Obj;
 import com.kalerkantho.Model.CommonNewsItem;
@@ -328,8 +329,11 @@ public class HomeFragment extends Fragment {
 
     public void withoutInterNet(){
 
-        Gson g = new Gson();
-        
+
+try {
+    Gson g = new Gson();
+
+    if (!(TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.HOMERESPONSE)))){
         allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
 
         allCommonNewsItem.clear();
@@ -386,15 +390,11 @@ public class HomeFragment extends Fragment {
             }
         }
 
-
-
-
         AllCommonNewsItem redObj=new AllCommonNewsItem();
         redObj.setNewsCategory("bibid");
         redObj.setType("horizontal");
         redObj.setList_news_obj(allObj.getRedslider());
         allCommonNewsItem.add(redObj);
-
 
         if (allCommonNewsItem.size() > 0) {
             //recyclerview adapter
@@ -403,7 +403,12 @@ public class HomeFragment extends Fragment {
             mRecyclerView.setAdapter(mAdapter);
 
         }
+    }
 
+}catch (JsonSyntaxException e){
+    e.printStackTrace();
+    }
 
     }
+
 }

@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ import java.util.concurrent.Executors;
 public class DetailsActivity extends AppCompatActivity {
     private Context con;
     private TextView headingTxt, txt_positive_like, txt_negative_like, txt_comment, txtDate, txtCategory, detailsTxt;
-    private ImageView backImgMain, fvImg, backBtn, shareBtn;
+    private ImageView backImgMain, fvImg, shareBtn;
     private String content_id = "", isFvrtString = "";
     private ProgressBar progressShow;
     private MyDBHandler db;
@@ -60,6 +61,7 @@ public class DetailsActivity extends AppCompatActivity {
     private AllCommonResponse allCommonResponse;
     Typeface face_reg, face_bold;
     BusyDialog busyDialog;
+    LinearLayout backView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class DetailsActivity extends AppCompatActivity {
         fvImg = (ImageView) findViewById(R.id.favrtBtn);
         shareBtn = (ImageView) findViewById(R.id.shareBtn);
 
-        backBtn = (ImageView) findViewById(R.id.backBtn);
+        backView = (LinearLayout) findViewById(R.id.backView);
         progressShow = (ProgressBar) findViewById(R.id.progressShow);
 
         positive_like = (ImageView) findViewById(R.id.positive_like);
@@ -101,7 +103,7 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DetailsActivity.this.finish();

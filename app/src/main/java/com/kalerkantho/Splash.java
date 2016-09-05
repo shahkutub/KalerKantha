@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.aapbd.utils.geolocation.GPSTracker;
 import com.aapbd.utils.network.AAPBDHttpClient;
@@ -29,7 +27,7 @@ public class Splash extends Activity {
     Context con;
     Handler handler = new Handler();
     private final int SPLASH_DISPLAY_LENGTH = 1500;
-    private ProgressBar progressShow;
+    //private ProgressBar progressShow;
 
 
 
@@ -64,7 +62,7 @@ public class Splash extends Activity {
         //millisOday = TimeUnit.DAYS.toMillis(1);
 
 
-        progressShow = (ProgressBar) findViewById(R.id.progressSplash);
+        //progressShow = (ProgressBar) findViewById(R.id.progressSplash);
 
 
 //        if (checkPlayServices()) {
@@ -156,7 +154,26 @@ public class Splash extends Activity {
 
     private void getMenuInfo(final String url) {
 
-       progressShow.setVisibility(View.VISIBLE);
+
+        if (!NetInfo.isOnline(con)) {
+            // AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
+            //return;
+            Handler handler= new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Intent mainIntent = new Intent(con,MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+
+                }
+            },100);
+
+
+        }
+
+     //  progressShow.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
 
 
@@ -174,7 +191,7 @@ public class Splash extends Activity {
                     @Override
                     public void run() {
 
-                        progressShow.setVisibility(View.GONE);
+                       // progressShow.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response_menu));
@@ -195,7 +212,7 @@ public class Splash extends Activity {
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                            progressShow.setVisibility(View.GONE);
+                            //progressShow.setVisibility(View.GONE);
                         }
                     }
                 });
