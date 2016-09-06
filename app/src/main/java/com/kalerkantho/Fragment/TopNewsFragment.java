@@ -61,13 +61,14 @@ public class TopNewsFragment extends Fragment {
     private void intiU() {
 
         try {
+
+
+
             Gson g = new Gson();
             if (!(TextUtils.isEmpty(PersistData.getStringData(con, AppConstant.HOMERESPONSE)))){
 
                 allObj = g.fromJson(PersistData.getStringData(con, AppConstant.HOMERESPONSE),AllNewsObj.class);
-
                 topnews.clear();
-
                 int i=0;
                 if(allObj !=null && allObj.getTop_news().size()>0)
                     for(CommonNewsItem topNews:allObj.getTop_news())
@@ -96,6 +97,7 @@ public class TopNewsFragment extends Fragment {
                 dividerDrawable = ContextCompat.getDrawable(con, R.drawable.divider);
                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
                 topnewRecList.addItemDecoration(dividerItemDecoration);
+
 
                 tAdapter = new TopNewsRecyAdapter(con,topnews);
                 topnewRecList.setAdapter(tAdapter);

@@ -206,7 +206,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
 
             }
         });
-        
+
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
