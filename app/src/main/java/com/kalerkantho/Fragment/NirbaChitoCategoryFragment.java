@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.aapbd.utils.network.AAPBDHttpClient;
@@ -41,9 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-/**
- * Created by Ratan on 7/29/2015.
- */
 public class NirbaChitoCategoryFragment extends Fragment {
     private Context con;
     private ImageView selectBtniv;
@@ -63,6 +61,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
     private List<CommonNewsItem> my_newsListTemp = new ArrayList<CommonNewsItem>();
+    private ProgressBar progressNirbachito;
 
     @Nullable
     @Override
@@ -127,6 +126,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
 
         mFragmentManager = getActivity().getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
+        progressNirbachito = (ProgressBar) getView().findViewById(R.id.progressNirbachito);
 
         final Typeface face_reg = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_reg.ttf");
         final Typeface face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
@@ -206,8 +206,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
 
             }
         });
-
-
+        
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,23 +221,6 @@ public class NirbaChitoCategoryFragment extends Fragment {
 
     }
 
-
-/*    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if(isVisibleToUser){
-            Handler handler= new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getNirbachitolist(AllURL.getNirbachitoList(allCategoryID,pageNumber));
-                }
-            },100);
-        }
-    }*/
-
-
     private void getNirbachitolist(final String url) {
         if (!NetInfo.isOnline(con)) {
             AlertMessage.showMessage(con, getString(R.string.app_name), "No Internet!");
@@ -246,7 +228,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
         }
         Log.e("URL : ", url);
 
-        //  progressNirbachito.setVisibility(View.VISIBLE);
+        progressNirbachito.setVisibility(View.VISIBLE);
         Executors.newSingleThreadScheduledExecutor().submit(new Runnable() {
             String response = "";
 
@@ -264,7 +246,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
                     @Override
                     public void run() {
 
-                        // progressNirbachito.setVisibility(View.GONE);
+                        progressNirbachito.setVisibility(View.GONE);
 
                         try {
                             Log.e("Response", ">>" + new String(response));
@@ -295,7 +277,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
 
                         } catch (final Exception e) {
                             e.printStackTrace();
-                            // progressNirbachito.setVisibility(View.GONE);
+                            progressNirbachito.setVisibility(View.GONE);
                         }
                     }
                 });
