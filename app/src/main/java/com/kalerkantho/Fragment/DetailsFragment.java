@@ -74,6 +74,9 @@ public class DetailsFragment extends Fragment {
 
     public CommunicatorFragmentInterface myCommunicator;
 
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -322,6 +325,7 @@ public class DetailsFragment extends Fragment {
                 }else {
                     menuListView.setVisibility(View.GONE);
                 }
+
             }
         });
 
@@ -332,7 +336,7 @@ public class DetailsFragment extends Fragment {
                 menuListView.setVisibility(View.GONE);
                 AppConstant.DETAILSSETTING = true;
                // SettingFragment fragment = new SettingFragment();
-                myCommunicator.addContentFragment(new SettingFragment(), true);
+                myCommunicator.setContentFragment(new SettingFragment(), true);
                 /*mFragmentTransaction = mFragmentManager.beginTransaction();
                  mFragmentTransaction.replace(R.id.containerViewDetails, fragment).commit();*/
 

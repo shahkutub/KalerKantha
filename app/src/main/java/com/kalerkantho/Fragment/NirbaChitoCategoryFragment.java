@@ -77,7 +77,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
         db = new MyDBHandler(con);
 
         Log.e("allCategvvoryID",">>");
-       // initU();
+        initU();
 
     }
 
@@ -91,7 +91,7 @@ public class NirbaChitoCategoryFragment extends Fragment {
                 @Override
                 public void run() {
                     PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,6);
-                    initU();
+
                 }
             },100);
         }
@@ -198,10 +198,8 @@ public class NirbaChitoCategoryFragment extends Fragment {
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-
             }
         });
-
 
     }
 

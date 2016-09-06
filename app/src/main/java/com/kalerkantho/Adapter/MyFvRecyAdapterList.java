@@ -1,5 +1,6 @@
 package com.kalerkantho.Adapter;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -7,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.kalerkantho.Model.Category;
+import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.Model.CommonNewsItem;
-import com.kalerkantho.Model.OnItemClickListener;
 import com.kalerkantho.Model.OnItemClickListenerNews;
-import com.kalerkantho.MyDb.MyDBHandler;
 import com.kalerkantho.R;
 
 import java.util.ArrayList;
@@ -32,11 +32,12 @@ public class MyFvRecyAdapterList extends RecyclerView.Adapter<MyFvRecyAdapterLis
         TextView commonDateTime;
         TextView commonCategory;
         View divderView;
+        LinearLayout commonView;
 
 
         public MyViewHolder(View view) {
             super(view);
-
+            commonView = (LinearLayout) view.findViewById(R.id.commonView);
             divderView = (View) view.findViewById(R.id.divderView);
             commonImage = (ImageView) view.findViewById(R.id.imag_comm);
             commonTitle = (TextView) view.findViewById(R.id.commonTitle);
@@ -74,6 +75,24 @@ public class MyFvRecyAdapterList extends RecyclerView.Adapter<MyFvRecyAdapterLis
                 commonCategory.setText("");
                 divderView.setVisibility(View.GONE);
             }
+
+
+
+            commonView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    String id = item.getId();
+                    Intent i = new Intent(context, DetailsActivity.class);
+                    i.putExtra("content_id",id);
+                    i.putExtra("is_favrt","0");
+                    context.startActivity(i);
+
+
+
+                }
+            });
 
             commonTitle.setTypeface(face_reg);
             commonDateTime.setTypeface(face_reg);
