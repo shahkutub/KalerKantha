@@ -1,5 +1,6 @@
 package com.kalerkantho;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,16 +16,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView favorite, photogalery, setting, motamot;
 
     private Context con;
+    String news_titl = "", news_details = "", news_id = "", type = "";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -209,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putInt("pos", 0);
-        PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
+        PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 0);
         fragment.setArguments(bundle);
 
         mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -239,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 0);
-                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,0);
+                PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 0);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -255,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 1);
-                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,1);
+                PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 1);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -272,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 2);
-                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,2);
+                PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 2);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -288,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 3);
-                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,3);
+                PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 3);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -347,10 +352,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 TabFragment fragment = new TabFragment();
-                 Bundle bundle = new Bundle();
-                 bundle.putInt("pos", 4);
-                 PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,4);
+                TabFragment fragment = new TabFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", 4);
+                PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 4);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -386,7 +391,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
 
-
                                 mAdapter2 = new Menu2RecyAdapter(MainActivity.this, onlineList);
                                 shokolshogbadList.setAdapter(mAdapter2);
                                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
@@ -415,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                 TabFragment fragment = new TabFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("pos", 6);
-                PersistData.setIntData(con,AppConstant.FRAGMENTPOSITON,6);
+                PersistData.setIntData(con, AppConstant.FRAGMENTPOSITON, 6);
                 fragment.setArguments(bundle);
                 mFragmentTransaction = mFragmentManager.beginTransaction();
                 mFragmentTransaction.replace(R.id.containerView, fragment).commit();
@@ -599,29 +603,86 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     // This is the handler that will manager to process the broadcast intent
     private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
-
-
             String smg = intent.getStringExtra("message");
 
-          Toast.makeText(context,smg,Toast.LENGTH_SHORT).show();
-
-
-
+            showDiaLogView(smg);
 
 
         }
     };
 
+    private void showDiaLogView(final String msg) {
+        // AlertDialog.Builder adb = new AlertDialog.Builder(this);
+
+
+        try {
+            JSONObject newsObj = new JSONObject(msg);
+            news_titl = newsObj.optString("news_title");
+            news_details = newsObj.optString("news_details");
+            news_id = newsObj.optString("news_id");
+            type = newsObj.optString("type");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        final Dialog d = new Dialog(con, R.style.full_screen_dialog);
+
+        d.setContentView(R.layout.popup_news);
+
+        RelativeLayout mainLayout = (RelativeLayout) d.findViewById(R.id.mainLayout);
+        mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (type.equalsIgnoreCase("news")) {
+                    Intent intent = new Intent(con, DetailsActivity.class);
+                    intent.putExtra("content_id", news_id);
+                    intent.putExtra("is_favrt", "0");
+                    startActivity(intent);
+                    d.dismiss();
+                } else {
+                    d.dismiss();
+                }
+
+
+            }
+
+        });
+
+        TextView title = (TextView) d.findViewById(R.id.breakingNewsTitle);
+        title.setText(news_titl);
+
+        TextView description = (TextView) d.findViewById(R.id.breakingDetails);
+        description.setText(news_details);
+
+        final Typeface face_reg = Typeface.createFromAsset(getAssets(), "fonts/SolaimanLipi_reg.ttf");
+        description.setTypeface(face_reg);
+        title.setTypeface(face_reg);
+
+
+        // (That new View is just there to have something inside the dialog that can grow big enough to cover the whole screen.)
+
+
+        WindowManager.LayoutParams wmlp = d.getWindow().getAttributes();
+        wmlp.gravity = Gravity.TOP | Gravity.LEFT;
+        wmlp.x = 0;
+        wmlp.y = 0;
+
+        d.show();
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+
+        AppConstant.openPush=false;
 
         con.registerReceiver(mMessageReceiver, new IntentFilter("unique_name"));
     }
@@ -629,6 +690,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        AppConstant.openPush=true;
         unregisterReceiver(mMessageReceiver);
     }
 
@@ -871,7 +933,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -888,10 +949,10 @@ public class MainActivity extends AppCompatActivity {
 
                 AppConstant.REFRESHFLAG = true;
 
-              if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==0){
+                if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 0) {
 
-                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                    TabFragment fragment= new TabFragment();
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("pos", 0);
                     fragment.setArguments(bundle);
@@ -900,10 +961,10 @@ public class MainActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
 
 
-                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==1){
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 1) {
 
-                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                    TabFragment fragment= new TabFragment();
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("pos", 1);
                     fragment.setArguments(bundle);
@@ -912,11 +973,10 @@ public class MainActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
 
 
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 2) {
 
-                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==2){
-
-                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                    TabFragment fragment= new TabFragment();
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("pos", 2);
                     fragment.setArguments(bundle);
@@ -924,9 +984,9 @@ public class MainActivity extends AppCompatActivity {
                     mFragmentTransaction.replace(R.id.containerView, fragment).commit();
                     mDrawerLayout.closeDrawers();
 
-                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==3){
-                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                    TabFragment fragment= new TabFragment();
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 3) {
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("pos", 3);
                     fragment.setArguments(bundle);
@@ -935,10 +995,10 @@ public class MainActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
 
 
-                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==4){
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 4) {
 
-                    Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                    TabFragment fragment= new TabFragment();
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("pos", 4);
                     fragment.setArguments(bundle);
@@ -947,55 +1007,55 @@ public class MainActivity extends AppCompatActivity {
                     mDrawerLayout.closeDrawers();
 
 
-                }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==5){
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 5) {
 
-                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                  TabFragment fragment= new TabFragment();
-                  Bundle bundle = new Bundle();
-                  bundle.putInt("pos", 5);
-                  fragment.setArguments(bundle);
-                  mFragmentTransaction = mFragmentManager.beginTransaction();
-                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-                  mDrawerLayout.closeDrawers();
-
-
-              }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==6){
-
-                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                  TabFragment fragment= new TabFragment();
-                  Bundle bundle = new Bundle();
-                  bundle.putInt("pos", 6);
-                  fragment.setArguments(bundle);
-                  mFragmentTransaction = mFragmentManager.beginTransaction();
-                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-                  mDrawerLayout.closeDrawers();
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 5);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
 
 
-              }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==7){
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 6) {
 
-                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                  TabFragment fragment= new TabFragment();
-                  Bundle bundle = new Bundle();
-                  bundle.putInt("pos", 7);
-                  fragment.setArguments(bundle);
-                  mFragmentTransaction = mFragmentManager.beginTransaction();
-                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-                  mDrawerLayout.closeDrawers();
-
-
-              }else if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==8){
-
-                  Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
-                  TabFragment fragment= new TabFragment();
-                  Bundle bundle = new Bundle();
-                  bundle.putInt("pos", 8);
-                  fragment.setArguments(bundle);
-                  mFragmentTransaction = mFragmentManager.beginTransaction();
-                  mFragmentTransaction.replace(R.id.containerView, fragment).commit();
-                  mDrawerLayout.closeDrawers();
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 6);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
 
 
-              }
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 7) {
+
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 7);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+
+                } else if (PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON) == 8) {
+
+                    Log.e("Pos", "" + PersistData.getIntData(con, AppConstant.FRAGMENTPOSITON));
+                    TabFragment fragment = new TabFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("pos", 8);
+                    fragment.setArguments(bundle);
+                    mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.replace(R.id.containerView, fragment).commit();
+                    mDrawerLayout.closeDrawers();
+
+
+                }
 
            /* final Dialog dialog = new Dialog(con);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

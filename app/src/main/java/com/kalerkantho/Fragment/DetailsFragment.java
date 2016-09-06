@@ -143,6 +143,7 @@ public class DetailsFragment extends Fragment {
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getActivity().finish();
             }
         });
@@ -466,6 +467,8 @@ public class DetailsFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                Log.e("id response:", response);
 
                 getActivity().runOnUiThread(new Runnable() {
 
