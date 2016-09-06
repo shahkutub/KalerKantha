@@ -58,7 +58,9 @@
     <string name="vivration1">ভাইব্রেসন</string>
     <string name="vivration2">ভাইব্রেসন নোটিফিকেশন</string>
     <string name="privacy1">প্রাইভেসি পলিসি</string>
-    <string name="tram1">প্রাইভেসি অ্যান্ড ট্রাম </string>
+
+    <string name="tram1">ট্রামস অ্যান্ড কন্ডিশন </string>
+
     <string name="tram2">ব্যবহারকারির পলিসি</string>
     <string name="help">সাহায্য</string>
     <string name="motamotyour">আপনার মতামত জানান</string>
