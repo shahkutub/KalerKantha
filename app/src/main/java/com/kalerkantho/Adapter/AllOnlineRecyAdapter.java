@@ -57,7 +57,7 @@ public class AllOnlineRecyAdapter extends RecyclerView.Adapter<AllOnlineRecyAdap
                     }else{
 
                         if (db.addCat(item)){
-                            Toast.makeText(context,"Successfully added",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"Added",Toast.LENGTH_SHORT).show();
                         }
 
                     }
