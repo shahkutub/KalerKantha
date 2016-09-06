@@ -92,6 +92,25 @@ public class NirbaChitoCategoryFragment extends Fragment {
                 public void run() {
                     PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,6);
 
+
+                    for (Category category : db.getCatList()) {
+                        allCategoryID += category.getId() + "+";
+                    }
+
+                    if (allCategoryID.length() > 0) {
+                        allCategoryID = allCategoryID.substring(0, allCategoryID.length() - 1);
+                    }
+
+
+                    if (allCategoryID.length() > 0) {
+                        getNirbachitolist(AllURL.getNirbachitoList(allCategoryID, pageNumber));
+                    } else {
+
+                        recFvoList.setVisibility(View.GONE);
+                        emptyFv.setVisibility(View.VISIBLE);
+                    }
+
+
                 }
             },100);
         }
