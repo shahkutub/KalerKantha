@@ -52,8 +52,6 @@ public class TabFragment extends Fragment {
             fragmentPos = bundle.getInt("pos", 0);
         }
 
-        //PersistData.setIntData(getContext(), AppConstant.FRAGMENTPOSITON,fragmentPos);
-
         adapter=new MyAdapter(getChildFragmentManager());
 
             viewPager.setAdapter(adapter);
@@ -97,11 +95,8 @@ public class TabFragment extends Fragment {
                    }
         });
 
-        // Iterate over all tabs and set the custom view
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(adapter.getTabView(i));
-        }
+//        // Iterate over all tabs and set the custom view
+
 
 
 
@@ -127,8 +122,11 @@ public class TabFragment extends Fragment {
 
         /**
          * Return fragment with respect to Position .
-         */
-
+         *///        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            tab.setCustomView(adapter.getTabView(i));
+//        }
+//
         @Override
         public Fragment getItem(int position)
         {
@@ -145,7 +143,6 @@ public class TabFragment extends Fragment {
                   return new TopNewsFragment();
 
               case 2 :
-
 
                   return new LatestNewsFragment();
 
