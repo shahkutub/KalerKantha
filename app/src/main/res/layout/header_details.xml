@@ -20,6 +20,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/titleDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -28,29 +29,57 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/backView"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:id="@+id/settingBtn"
-        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dim07"
+        android:padding="@dimen/dim10"
+        android:layout_centerInParent="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/setting_white"
-        android:layout_marginRight="10dp"/>
+        android:orientation="vertical">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/shareBtn"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/settingBtn"
-        android:background="@drawable/share_white"
-        android:layout_marginRight="15dp"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/favrtBtn"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/shareBtn"
-        android:background="@drawable/fav_white"
-        android:layout_marginRight="15dp"/>
+        android:background="@drawable/setting_white"></ImageView>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/shareBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dim10"
+        android:padding="10dp"
+        android:layout_toLeftOf="@+id/settingBtn"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/share_white"
+            />
+
+    </LinearLayout>
+
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/favrtBtn"
+    android:layout_centerVertical="true"
+    android:layout_toLeftOf="@+id/shareBtn"
+    android:padding="10dp"
+    android:layout_marginRight="@dimen/dim10"
+    >
+    <ImageView
+        android:id="@+id/favImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fav_white"
+        />
+</LinearLayout>
 </RelativeLayout>

@@ -1,7 +1,7 @@
 package com.kalerkantho.Fragment;
 
 import android.app.DialogFragment;
-import android.content.Context;;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +9,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kalerkantho.Dialog.ConditionDialogFragment;
 import com.kalerkantho.Dialog.HelpDialogFragment;
 import com.kalerkantho.Dialog.PrivacyPolicyDialogFragment;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AppConstant;
+
+;
 
 
 public class SettingFragment extends Fragment {
@@ -23,6 +28,9 @@ public class SettingFragment extends Fragment {
     private TextView notificationHeadTx,notificationTitle,notificatonAnnounce,soundHeadText,soundTitle;
     private TextView vivrationHead,vivrationTitle,privacyHead,privacyTitle,tramHead,tramTitle,helpHead,helpTitle;
     private LinearLayout hepBtn,privacyPolicyBtn,conditionBtn;
+    private RelativeLayout ViewShowTop;
+    private ImageView imgBackSetting;
+
 
 
     @Nullable
@@ -55,6 +63,9 @@ public class SettingFragment extends Fragment {
         tramTitle = (TextView) getView().findViewById(R.id.tramTitle);
         helpHead = (TextView) getView().findViewById(R.id.helpHead);
         helpTitle = (TextView) getView().findViewById(R.id.helpTitle);
+        ViewShowTop = (RelativeLayout) getView().findViewById(R.id.ViewShowTop);
+        imgBackSetting = (ImageView) getView().findViewById(R.id.imgBackSetting);
+
 
         hepBtn = (LinearLayout) getView().findViewById(R.id.hepBtn);
         privacyPolicyBtn = (LinearLayout) getView().findViewById(R.id.privacyPolicyBtn);
@@ -75,6 +86,28 @@ public class SettingFragment extends Fragment {
         tramTitle.setTypeface(face_reg);
         helpHead.setTypeface(face_bold);
         helpTitle.setTypeface(face_reg);
+
+
+
+
+           if (AppConstant.DETAILSSETTING){
+               ViewShowTop.setVisibility(View.VISIBLE);
+
+               }else {
+               ViewShowTop.setVisibility(View.GONE);
+               }
+
+        imgBackSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppConstant.DETAILSSETTING = false;
+                getActivity().onBackPressed();
+
+
+            }
+        });
+
+
 
         privacyPolicyBtn.setOnClickListener(new View.OnClickListener() {
             @Override

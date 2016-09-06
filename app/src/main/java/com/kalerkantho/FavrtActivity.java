@@ -1,6 +1,7 @@
 package com.kalerkantho;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kalerkantho.Adapter.FavrtRecycleAdapter;
@@ -34,6 +36,8 @@ public class FavrtActivity extends AppCompatActivity {
     private List<DetailsModel> allDetailsList = new ArrayList<DetailsModel>();
     private MyDBHandler db;
     private LinearLayout backFavBtn;
+    private TextView favHeadText;
+    private Typeface face_bold;
 //
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +47,12 @@ public class FavrtActivity extends AppCompatActivity {
 
         db = new MyDBHandler(con);
         //intiU();
+
+        face_bold = Typeface.createFromAsset(con.getAssets(), "fonts/SolaimanLipi_Bold.ttf");
         favList = (RecyclerView)findViewById(R.id.favrtList);
         backFavBtn = (LinearLayout) findViewById(R.id.backFavBtn);
+        favHeadText = (TextView) findViewById(R.id.favHeadText);
+        favHeadText.setTypeface(face_bold);
 
         backFavBtn.setOnClickListener(new View.OnClickListener() {
             @Override

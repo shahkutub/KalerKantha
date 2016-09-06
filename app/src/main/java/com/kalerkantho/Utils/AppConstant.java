@@ -35,6 +35,8 @@ public class AppConstant {
     public static String TITLE= "";
     public static String URL = "";
     public static String FRAGMENTPOSITON ="fragmentposition";
+    public static boolean REFRESHFLAG = false;
+    public static boolean DETAILSSETTING = false;
 
     public static final String[] allMonth = {"জানুয়ারী","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","অগাস্ট","সেপ্টেম্বর","অক্টবর","নভেম্বর","ডিসেম্বর"};
 

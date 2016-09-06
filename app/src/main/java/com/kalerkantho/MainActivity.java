@@ -21,12 +21,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView homeMenu, shirshoMenu, shorboMenu, shorbaMenu, printVersion, tvDate;
     private TextView nirbachitoSongbad, shokolShogbad, nirbachitoCategory;
     private TextView favorite, photogalery, setting, motamot;
-    private CustomAdapter customMenuAdapter;
+
     private Context con;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -888,6 +886,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.refreshItem:
 
+                AppConstant.REFRESHFLAG = true;
+
               if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==0){
 
                     Log.e("Pos",""+PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON));
@@ -1114,7 +1114,7 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
-    class CustomAdapter extends ArrayAdapter<String> {
+   /* class CustomAdapter extends ArrayAdapter<String> {
         Context context;
         private List<String> optionMenuList = new ArrayList<String>();
 
@@ -1140,5 +1140,5 @@ public class MainActivity extends AppCompatActivity {
             return v;
         }
 
-    }
+    }*/
 }

@@ -15,6 +15,7 @@
     <dimen name="toggleh">33dp</dimen>
     <dimen name="dim20">20dp</dimen>
     <dimen name="dim07">7dp</dimen>
+    <dimen name="dim15">15dp</dimen>
     <dimen name="dim30">30dp</dimen>
     <dimen name="dim40">40dp</dimen>
     <dimen name="dim70">70dp</dimen>
