@@ -1,8 +1,10 @@
 package com.kalerkantho;
 
 import android.app.DialogFragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -27,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aapbd.utils.storage.PersistData;
 import com.google.android.gms.appindexing.Action;
@@ -55,6 +58,9 @@ import com.kalerkantho.holder.AllCategory;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -590,6 +596,40 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+
+
+
+    // This is the handler that will manager to process the broadcast intent
+    private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+
+            String smg = intent.getStringExtra("message");
+
+          Toast.makeText(context,smg,Toast.LENGTH_SHORT).show();
+
+
+
+
+
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        con.registerReceiver(mMessageReceiver, new IntentFilter("unique_name"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mMessageReceiver);
     }
 
     static public String getBanglaDay(String day) {

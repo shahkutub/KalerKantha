@@ -59,19 +59,7 @@ public class Splash extends Activity {
 
 
         millis = System.currentTimeMillis();
-        //millisOday = TimeUnit.DAYS.toMillis(1);
 
-
-        //progressShow = (ProgressBar) findViewById(R.id.progressSplash);
-
-
-//        if (checkPlayServices()) {
-//            gcm = GoogleCloudMessaging.getInstance(con);
-//            Log.e("gcmId", ":" + PersistData.getStringData(con, AppConstant.GCMID));
-//            if (PersistData.getStringData(con, AppConstant.GCMID).length() == 0) {
-//                new RegisterBackground().execute();
-//            }
-//        }
 
 
         if (!NetInfo.isOnline(con)) {
