@@ -94,6 +94,7 @@
                        android:layout_height="25dp"
                        android:background="@drawable/check"
                        android:textOn=""
+                       android:checked="true"
                        android:textOff=""
                        android:focusable="false"
                        android:focusableInTouchMode="false"
@@ -156,6 +157,7 @@
                     android:layout_height="25dp"
                     android:background="@drawable/check"
                     android:textOn=""
+                    android:checked="true"
                     android:textOff=""
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -212,6 +214,7 @@
                     android:background="@drawable/check"
                     android:textOn=""
                     android:textOff=""
+                    android:checked="true"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:layout_centerVertical="true"/>

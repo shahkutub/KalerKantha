@@ -20,6 +20,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.aapbd.utils.storage.PersistData;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kalerkantho.DetailsActivity;
@@ -134,9 +135,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                // .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-        notificationBuilder.setVibrate(new long[] { 1000, 1000});
-        notificationBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-
+        if(PersistData.getBooleanData(getApplication(),AppConstant.notificationVibrateOn))
+        {
+            notificationBuilder.setVibrate(new long[] { 1000, 1000});
+        }
+        if(PersistData.getBooleanData(getApplication(),AppConstant.notificationSoundOn))
+        {
+            notificationBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+        }
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

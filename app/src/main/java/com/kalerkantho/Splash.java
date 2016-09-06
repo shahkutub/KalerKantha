@@ -66,6 +66,14 @@ public class Splash extends Activity {
             PersistData.setStringData(con,AppConstant.GCMID,"1234567890");
         }
 
+        if(!(PersistData.getBooleanData(con,AppConstant.defaultValueSet)))
+        {
+            PersistData.setBooleanData(con,AppConstant.defaultValueSet,true);
+            PersistData.setBooleanData(con,AppConstant.notificationSettingsOn,true);
+            PersistData.setBooleanData(con,AppConstant.notificationSoundOn,true);
+            PersistData.setBooleanData(con,AppConstant.notificationVibrateOn,true);
+        }
+
        Intent intent=new Intent(con,FirebaseIDService.class);
         startService(intent);
 

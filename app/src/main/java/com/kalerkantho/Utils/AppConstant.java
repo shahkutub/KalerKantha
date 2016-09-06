@@ -72,4 +72,8 @@ public class AppConstant {
     public static String oneTimeCall = "oneTimeCall";
     public static boolean openPush =true;
 
+    public static String notificationSettingsOn = "notificationSettingsOn";
+    public static String notificationSoundOn = "notificationSoundOn";
+    public static String defaultValueSet = "defaultValueSet";
+    public static String notificationVibrateOn = "notificationVibrateOn";
 }

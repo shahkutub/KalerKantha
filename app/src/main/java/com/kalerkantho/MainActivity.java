@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!(PersistData.getBooleanData(con, AppConstant.oneTimeCall))) {
                     pushIdAPI(AllURL.pushIDURL());
                     PersistData.setBooleanData(con, AppConstant.oneTimeCall, true);
+
+
                 }
 
             }
