@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView homeMenu, shirshoMenu, shorboMenu, shorbaMenu, printVersion, tvDate;
     private TextView nirbachitoSongbad, shokolShogbad, nirbachitoCategory;
     private TextView favorite, photogalery, setting, motamot;
-   
+
     private Context con;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -845,6 +845,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.refreshItem:
+
+                AppConstant.REFRESHFLAG = true;
 
               if(PersistData.getIntData(con,AppConstant.FRAGMENTPOSITON)==0){
 

@@ -271,7 +271,6 @@ public class HomeFragment extends Fragment {
 
 
     }
-    //
 
    /* public String getData()
     {

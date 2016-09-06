@@ -8,7 +8,7 @@
     android:id="@+id/backFavBtn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:padding="@dimen/dim15"
     android:orientation="vertical">
 
     <ImageView
@@ -22,12 +22,14 @@
 
 
     <TextView
+        android:id="@+id/favHeadText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="@string/favorite"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
+        android:textSize="18sp"
         android:layout_toRightOf="@+id/backFavBtn"/>
 
     <ImageView

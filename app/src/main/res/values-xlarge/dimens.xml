@@ -12,6 +12,7 @@
     <dimen name="toggleh">45dp</dimen>
 
     <dimen name="dim20">30dp</dimen>
+    <dimen name="dim15">25dp</dimen>
     <dimen name="dim07">11dp</dimen>
     <dimen name="dim70">110dp</dimen>
     <dimen name="photoh">150dp</dimen>

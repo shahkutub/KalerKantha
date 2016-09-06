@@ -11,9 +11,11 @@
 
     <ImageView
         android:id="@+id/imgFvrt"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/grid_imagew"
+        android:layout_height="@dimen/grid_imageh"
+        android:src="@drawable/defaulticon"
         android:layout_below="@+id/topWhite"
+        android:scaleType="fitXY"
         android:layout_centerHorizontal="true" />
 
     <TextView

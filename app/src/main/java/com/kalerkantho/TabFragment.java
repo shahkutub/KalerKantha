@@ -95,6 +95,8 @@ public class TabFragment extends Fragment {
                    }
         });
 
+        setPageItem(fragmentPos);
+
 //        // Iterate over all tabs and set the custom view
 
 

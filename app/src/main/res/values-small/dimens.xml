@@ -10,7 +10,7 @@
     <dimen name="grid_imageh">100dp</dimen>
     <dimen name="grid_imagew">140dp</dimen>
     <dimen name="toggleh">25dp</dimen>
-
+    <dimen name="dim15">10dp</dimen>
     <dimen name="dim20">15dp</dimen>
     <dimen name="dim07">5dp</dimen>
     <dimen name="dim30">20dp</dimen>

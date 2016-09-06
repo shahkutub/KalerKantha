@@ -16,6 +16,8 @@
 
     </RelativeLayout>
 
+
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -239,4 +241,28 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/menuListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainHeader"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:visibility="gone">
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/menuview"
+            ></include>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/containerViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+    </FrameLayout>
+
 </RelativeLayout>
