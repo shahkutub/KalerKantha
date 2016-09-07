@@ -115,4 +115,9 @@ public class AllURL {
 		return getcommonURLWithParamAndAction("like-dislike"+"/"+userId+"/"+newsId+"/"+likeDislike+"/"+dislikelike, temp);
 	}
 
+	public static String getUpdateSetting(String userId,String notificationStatus) {
+		final Vector<KeyValue> temp = new Vector();
+		return getcommonURLWithParamAndAction("notification"+"/"+userId+"/"+notificationStatus, temp);
+	}
+
 }

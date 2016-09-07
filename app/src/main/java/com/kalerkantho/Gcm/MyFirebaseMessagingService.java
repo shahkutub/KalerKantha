@@ -20,11 +20,16 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.aapbd.utils.storage.PersistData;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.kalerkantho.DetailsActivity;
 import com.kalerkantho.MainActivity;
 import com.kalerkantho.R;
+import com.kalerkantho.Utils.AppConstant;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -47,39 +52,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: Handle FCM messages here.
 
         con=getApplicationContext();
-        // If the application is in the foreground handle both data and notification messages here.
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated.
 
-        //Log.e(TAG, "data: " + remoteMessage.getData());
+       if (AppConstant.openPush)
+       {
+           sendNotification(remoteMessage.getData().get("full_data"));
+       }
 
-//
-//        for(Map m:remoteMessage.getData())
-//        {
-//
-//        }
-
-        //Toast.makeText(getApplicationContext(),remoteMessage.getNotification().getTitle()+">>"+remoteMessage.getData(),Toast.LENGTH_SHORT).show();
-
-        //Log.e(TAG, "From: " + remoteMessage.getFrom());
-        //Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-
-       // CustomNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(),"Test");
-
-        //sendNotification( remoteMessage.getNotification().getBody());
-
-       // sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"));
-
-
-
-        //Toast.makeText(con,remoteMessage.getData().get("body"),Toast.LENGTH_SHORT).show();
-
-//        Intent intent = new Intent(con, DetailsActivity.class);
-//        // Send data to NotificationView Class
-//        intent.putExtra("content_id", "");
-//        intent.putExtra("is_favrt", "0");
-        sendNotification(remoteMessage.getData().get("body"));
-        updateMyActivity(con,remoteMessage.getData().get("body"));
+        updateMyActivity(con,remoteMessage.getData().get("full_data"));
 
 
        // CustomNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"),"Test");
@@ -111,19 +90,59 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // Put the GCM message into a notification and post it.
     public void sendNotification(String msg) {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        String news_titl="",news_details="",news_id="",type="";
+
+
+        try {
+            JSONObject newsObj=new JSONObject(msg);
+             news_titl=newsObj.optString("news_title");
+             news_details=newsObj.optString("news_details");
+             news_id=newsObj.optString("news_id");
+             type=newsObj.optString("type");
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Intent intent;
+
+        if(type.equalsIgnoreCase("news"))
+        {
+            intent = new Intent(this, DetailsActivity.class);
+            intent.putExtra("content_id",news_id);
+            intent.putExtra("is_favrt","0");
+
+        }else
+        {
+            intent = new Intent(this, MainActivity.class);
+        }
+
+
+
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.testicon)
-                .setContentTitle("FCM Message")
-                .setContentText(msg)
+                .setSmallIcon(R.drawable.ic_launcher_small)
+                .setContentTitle(news_titl)
+                .setContentText(news_details)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri)
+               // .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
+
+        if(PersistData.getBooleanData(getApplication(),AppConstant.notificationVibrateOn))
+        {
+            notificationBuilder.setVibrate(new long[] { 1000, 1000});
+        }
+        if(PersistData.getBooleanData(getApplication(),AppConstant.notificationSoundOn))
+        {
+            notificationBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+        }
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -141,57 +160,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //send broadcast
         context.sendBroadcast(intent);
     }
-
-
-
-
-    public void CustomNotification(final String title,final String body, String message) {
-        // Using RemoteViews to bind custom layouts into Notification
-
-
-        RemoteViews remoteViews = new RemoteViews(getPackageName(),
-                R.layout.breaking_news);
-
-        // Set Notification Title
-        String strtitle = title;
-        // Set Notification Text
-        String strtext = body;
-
-        // Open NotificationView Class on Notification Click
-        Intent intent = new Intent(this, DetailsActivity.class);
-        // Send data to NotificationView Class
-        intent.putExtra("content_id", "");
-        intent.putExtra("is_favrt", "0");
-        // Open NotificationView.java Activity
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                // Set Icon
-                .setSmallIcon(R.drawable.ic_launcher)
-                // Set Ticker Message
-                .setTicker(title)
-                // Dismiss Notification
-                .setAutoCancel(true)
-                // Set PendingIntent into Notification
-                .setContentIntent(pIntent)
-                // Set RemoteViews into Notification
-                .setContent(remoteViews);
-
-        // Locate and set the Image into customnotificationtext.xml ImageViews
-       // remoteViews.setImageViewResource(R.id.imagenotileft,R.drawable.ic_launcher);
-       // remoteViews.setImageViewResource(R.id.imagenotiright,R.drawable.androidhappy);
-
-        // Locate and set the Text into customnotificationtext.xml TextViews
-        remoteViews.setTextViewText(R.id.title,title);
-        remoteViews.setTextViewText(R.id.body,body);
-
-        // Create Notification Manager
-        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Build Notification with Notification Manager
-        notificationmanager.notify(0, builder.build());
-
-    }
-
 
 }
