@@ -121,7 +121,9 @@ public class SelectedNewsFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    intiU();
+                    //intiU();
+                    sAdapter = new LatestRecyAdapter(con,selectedNews,null);
+                    selectedNewRecList.setAdapter(sAdapter);
                 }
             },100);
         }

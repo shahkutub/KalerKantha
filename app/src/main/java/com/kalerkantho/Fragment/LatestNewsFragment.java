@@ -124,7 +124,9 @@ public class LatestNewsFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    intiU();
+                  //  intiU();
+                    lAdapter = new LatestRecyAdapter(con,latestNews,null);
+                    latestNewRecList.setAdapter(lAdapter);
                 }
             },100);
 

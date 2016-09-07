@@ -138,7 +138,9 @@ public class TopNewsFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    intiU();
+                    //intiU();
+                    tAdapter = new TopNewsRecyAdapter(con,topnews);
+                    topnewRecList.setAdapter(tAdapter);
                 }
             },100);
 

@@ -120,7 +120,9 @@ public class MostReadFragment extends Fragment {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    intiU();
+                    //intiU();
+                    mAdapter = new MostReadRecyAdapter(con,mostRead,null);
+                    mostReadNewRecList.setAdapter(mAdapter);
                 }
             },100);
         }
